@@ -16,8 +16,8 @@
                     {{ $configs['banner_titulo'] ?? 'Capacitação e Treinamentos' }}
                 </h1>
                 @if(!empty($configs['publico_alvo']))
-                <p style="color:rgba(255,255,255,0.9); font-size:clamp(0.85rem,2vw,1rem); margin-bottom:1.5rem; line-height:1.5;">
-                    <strong style="color:#E8600A;">Público-alvo:</strong><br>
+                <p style="color:rgba(255,255,255,0.95); font-size:clamp(1rem,2.5vw,1.2rem); margin-bottom:1.5rem; line-height:1.6;">
+                    <strong style="color:#E8600A; font-size:clamp(1rem,2.5vw,1.25rem);">Público-alvo:</strong><br>
                     {{ $configs['publico_alvo'] }}
                 </p>
                 @endif
