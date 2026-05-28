@@ -24,7 +24,8 @@ class CursoController extends Controller
     public function adminIndex(Request $request)
     {
         $q = $request->input('q');
-        $cursos = Curso::when($q, fn($query) => $query->where('titulo', 'like', "%$q%")->orWhere('local', 'like', "%$q%"))
+        $qs = $q ? '%' . str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $q) . '%' : null;
+        $cursos = Curso::when($qs, fn($query) => $query->where('titulo', 'like', $qs)->orWhere('local', 'like', $qs))
             ->orderBy('ordem')->orderBy('data_inicio')->paginate(15)->withQueryString();
         return view('admin.cursos.index', compact('cursos', 'q'));
     }

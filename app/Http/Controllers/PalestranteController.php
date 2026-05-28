@@ -11,7 +11,8 @@ class PalestranteController extends Controller
     public function adminIndex(Request $request)
     {
         $q = $request->input('q');
-        $palestrantes = Palestrante::when($q, fn($query) => $query->where('nome', 'like', "%$q%")->orWhere('descricao', 'like', "%$q%"))
+        $qs = $q ? '%' . str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $q) . '%' : null;
+        $palestrantes = Palestrante::when($qs, fn($query) => $query->where('nome', 'like', $qs)->orWhere('descricao', 'like', $qs))
             ->orderBy('nome')->paginate(15)->withQueryString();
         return view('admin.palestrantes.index', compact('palestrantes', 'q'));
     }
