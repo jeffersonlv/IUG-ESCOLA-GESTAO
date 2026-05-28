@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $cursos = \App\Models\Curso::where('ativo', true)->orderBy('ordem')->orderBy('data_inicio')->get();
-    $documentos = \App\Models\Documento::where('ativo', true)->orderBy('ordem')->orderBy('created_at', 'desc')->get();
+    $documentos = \App\Models\Documento::where('ativo', true)
+        ->where(function ($q) { $q->whereNull('data_vencimento')->orWhere('data_vencimento', '>=', now()->toDateString()); })
+        ->orderBy('ordem')->orderBy('created_at', 'desc')->get();
     $configs = \App\Models\SiteConfig::all()->pluck('valor', 'chave')->toArray();
     return view('welcome', compact('cursos', 'documentos', 'configs'));
 });

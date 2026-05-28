@@ -17,14 +17,29 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Vencimento</th>
                 <th>Ativo</th>
                 <th style="width:140px;">Ações</th>
             </tr>
         </thead>
         <tbody>
         @forelse($documentos as $doc)
-            <tr>
-                <td class="fw-semibold">{{ $doc->nome }}</td>
+            <tr @if($doc->vencido) style="opacity:0.6;" @endif>
+                <td class="fw-semibold">
+                    {{ $doc->nome }}
+                    @if($doc->vencido)
+                        <span class="badge bg-danger ms-1">Vencido</span>
+                    @endif
+                </td>
+                <td>
+                    @if($doc->data_vencimento)
+                        <span class="{{ $doc->vencido ? 'text-danger fw-semibold' : 'text-muted' }}" style="font-size:0.875rem;">
+                            {{ $doc->data_vencimento->format('d/m/Y') }}
+                        </span>
+                    @else
+                        <span class="text-muted" style="font-size:0.875rem;">—</span>
+                    @endif
+                </td>
                 <td>
                     @if($doc->ativo)
                         <span class="badge" style="background:#1A2B5F;">Sim</span>

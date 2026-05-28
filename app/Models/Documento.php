@@ -9,9 +9,15 @@ class Documento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'arquivo_pdf', 'ativo', 'ordem'];
+    protected $fillable = ['nome', 'arquivo_pdf', 'ativo', 'ordem', 'data_vencimento'];
 
     protected $casts = [
-        'ativo' => 'boolean',
+        'ativo'            => 'boolean',
+        'data_vencimento'  => 'date',
     ];
+
+    public function getVencidoAttribute(): bool
+    {
+        return $this->data_vencimento && $this->data_vencimento->isPast();
+    }
 }

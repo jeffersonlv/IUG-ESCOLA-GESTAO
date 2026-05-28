@@ -26,6 +26,15 @@
             <input type="file" name="arquivo_pdf" class="form-control @error('arquivo_pdf') is-invalid @enderror" accept=".pdf">
             @error('arquivo_pdf')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
+        <div class="mb-3">
+            <label class="form-label">Data de Vencimento <small class="text-muted">(opcional — documento não aparece no site após esta data)</small></label>
+            <input type="date" name="data_vencimento" class="form-control @error('data_vencimento') is-invalid @enderror"
+                   value="{{ old('data_vencimento', $documento->data_vencimento?->format('Y-m-d')) }}" style="max-width:200px;">
+            @error('data_vencimento')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            @if($documento->vencido)
+                <div class="text-danger small mt-1">⚠️ Este documento está vencido e não aparece no site.</div>
+            @endif
+        </div>
         <div class="mb-4 form-check">
             <input type="checkbox" name="ativo" value="1" class="form-check-input" id="ativo" {{ $documento->ativo ? 'checked' : '' }}>
             <label class="form-check-label fw-semibold" for="ativo">Ativo (visível no site)</label>

@@ -23,6 +23,12 @@
                    accept=".pdf" required>
             @error('arquivo_pdf')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
+        <div class="mb-3">
+            <label class="form-label">Data de Vencimento <small class="text-muted">(opcional — documento não aparece no site após esta data)</small></label>
+            <input type="date" name="data_vencimento" class="form-control @error('data_vencimento') is-invalid @enderror"
+                   value="{{ old('data_vencimento') }}" style="max-width:200px;">
+            @error('data_vencimento')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
         <div class="mb-4 form-check">
             <input type="checkbox" name="ativo" value="1" class="form-check-input" id="ativo" checked>
             <label class="form-check-label fw-semibold" for="ativo">Ativo (visível no site)</label>

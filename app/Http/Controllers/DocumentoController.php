@@ -10,7 +10,11 @@ class DocumentoController extends Controller
 {
     public function index()
     {
-        $documentos = Documento::where('ativo', true)->orderBy('ordem')->orderBy('id')->get();
+        $documentos = Documento::where('ativo', true)
+            ->where(function ($q) {
+                $q->whereNull('data_vencimento')->orWhere('data_vencimento', '>=', now()->toDateString());
+            })
+            ->orderBy('ordem')->orderBy('id')->get();
         return view('documentos.index', compact('documentos'));
     }
 
@@ -40,10 +44,11 @@ class DocumentoController extends Controller
     public function adminStore(Request $request)
     {
         $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'arquivo_pdf' => 'required|file|mimes:pdf|max:10240',
-            'ativo' => 'boolean',
-            'ordem' => 'nullable|integer|min:0|max:999',
+            'nome'             => 'required|string|max:255',
+            'arquivo_pdf'      => 'required|file|mimes:pdf|max:10240',
+            'ativo'            => 'boolean',
+            'ordem'            => 'nullable|integer|min:0|max:999',
+            'data_vencimento'  => 'nullable|date',
         ]);
 
         if ($request->hasFile('arquivo_pdf')) {
@@ -69,10 +74,11 @@ class DocumentoController extends Controller
     {
         $documento = Documento::findOrFail($id);
         $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'arquivo_pdf' => 'nullable|file|mimes:pdf|max:10240',
-            'ativo' => 'boolean',
-            'ordem' => 'nullable|integer|min:0|max:999',
+            'nome'             => 'required|string|max:255',
+            'arquivo_pdf'      => 'nullable|file|mimes:pdf|max:10240',
+            'ativo'            => 'boolean',
+            'ordem'            => 'nullable|integer|min:0|max:999',
+            'data_vencimento'  => 'nullable|date',
         ]);
 
         if ($request->hasFile('arquivo_pdf')) {
