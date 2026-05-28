@@ -283,7 +283,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/images/logo.svg" alt="Instituto Ulysses Guimarães" style="height:44px; width:auto;">
+                <img src="/images/logo.png" alt="Instituto Ulysses Guimarães" style="height:44px; width:auto;">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

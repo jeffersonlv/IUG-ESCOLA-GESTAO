@@ -74,7 +74,7 @@
 <body>
     <div class="login-card">
         <div class="login-brand">
-            <img src="/images/logo.svg" alt="Instituto Ulysses Guimarães" style="height:64px; width:auto; margin-bottom:1rem;">
+            <img src="/images/logo.png" alt="Instituto Ulysses Guimarães" style="height:64px; width:auto; margin-bottom:1rem;">
             <div class="accent-bar"></div>
         </div>
 
