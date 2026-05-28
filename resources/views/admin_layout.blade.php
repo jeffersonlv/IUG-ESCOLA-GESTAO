@@ -289,15 +289,7 @@
 {{-- Top Bar --}}
 <div class="admin-topbar">
     <a href="{{ route('admin.dashboard') }}" class="topbar-brand">
-        <div class="brand-icon">
-            <div class="col-row">
-                <div class="col-bar"></div>
-                <div class="col-bar"></div>
-                <div class="col-bar"></div>
-            </div>
-            <div class="col-base"></div>
-        </div>
-        <span class="brand-name">IUG</span>
+        <img src="/images/logo.svg" alt="IUG" style="height:36px; width:auto; filter:brightness(0) invert(1);">
     </a>
 
     <div class="mode-switch">

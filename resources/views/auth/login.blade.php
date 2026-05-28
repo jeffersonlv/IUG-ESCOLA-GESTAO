@@ -74,16 +74,7 @@
 <body>
     <div class="login-card">
         <div class="login-brand">
-            <div class="brand-icon">
-                <div class="col-row">
-                    <div class="col-bar"></div>
-                    <div class="col-bar"></div>
-                    <div class="col-bar"></div>
-                </div>
-                <div class="col-base"></div>
-            </div>
-            <div class="name">Instituto Ulysses Guimarães</div>
-            <div class="sub">Gestão Pública</div>
+            <img src="/images/logo.svg" alt="Instituto Ulysses Guimarães" style="height:64px; width:auto; margin-bottom:1rem;">
             <div class="accent-bar"></div>
         </div>
 

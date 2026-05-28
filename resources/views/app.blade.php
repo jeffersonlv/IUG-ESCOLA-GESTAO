@@ -283,18 +283,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <div class="brand-icon">
-                    <div class="col-row">
-                        <div class="col-bar"></div>
-                        <div class="col-bar"></div>
-                        <div class="col-bar"></div>
-                    </div>
-                    <div class="col-base"></div>
-                </div>
-                <div class="brand-text">
-                    <div class="name">Instituto Ulysses Guimarães</div>
-                    <div class="sub">Gestão Pública</div>
-                </div>
+                <img src="/images/logo.svg" alt="Instituto Ulysses Guimarães" style="height:44px; width:auto;">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
