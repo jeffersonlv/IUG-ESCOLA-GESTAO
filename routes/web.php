@@ -53,5 +53,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/mensagens', [\App\Http\Controllers\MensagemController::class, 'adminIndex'])->name('admin.mensagens.index');
         Route::get('/mensagens/{id}', [\App\Http\Controllers\MensagemController::class, 'adminShow'])->name('admin.mensagens.show');
         Route::delete('/mensagens/{id}', [\App\Http\Controllers\MensagemController::class, 'adminDestroy'])->name('admin.mensagens.destroy');
+
+        Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
+        Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');
     });
 });
