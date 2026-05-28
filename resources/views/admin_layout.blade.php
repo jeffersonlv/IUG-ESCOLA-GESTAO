@@ -280,6 +280,36 @@
         /* ── Responsive sidebar ── */
         @media (max-width: 768px) {
             .admin-sidebar { display: none; }
+            .admin-main { padding: 1rem; }
+        }
+
+        /* ── Mobile offcanvas sidebar ── */
+        .offcanvas-sidebar {
+            width: 240px;
+            background: var(--iug-sidebar);
+        }
+
+        .offcanvas-sidebar .offcanvas-header {
+            background: var(--iug-navy);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .offcanvas-sidebar .offcanvas-body {
+            padding: 1rem 0.75rem;
+        }
+
+        .btn-hamburger {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            padding: 4px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .btn-hamburger { display: flex; align-items: center; }
         }
     </style>
     @yield('styles')
@@ -288,6 +318,10 @@
 
 {{-- Top Bar --}}
 <div class="admin-topbar">
+    <button class="btn-hamburger me-2" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
     <a href="{{ route('admin.dashboard') }}" class="topbar-brand">
         <img src="/images/logo.png" alt="IUG" style="height:36px; width:auto; filter:brightness(0) invert(1);">
     </a>
@@ -303,6 +337,24 @@
             @csrf
             <button class="btn-topbar-logout">Sair</button>
         </form>
+    </div>
+</div>
+
+{{-- Mobile Offcanvas Sidebar --}}
+<div class="offcanvas offcanvas-start offcanvas-sidebar" tabindex="-1" id="sidebarMobile">
+    <div class="offcanvas-header">
+        <img src="/images/logo.png" alt="IUG" style="height:32px; filter:brightness(0) invert(1);">
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="sidebar-label">Menu</div>
+        <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><span class="icon">🏠</span> Dashboard</a>
+        <a href="{{ route('admin.cursos.index') }}" class="sidebar-link {{ request()->routeIs('admin.cursos.*') ? 'active' : '' }}"><span class="icon">🎓</span> Cursos</a>
+        <a href="{{ route('admin.documentos.index') }}" class="sidebar-link {{ request()->routeIs('admin.documentos.*') ? 'active' : '' }}"><span class="icon">📄</span> Documentos</a>
+        <a href="{{ route('admin.mensagens.index') }}" class="sidebar-link {{ request()->routeIs('admin.mensagens.*') ? 'active' : '' }}"><span class="icon">✉️</span> Mensagens</a>
+        <a href="{{ route('admin.palestrantes.index') }}" class="sidebar-link {{ request()->routeIs('admin.palestrantes.*') ? 'active' : '' }}"><span class="icon">🎤</span> Palestrantes</a>
+        <div class="sidebar-label mt-3">Sistema</div>
+        <a href="{{ route('admin.config.index') }}" class="sidebar-link {{ request()->routeIs('admin.config.*') ? 'active' : '' }}"><span class="icon">⚙️</span> Configurações</a>
     </div>
 </div>
 
