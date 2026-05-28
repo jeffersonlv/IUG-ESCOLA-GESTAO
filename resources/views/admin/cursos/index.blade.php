@@ -12,6 +12,12 @@
     <div class="alert alert-success mb-3">{{ session('success') }}</div>
 @endif
 
+<form method="GET" class="mb-3 d-flex gap-2" style="max-width:400px;">
+    <input type="text" name="q" value="{{ $q }}" class="form-control form-control-sm" placeholder="Buscar por título ou local...">
+    <button class="btn btn-sm btn-outline-primary px-3">Buscar</button>
+    @if($q)<a href="{{ route('admin.cursos.index') }}" class="btn btn-sm btn-outline-secondary">✕</a>@endif
+</form>
+
 <div class="card">
     <table class="table mb-0">
         <thead>
@@ -47,9 +53,13 @@
                 </td>
             </tr>
         @empty
-            <tr><td colspan="5" class="text-center text-muted py-4">Nenhum curso cadastrado.</td></tr>
+            <tr><td colspan="5" class="text-center text-muted py-4">Nenhum curso encontrado.</td></tr>
         @endforelse
         </tbody>
     </table>
 </div>
+
+@if($cursos->hasPages())
+<div class="mt-3">{{ $cursos->links() }}</div>
+@endif
 @endsection

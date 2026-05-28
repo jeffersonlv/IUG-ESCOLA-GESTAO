@@ -348,6 +348,18 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var input = document.getElementById('busca-palestrantes');
+    if (!input) return;
+    input.addEventListener('input', function () {
+        var val = this.value.toLowerCase();
+        document.querySelectorAll('.palestrante-item').forEach(function (item) {
+            item.style.display = item.dataset.nome.includes(val) ? '' : 'none';
+        });
+    });
+});
+</script>
 @yield('scripts')
 </body>
 </html>

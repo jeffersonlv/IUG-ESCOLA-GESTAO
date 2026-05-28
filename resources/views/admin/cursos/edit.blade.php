@@ -56,13 +56,19 @@
         @if($palestrantes->count())
         <div class="mb-3">
             <label class="form-label">Palestrantes</label>
-            <div class="border rounded p-3" style="max-height:200px; overflow-y:auto;">
+            <input type="text" id="busca-palestrantes" class="form-control form-control-sm mb-2" placeholder="Buscar palestrante...">
+            <div class="border rounded p-3" style="max-height:240px; overflow-y:auto;" id="lista-palestrantes">
                 @foreach($palestrantes as $p)
-                <div class="form-check">
-                    <input type="checkbox" name="palestrantes[]" value="{{ $p->id }}"
-                           class="form-check-input" id="p{{ $p->id }}"
-                           {{ $curso->palestrantes->contains($p->id) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="p{{ $p->id }}">{{ $p->nome }}</label>
+                <div class="palestrante-item mb-2" data-nome="{{ strtolower($p->nome) }} {{ strtolower($p->descricao) }}">
+                    <div class="d-flex align-items-start gap-2">
+                        <input type="checkbox" name="palestrantes[]" value="{{ $p->id }}"
+                               class="form-check-input mt-1" id="pe{{ $p->id }}"
+                               {{ $curso->palestrantes->contains($p->id) ? 'checked' : '' }}>
+                        <label for="pe{{ $p->id }}" style="cursor:pointer;">
+                            <span class="fw-semibold d-block" style="font-size:0.875rem;">{{ $p->nome }}</span>
+                            @if($p->descricao)<span class="text-muted" style="font-size:0.8rem;">{{ $p->descricao }}</span>@endif
+                        </label>
+                    </div>
                 </div>
                 @endforeach
             </div>

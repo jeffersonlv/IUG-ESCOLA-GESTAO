@@ -21,10 +21,12 @@ class CursoController extends Controller
         return view('cursos.show', compact('curso'));
     }
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $cursos = Curso::orderBy('ordem')->orderBy('data_inicio')->get();
-        return view('admin.cursos.index', compact('cursos'));
+        $q = $request->input('q');
+        $cursos = Curso::when($q, fn($query) => $query->where('titulo', 'like', "%$q%")->orWhere('local', 'like', "%$q%"))
+            ->orderBy('ordem')->orderBy('data_inicio')->paginate(15)->withQueryString();
+        return view('admin.cursos.index', compact('cursos', 'q'));
     }
 
     public function adminCreate()

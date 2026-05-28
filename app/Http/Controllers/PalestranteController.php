@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class PalestranteController extends Controller
 {
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $palestrantes = Palestrante::orderBy('nome')->get();
-        return view('admin.palestrantes.index', compact('palestrantes'));
+        $q = $request->input('q');
+        $palestrantes = Palestrante::when($q, fn($query) => $query->where('nome', 'like', "%$q%")->orWhere('descricao', 'like', "%$q%"))
+            ->orderBy('nome')->paginate(15)->withQueryString();
+        return view('admin.palestrantes.index', compact('palestrantes', 'q'));
     }
 
     public function adminCreate()
