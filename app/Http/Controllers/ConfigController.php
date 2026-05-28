@@ -30,7 +30,7 @@ class ConfigController extends Controller
         foreach ($validated as $chave => $valor) {
             SiteConfig::updateOrCreate(
                 ['chave' => $chave],
-                ['valor' => $valor]
+                ['valor' => $valor ?? '']
             );
         }
 
