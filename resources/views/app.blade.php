@@ -296,9 +296,10 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-1">
+                    <li class="nav-item"><a class="nav-link" href="/#sobre">Sobre</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#cursos">Cursos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/#documentos">Documentos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#documentos">Transparência</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#contato">Contato</a></li>
                     @auth
                         <li class="nav-item">
                             <div class="mode-switch-nav">
