@@ -32,17 +32,19 @@ class CursoController extends Controller
 
     public function adminStore(Request $request)
     {
-        $request->validate([
-            'titulo' => 'required|string',
-            'data_inicio' => 'required|datetime',
-            'data_fim' => 'required|datetime',
-            'local' => 'required|string',
-            'folder_pdf' => 'nullable|string',
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:255',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date|after:data_inicio',
+            'local' => 'required|string|max:255',
+            'folder_pdf' => 'nullable|string|max:255',
             'ativo' => 'boolean',
-            'ordem' => 'integer',
+            'ordem' => 'nullable|integer|min:0|max:999',
         ]);
 
-        Curso::create($request->all());
+        $validated['ativo'] = $validated['ativo'] ?? true;
+        $validated['ordem'] = $validated['ordem'] ?? 0;
+        Curso::create($validated);
         return redirect('/admin/cursos')->with('success', 'Curso criado com sucesso.');
     }
 
@@ -55,7 +57,18 @@ class CursoController extends Controller
     public function adminUpdate(Request $request, $id)
     {
         $curso = Curso::findOrFail($id);
-        $curso->update($request->all());
+        $validated = $request->validate([
+            'titulo' => 'required|string|max:255',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date|after:data_inicio',
+            'local' => 'required|string|max:255',
+            'folder_pdf' => 'nullable|string|max:255',
+            'ativo' => 'boolean',
+            'ordem' => 'nullable|integer|min:0|max:999',
+        ]);
+
+        $validated['ativo'] = $validated['ativo'] ?? true;
+        $curso->update($validated);
         return redirect('/admin/cursos')->with('success', 'Curso atualizado com sucesso.');
     }
 

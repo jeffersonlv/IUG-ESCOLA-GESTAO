@@ -26,14 +26,16 @@ class DocumentoController extends Controller
 
     public function adminStore(Request $request)
     {
-        $request->validate([
-            'nome' => 'required|string',
-            'arquivo_pdf' => 'required|string',
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'arquivo_pdf' => 'required|string|max:255',
             'ativo' => 'boolean',
-            'ordem' => 'integer',
+            'ordem' => 'nullable|integer|min:0|max:999',
         ]);
 
-        Documento::create($request->all());
+        $validated['ativo'] = $validated['ativo'] ?? true;
+        $validated['ordem'] = $validated['ordem'] ?? 0;
+        Documento::create($validated);
         return redirect('/admin/documentos')->with('success', 'Documento criado com sucesso.');
     }
 
@@ -46,7 +48,15 @@ class DocumentoController extends Controller
     public function adminUpdate(Request $request, $id)
     {
         $documento = Documento::findOrFail($id);
-        $documento->update($request->all());
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'arquivo_pdf' => 'required|string|max:255',
+            'ativo' => 'boolean',
+            'ordem' => 'nullable|integer|min:0|max:999',
+        ]);
+
+        $validated['ativo'] = $validated['ativo'] ?? true;
+        $documento->update($validated);
         return redirect('/admin/documentos')->with('success', 'Documento atualizado com sucesso.');
     }
 
