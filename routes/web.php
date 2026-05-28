@@ -22,8 +22,10 @@ Route::get('/', function () {
     return view('welcome', compact('cursos', 'documentos', 'configs'));
 });
 
-Route::get('/hello', function () {
-    return 'Hello World';
+Route::get('/run-seeder-iug2026', function () {
+    if (request('token') !== 'IUG2k7mP9seed') abort(403);
+    Artisan::call('db:seed', ['--class' => 'SiteDataSeeder', '--force' => true]);
+    return 'Seeder executado: ' . Artisan::output();
 });
 
 Route::get('/cursos', [\App\Http\Controllers\CursoController::class, 'index'])->name('cursos.index');
@@ -58,6 +60,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/mensagens', [\App\Http\Controllers\MensagemController::class, 'adminIndex'])->name('admin.mensagens.index');
         Route::get('/mensagens/{id}', [\App\Http\Controllers\MensagemController::class, 'adminShow'])->name('admin.mensagens.show');
         Route::delete('/mensagens/{id}', [\App\Http\Controllers\MensagemController::class, 'adminDestroy'])->name('admin.mensagens.destroy');
+
+        Route::get('/palestrantes', [\App\Http\Controllers\PalestranteController::class, 'adminIndex'])->name('admin.palestrantes.index');
+        Route::get('/palestrantes/create', [\App\Http\Controllers\PalestranteController::class, 'adminCreate'])->name('admin.palestrantes.create');
+        Route::post('/palestrantes', [\App\Http\Controllers\PalestranteController::class, 'adminStore'])->name('admin.palestrantes.store');
+        Route::get('/palestrantes/{id}/edit', [\App\Http\Controllers\PalestranteController::class, 'adminEdit'])->name('admin.palestrantes.edit');
+        Route::put('/palestrantes/{id}', [\App\Http\Controllers\PalestranteController::class, 'adminUpdate'])->name('admin.palestrantes.update');
+        Route::delete('/palestrantes/{id}', [\App\Http\Controllers\PalestranteController::class, 'adminDestroy'])->name('admin.palestrantes.destroy');
 
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');

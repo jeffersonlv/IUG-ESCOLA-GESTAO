@@ -327,6 +327,10 @@
                class="sidebar-link {{ request()->routeIs('admin.mensagens.*') ? 'active' : '' }}">
                 <span class="icon">✉️</span> Mensagens
             </a>
+            <a href="{{ route('admin.palestrantes.index') }}"
+               class="sidebar-link {{ request()->routeIs('admin.palestrantes.*') ? 'active' : '' }}">
+                <span class="icon">🎤</span> Palestrantes
+            </a>
         </div>
         <div class="sidebar-section">
             <div class="sidebar-label">Sistema</div>

@@ -9,7 +9,7 @@
 
 <div class="card p-4" style="max-width:760px;">
     <div class="accent-bar"></div>
-    <form action="{{ route('admin.cursos.update', $curso->id) }}" method="POST">
+    <form action="{{ route('admin.cursos.update', $curso->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -21,14 +21,14 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label">Data Início</label>
-                <input type="datetime-local" name="data_inicio" class="form-control @error('data_inicio') is-invalid @enderror"
-                       value="{{ old('data_inicio', $curso->data_inicio->format('Y-m-d\TH:i')) }}" required>
+                <input type="date" name="data_inicio" class="form-control @error('data_inicio') is-invalid @enderror"
+                       value="{{ old('data_inicio', $curso->data_inicio->format('Y-m-d')) }}" required>
                 @error('data_inicio')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="col-md-6">
                 <label class="form-label">Data Fim</label>
-                <input type="datetime-local" name="data_fim" class="form-control @error('data_fim') is-invalid @enderror"
-                       value="{{ old('data_fim', $curso->data_fim->format('Y-m-d\TH:i')) }}" required>
+                <input type="date" name="data_fim" class="form-control @error('data_fim') is-invalid @enderror"
+                       value="{{ old('data_fim', $curso->data_fim->format('Y-m-d')) }}" required>
                 @error('data_fim')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
         </div>
@@ -40,9 +40,34 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Tópicos</label>
-            <textarea name="topicos" rows="5" class="form-control @error('topicos') is-invalid @enderror">{{ old('topicos', $curso->topicos) }}</textarea>
+            <textarea name="topicos" rows="4" class="form-control @error('topicos') is-invalid @enderror">{{ old('topicos', $curso->topicos) }}</textarea>
             @error('topicos')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
+        <div class="mb-3">
+            <label class="form-label">PDF do Curso <small class="text-muted">(deixe em branco para manter atual)</small></label>
+            @if($curso->arquivo_pdf)
+                <p class="text-muted small mb-1">Atual: {{ $curso->arquivo_pdf }}
+                    <a href="{{ Storage::url('cursos/' . $curso->arquivo_pdf) }}" target="_blank" class="ms-2" style="color:#E8600A;">Ver PDF</a>
+                </p>
+            @endif
+            <input type="file" name="arquivo_pdf" class="form-control @error('arquivo_pdf') is-invalid @enderror" accept=".pdf">
+            @error('arquivo_pdf')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+        @if($palestrantes->count())
+        <div class="mb-3">
+            <label class="form-label">Palestrantes</label>
+            <div class="border rounded p-3" style="max-height:200px; overflow-y:auto;">
+                @foreach($palestrantes as $p)
+                <div class="form-check">
+                    <input type="checkbox" name="palestrantes[]" value="{{ $p->id }}"
+                           class="form-check-input" id="p{{ $p->id }}"
+                           {{ $curso->palestrantes->contains($p->id) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="p{{ $p->id }}">{{ $p->nome }}</label>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
         <div class="mb-3">
             <label class="form-label">Ordem</label>
             <input type="number" name="ordem" class="form-control" value="{{ old('ordem', $curso->ordem) }}" min="0" max="999" style="max-width:120px;">

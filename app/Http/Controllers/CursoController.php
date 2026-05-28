@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Palestrante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CursoController extends Controller
 {
@@ -27,50 +29,76 @@ class CursoController extends Controller
 
     public function adminCreate()
     {
-        return view('admin.cursos.create');
+        $palestrantes = Palestrante::where('ativo', true)->orderBy('nome')->get();
+        return view('admin.cursos.create', compact('palestrantes'));
     }
 
     public function adminStore(Request $request)
     {
         $validated = $request->validate([
-            'titulo' => 'required|string|max:255',
+            'titulo'      => 'required|string|max:255',
             'data_inicio' => 'required|date',
-            'data_fim' => 'required|date|after:data_inicio',
-            'local' => 'required|string|max:255',
-            'topicos' => 'nullable|string',
-            'folder_pdf' => 'nullable|string|max:255',
-            'ativo' => 'boolean',
-            'ordem' => 'nullable|integer|min:0|max:999',
+            'data_fim'    => 'required|date|after_or_equal:data_inicio',
+            'local'       => 'required|string|max:255',
+            'topicos'     => 'nullable|string',
+            'arquivo_pdf' => 'nullable|file|mimes:pdf|max:10240',
+            'ativo'       => 'boolean',
+            'ordem'       => 'nullable|integer|min:0|max:999',
         ]);
+
+        if ($request->hasFile('arquivo_pdf')) {
+            $file = $request->file('arquivo_pdf');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('cursos', $filename, 'public');
+            $validated['arquivo_pdf'] = $filename;
+        }
 
         $validated['ativo'] = $validated['ativo'] ?? true;
         $validated['ordem'] = $validated['ordem'] ?? 0;
-        Curso::create($validated);
+        $curso = Curso::create($validated);
+
+        if ($request->filled('palestrantes')) {
+            $curso->palestrantes()->sync($request->palestrantes);
+        }
+
         return redirect('/admin/cursos')->with('success', 'Curso criado com sucesso.');
     }
 
     public function adminEdit($id)
     {
-        $curso = Curso::findOrFail($id);
-        return view('admin.cursos.edit', compact('curso'));
+        $curso = Curso::with('palestrantes')->findOrFail($id);
+        $palestrantes = Palestrante::where('ativo', true)->orderBy('nome')->get();
+        return view('admin.cursos.edit', compact('curso', 'palestrantes'));
     }
 
     public function adminUpdate(Request $request, $id)
     {
         $curso = Curso::findOrFail($id);
         $validated = $request->validate([
-            'titulo' => 'required|string|max:255',
+            'titulo'      => 'required|string|max:255',
             'data_inicio' => 'required|date',
-            'data_fim' => 'required|date|after:data_inicio',
-            'local' => 'required|string|max:255',
-            'topicos' => 'nullable|string',
-            'folder_pdf' => 'nullable|string|max:255',
-            'ativo' => 'boolean',
-            'ordem' => 'nullable|integer|min:0|max:999',
+            'data_fim'    => 'required|date|after_or_equal:data_inicio',
+            'local'       => 'required|string|max:255',
+            'topicos'     => 'nullable|string',
+            'arquivo_pdf' => 'nullable|file|mimes:pdf|max:10240',
+            'ativo'       => 'boolean',
+            'ordem'       => 'nullable|integer|min:0|max:999',
         ]);
+
+        if ($request->hasFile('arquivo_pdf')) {
+            if ($curso->arquivo_pdf) {
+                Storage::disk('public')->delete('cursos/' . $curso->arquivo_pdf);
+            }
+            $file = $request->file('arquivo_pdf');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('cursos', $filename, 'public');
+            $validated['arquivo_pdf'] = $filename;
+        }
 
         $validated['ativo'] = $validated['ativo'] ?? true;
         $curso->update($validated);
+        $curso->palestrantes()->sync($request->palestrantes ?? []);
+
         return redirect('/admin/cursos')->with('success', 'Curso atualizado com sucesso.');
     }
 
