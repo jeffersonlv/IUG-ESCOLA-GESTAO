@@ -15,6 +15,8 @@ function run($cmd, &$output, &$errors) {
 $baseDir = dirname(dirname(__FILE__));
 chdir($baseDir);
 
+putenv('HOME=/home/u671917614');
+
 $output[] = "=== Laravel Deploy ===";
 $output[] = "Time: " . date('Y-m-d H:i:s');
 $output[] = "Dir: " . getcwd();
@@ -24,8 +26,14 @@ run("git fetch origin", $output, $errors);
 run("git reset --hard origin/main", $output, $errors);
 $output[] = "";
 
+if (!file_exists('.env') && file_exists('.env.example')) {
+    copy('.env.example', '.env');
+    $output[] = "Created .env from .env.example";
+    $output[] = "";
+}
+
 if (file_exists('composer.json')) {
-    run("composer install --no-interaction --prefer-dist --optimize-autoloader", $output, $errors);
+    run("HOME=/home/u671917614 composer install --no-interaction --prefer-dist --optimize-autoloader", $output, $errors);
     $output[] = "";
 }
 
