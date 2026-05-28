@@ -61,23 +61,10 @@
             @foreach($documentos->take(4) as $doc)
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100">
-                    @if($doc->arquivo_pdf)
-                    <div style="height:200px; overflow:hidden; border-radius:8px 8px 0 0; background:#e9ecef; display:flex; align-items:center; justify-content:center;">
-                        <embed src="/storage/documentos/{{ $doc->arquivo_pdf }}#toolbar=0&navpanes=0&scrollbar=0"
-                               type="application/pdf"
-                               style="width:100%; height:200px; pointer-events:none;"
-                               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="display:none; width:100%; height:200px; align-items:center; justify-content:center; flex-direction:column; color:#aaa;">
-                            <span style="font-size:2.5rem;">📄</span>
-                            <small>PDF</small>
-                        </div>
+                    <div style="height:160px; background:linear-gradient(135deg,#1A2B5F,#243a7a); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+                        <span style="color:rgba(255,255,255,0.4); font-size:0.7rem; letter-spacing:1px; text-transform:uppercase;">PDF</span>
                     </div>
-                    @else
-                    <div style="height:200px; background:#e9ecef; border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; color:#aaa; flex-direction:column;">
-                        <span style="font-size:2.5rem;">📄</span>
-                        <small>PDF</small>
-                    </div>
-                    @endif
                     <div class="card-body d-flex flex-column p-3">
                         <p class="fw-semibold mb-3" style="color:#1A2B5F; font-size:0.875rem; flex:1;">{{ $doc->nome }}</p>
                         @if($doc->arquivo_pdf)
