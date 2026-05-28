@@ -20,3 +20,13 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return 'Hello World';
 });
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [\App\Http\Controllers\Auth\AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
+
+    Route::middleware(['auth', 'active'])->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    });
+});
