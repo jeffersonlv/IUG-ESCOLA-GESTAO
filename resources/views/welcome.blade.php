@@ -3,17 +3,9 @@
 @section('title', 'Instituto Ulysses Guimarães — Gestão Pública')
 
 @section('content')
-{{-- Hero --}}
-<div style="background: linear-gradient(135deg, #1A2B5F 0%, #243a7a 100%); padding: 4rem 0 3rem;">
-    <div class="container text-center text-white">
-        <div class="accent-bar mx-auto mb-3" style="background:#E8600A;"></div>
-        <h1 style="font-size:2rem; font-weight:700; margin-bottom:1rem;">
-            Instituto Ulysses Guimarães
-        </h1>
-        <p style="font-size:1rem; color:rgba(255,255,255,0.75); max-width:520px; margin:0 auto;">
-            Formação e capacitação em Gestão Pública para servidores e gestores municipais.
-        </p>
-    </div>
+{{-- Hero Banner --}}
+<div style="width:100%; max-height:418px; overflow:hidden; line-height:0;">
+    <img src="/images/banner.jpg" alt="Instituto Ulysses Guimarães" style="width:100%; object-fit:cover; display:block;">
 </div>
 
 <div class="container py-5">
