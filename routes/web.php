@@ -24,6 +24,7 @@ Route::get('/hello', function () {
 Route::get('/cursos', [\App\Http\Controllers\CursoController::class, 'index'])->name('cursos.index');
 Route::get('/cursos/{id}', [\App\Http\Controllers\CursoController::class, 'show'])->name('cursos.show');
 Route::get('/documentos', [\App\Http\Controllers\DocumentoController::class, 'index'])->name('documentos.index');
+Route::get('/contato', function () { return view('contato'); })->name('contato.form');
 Route::post('/contato', [\App\Http\Controllers\MensagemController::class, 'store'])->name('contato.store');
 
 Route::prefix('admin')->group(function () {
