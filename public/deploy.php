@@ -29,13 +29,17 @@ $output[] = "";
 if (!file_exists('.env') && file_exists('.env.example')) {
     copy('.env.example', '.env');
     $output[] = "Created .env from .env.example";
-    $output[] = "";
 }
 
-if (!getenv('APP_KEY') || empty(getenv('APP_KEY'))) {
-    run("php artisan key:generate", $output, $errors);
-    $output[] = "";
+// Check if APP_KEY is empty
+$envFile = '.env';
+if (file_exists($envFile)) {
+    $envContent = file_get_contents($envFile);
+    if (strpos($envContent, 'APP_KEY=') !== false && !preg_match('/APP_KEY=base64:/', $envContent)) {
+        run("php artisan key:generate", $output, $errors);
+    }
 }
+$output[] = "";
 
 if (file_exists('composer.json')) {
     run("HOME=/home/u671917614 composer install --no-interaction --prefer-dist --optimize-autoloader", $output, $errors);
