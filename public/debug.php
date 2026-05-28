@@ -8,10 +8,16 @@ require __DIR__ . '/../vendor/autoload.php';
 try {
     $app = require_once __DIR__ . '/../bootstrap/app.php';
     $kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
-    $request = \Illuminate\Http\Request::capture();
+
+    // Simulate request to /admin/login
+    $request = \Illuminate\Http\Request::create('/admin/login', 'GET');
     $response = $kernel->handle($request);
-    echo "Laravel loaded OK\n";
-    echo "Request: " . $request->path() . "\n";
+
+    echo "Status: " . $response->status() . "\n";
+    echo "Content-Type: " . $response->headers->get('content-type') . "\n\n";
+    echo "Body:\n";
+    echo $response->getContent();
+
 } catch (\Throwable $e) {
     echo "ERROR: " . $e->getMessage() . "\n";
     echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n\n";
