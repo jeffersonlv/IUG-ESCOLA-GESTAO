@@ -40,6 +40,14 @@ if (file_exists('composer.json')) {
     $output[] = "";
 }
 
+// Verify APP_KEY was set in .env
+$envContent = file_get_contents('.env');
+if (!preg_match('/APP_KEY=base64:/', $envContent)) {
+    $output[] = "APP_KEY still empty, re-running key:generate...";
+    run("php artisan key:generate --force --always", $output, $errors);
+}
+$output[] = "";
+
 run("php artisan config:cache", $output, $errors);
 run("php artisan view:cache", $output, $errors);
 run("php artisan cache:clear", $output, $errors);
