@@ -56,6 +56,8 @@ if (file_exists('database/migrations')) {
     run("php artisan migrate --force", $output, $errors);
 }
 
+run("php artisan storage:link --force", $output, $errors);
+
 $output[] = "";
 $output[] = "=== Deploy Complete ===";
 $output[] = date('Y-m-d H:i:s');
