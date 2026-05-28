@@ -10,6 +10,18 @@
 
 <div class="container py-5">
 
+    {{-- Sobre --}}
+    @if(!empty($configs['sobre_texto']))
+    <div class="mb-5" id="sobre">
+        <div class="accent-bar"></div>
+        <h2 class="fw-bold mb-3" style="color:#1A2B5F; font-size:1.3rem;">Sobre o Instituto</h2>
+        <p class="text-muted" style="font-size:1rem; max-width:760px;">{{ $configs['sobre_texto'] }}</p>
+        @if(!empty($configs['publico_alvo']))
+        <p class="mb-0"><strong style="color:#1A2B5F;">Público-alvo:</strong> <span class="text-muted">{{ $configs['publico_alvo'] }}</span></p>
+        @endif
+    </div>
+    @endif
+
     {{-- Cursos --}}
     <div class="mb-5" id="cursos">
         <div class="accent-bar"></div>
