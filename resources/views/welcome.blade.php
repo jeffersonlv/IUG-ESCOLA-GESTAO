@@ -149,9 +149,8 @@
         <div class="row g-4 text-center justify-content-center">
             <div class="col-md-4">
                 <p style="color:rgba(255,255,255,0.5); font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem;">Endereço</p>
-                <p style="color:#fff; font-size:0.875rem; line-height:1.7; margin:0;">
-                    {{ $configs['endereco'] ?? 'Rua Q SDE Quadra 01 Conjunto E Lote, Nº04, Apt 102 Parte C, CEP 72.145-105' }}<br>
-                    <span style="color:rgba(255,255,255,0.6);">Setor de Desenvolvimento Econômico (Taguatinga) — Brasília, DF</span>
+                <p style="color:#fff; font-size:0.875rem; line-height:1.9; margin:0;">
+                    {!! nl2br(e($configs['endereco'] ?? 'Rua Q SDE Quadra 01 Conjunto E Lote, Nº04')) !!}
                 </p>
             </div>
             <div class="col-md-3">

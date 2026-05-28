@@ -31,8 +31,8 @@
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label class="form-label">Endereço</label>
-                <input type="text" name="endereco" class="form-control" value="{{ $configs['endereco'] ?? '' }}">
+                <label class="form-label">Endereço <small class="text-muted">(uma linha por campo)</small></label>
+                <textarea name="endereco" rows="5" class="form-control" placeholder="Rua: Q SDE QUADRA 01...&#10;COMPLEMENTO: APT 102...&#10;CEP: 72.145-105&#10;BAIRRO: SETOR DE DESENVOLVIMENTO...&#10;BRASÍLIA - DF">{{ $configs['endereco'] ?? '' }}</textarea>
             </div>
             <div class="col-md-3">
                 <label class="form-label">Telefone</label>
