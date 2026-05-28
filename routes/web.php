@@ -30,7 +30,7 @@ Route::post('/contato', [\App\Http\Controllers\MensagemController::class, 'store
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [\App\Http\Controllers\Auth\AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login']);
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->middleware('throttle:login');
     Route::post('/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth', 'active'])->group(function () {
