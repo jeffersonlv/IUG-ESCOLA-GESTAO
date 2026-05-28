@@ -9,7 +9,7 @@ class Curso extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'local', 'folder_pdf', 'ativo', 'ordem'];
+    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'local', 'topicos', 'folder_pdf', 'ativo', 'ordem'];
 
     protected $casts = [
         'data_inicio' => 'datetime',

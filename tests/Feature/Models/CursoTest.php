@@ -9,7 +9,7 @@ class CursoTest extends TestCase
 {
     public function test_fillable_attributes()
     {
-        $fillable = ['titulo', 'data_inicio', 'data_fim', 'local', 'folder_pdf', 'ativo', 'ordem'];
+        $fillable = ['titulo', 'data_inicio', 'data_fim', 'local', 'topicos', 'folder_pdf', 'ativo', 'ordem'];
         $model = new Curso();
         $this->assertEquals($fillable, $model->getFillable());
     }

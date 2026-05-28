@@ -23,6 +23,10 @@
             <input type="text" name="local" value="{{ $curso->local }}" required>
         </div>
         <div>
+            <label>Tópicos:</label>
+            <textarea name="topicos" rows="4">{{ $curso->topicos }}</textarea>
+        </div>
+        <div>
             <label>Ativo:</label>
             <input type="checkbox" name="ativo" value="1" {{ $curso->ativo ? 'checked' : '' }}>
         </div>

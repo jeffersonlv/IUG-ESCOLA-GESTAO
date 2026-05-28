@@ -22,6 +22,10 @@
             <input type="text" name="local" required>
         </div>
         <div>
+            <label>Tópicos:</label>
+            <textarea name="topicos" rows="4"></textarea>
+        </div>
+        <div>
             <label>Ativo:</label>
             <input type="checkbox" name="ativo" value="1" checked>
         </div>
