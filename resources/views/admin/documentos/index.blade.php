@@ -33,9 +33,19 @@
                 </td>
                 <td>
                     @if($doc->data_vencimento)
+                        @php $dias = now()->startOfDay()->diffInDays($doc->data_vencimento->startOfDay(), false); @endphp
                         <span class="{{ $doc->vencido ? 'text-danger fw-semibold' : 'text-muted' }}" style="font-size:0.875rem;">
                             {{ $doc->data_vencimento->format('d/m/Y') }}
-                        </span>
+                        </span><br>
+                        <small class="{{ $doc->vencido ? 'text-danger' : ($dias <= 30 ? 'text-warning fw-semibold' : 'text-muted') }}">
+                            @if($doc->vencido)
+                                vencido há {{ abs($dias) }}d
+                            @elseif($dias === 0)
+                                vence hoje
+                            @else
+                                vence em {{ $dias }}d
+                            @endif
+                        </small>
                     @else
                         <span class="text-muted" style="font-size:0.875rem;">—</span>
                     @endif
