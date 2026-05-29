@@ -353,6 +353,7 @@
         <a href="{{ route('admin.documentos.index') }}" class="sidebar-link {{ request()->routeIs('admin.documentos.*') ? 'active' : '' }}"><span class="icon">📄</span> Documentos</a>
         <a href="{{ route('admin.palestrantes.index') }}" class="sidebar-link {{ request()->routeIs('admin.palestrantes.*') ? 'active' : '' }}"><span class="icon">🎤</span> Palestrantes</a>
         <a href="{{ route('admin.alunos.index') }}" class="sidebar-link {{ request()->routeIs('admin.alunos.*') ? 'active' : '' }}"><span class="icon">👨‍🎓</span> Alunos</a>
+        <a href="{{ route('admin.certificados.index') }}" class="sidebar-link {{ request()->routeIs('admin.certificados.*') ? 'active' : '' }}"><span class="icon">🎓</span> Certificados</a>
         <div class="sidebar-label mt-3">Sistema</div>
         <a href="{{ route('admin.config.index') }}" class="sidebar-link {{ request()->routeIs('admin.config.*') ? 'active' : '' }}"><span class="icon">⚙️</span> Configurações</a>
     </div>
@@ -382,6 +383,10 @@
             <a href="{{ route('admin.alunos.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.alunos.*') ? 'active' : '' }}">
                 <span class="icon">👨‍🎓</span> Alunos
+            </a>
+            <a href="{{ route('admin.certificados.index') }}"
+               class="sidebar-link {{ request()->routeIs('admin.certificados.*') ? 'active' : '' }}">
+                <span class="icon">🎓</span> Certificados
             </a>
         </div>
         <div class="sidebar-section">

@@ -80,6 +80,9 @@ Route::prefix('admin')->group(function () {
         Route::put('/alunos/{id}', [\App\Http\Controllers\AlunoController::class, 'adminUpdate'])->name('admin.alunos.update');
         Route::delete('/alunos/{id}', [\App\Http\Controllers\AlunoController::class, 'adminDestroy'])->name('admin.alunos.destroy');
 
+        Route::get('/certificados', [\App\Http\Controllers\CertificadoController::class, 'index'])->name('admin.certificados.index');
+        Route::get('/certificados/imprimir', [\App\Http\Controllers\CertificadoController::class, 'imprimir'])->name('admin.certificados.imprimir');
+
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');
     });
