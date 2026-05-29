@@ -27,7 +27,7 @@
             <label class="form-label">Foto <small class="text-muted">(deixe em branco para manter atual)</small></label>
             @if($palestrante->foto)
             <div class="mb-2">
-                <img src="{{ Storage::url('palestrantes/' . $palestrante->foto) }}" alt="{{ $palestrante->nome }}"
+                <img src="{{ $palestrante->foto_url }}" alt="{{ $palestrante->nome }}"
                      style="width:80px; height:80px; object-fit:cover; border-radius:50%; border:3px solid #DDE1EB;">
             </div>
             @endif

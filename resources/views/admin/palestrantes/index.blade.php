@@ -34,7 +34,7 @@
             <tr>
                 <td>
                     @if($p->foto)
-                        <img src="{{ Storage::url('palestrantes/' . $p->foto) }}" alt="{{ $p->nome }}"
+                        <img src="{{ $p->foto_url }}" alt="{{ $p->nome }}"
                              style="width:44px; height:44px; object-fit:cover; border-radius:50%;">
                     @else
                         <div style="width:44px; height:44px; border-radius:50%; background:#DDE1EB; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:1.2rem;">👤</div>
