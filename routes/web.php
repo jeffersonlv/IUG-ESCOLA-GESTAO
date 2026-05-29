@@ -71,6 +71,13 @@ Route::prefix('admin')->group(function () {
         Route::put('/palestrantes/{id}', [\App\Http\Controllers\PalestranteController::class, 'adminUpdate'])->name('admin.palestrantes.update');
         Route::delete('/palestrantes/{id}', [\App\Http\Controllers\PalestranteController::class, 'adminDestroy'])->name('admin.palestrantes.destroy');
 
+        Route::get('/alunos', [\App\Http\Controllers\AlunoController::class, 'adminIndex'])->name('admin.alunos.index');
+        Route::get('/alunos/create', [\App\Http\Controllers\AlunoController::class, 'adminCreate'])->name('admin.alunos.create');
+        Route::post('/alunos', [\App\Http\Controllers\AlunoController::class, 'adminStore'])->name('admin.alunos.store');
+        Route::get('/alunos/{id}/edit', [\App\Http\Controllers\AlunoController::class, 'adminEdit'])->name('admin.alunos.edit');
+        Route::put('/alunos/{id}', [\App\Http\Controllers\AlunoController::class, 'adminUpdate'])->name('admin.alunos.update');
+        Route::delete('/alunos/{id}', [\App\Http\Controllers\AlunoController::class, 'adminDestroy'])->name('admin.alunos.destroy');
+
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');
     });

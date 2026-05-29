@@ -11,6 +11,11 @@ class Curso extends Model
 
     protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'local', 'topicos', 'arquivo_pdf', 'folder_pdf', 'ativo', 'ordem'];
 
+    public function alunos()
+    {
+        return $this->belongsToMany(Aluno::class, 'aluno_curso');
+    }
+
     public function palestrantes()
     {
         return $this->belongsToMany(Palestrante::class, 'curso_palestrante');
