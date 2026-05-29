@@ -18,11 +18,6 @@
     @if($q)<a href="{{ route('admin.cursos.index') }}" class="btn btn-sm btn-outline-secondary">✕</a>@endif
 </form>
 
-@php
-function cursoRows($list) {
-@endphp
-@* helper inline não funciona bem em blade — usar includes ou macros *@
-
 {{-- RESULTADO DE BUSCA --}}
 @if($q)
 <div class="card">
