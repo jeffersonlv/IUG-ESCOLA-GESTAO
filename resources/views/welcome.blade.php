@@ -61,14 +61,23 @@
             @foreach($documentos->take(4) as $doc)
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100">
-                    <div style="height:160px; background:linear-gradient(135deg,#1A2B5F,#243a7a); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                    @if($doc->arquivo_pdf)
+                    @php $docUrl = \Illuminate\Support\Facades\Storage::url('documentos/' . $doc->arquivo_pdf); @endphp
+                    <div style="border-radius:8px 8px 0 0; overflow:hidden; border-bottom:1px solid #DDE1EB;">
+                        <iframe src="{{ $docUrl }}#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                                style="width:100%; height:200px; display:block; border:none;"
+                                loading="lazy"></iframe>
+                    </div>
+                    @else
+                    <div style="height:200px; background:linear-gradient(135deg,#1A2B5F,#243a7a); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
                         <span style="color:rgba(255,255,255,0.4); font-size:0.7rem; letter-spacing:1px; text-transform:uppercase;">PDF</span>
                     </div>
+                    @endif
                     <div class="card-body d-flex flex-column p-3">
                         <p class="fw-semibold mb-3" style="color:#1A2B5F; font-size:0.875rem; flex:1;">{{ $doc->nome }}</p>
                         @if($doc->arquivo_pdf)
-                        <a href="{{ route('download.documento', $doc->id) }}" class="btn btn-primary btn-sm w-100">Download PDF</a>
+                        <a href="{{ route('download.documento', $doc->id) }}" class="btn btn-primary btn-sm w-100">⬇ Download PDF</a>
                         @endif
                     </div>
                 </div>
@@ -127,21 +136,17 @@
                     </div>
                     @endif
 
-                    {{-- Botão PDF --}}
+                    {{-- Preview PDF inline --}}
                     @if($curso->arquivo_pdf)
-                    <div class="d-flex gap-2 mt-auto">
-                        <button type="button" class="btn btn-primary btn-sm"
-                                data-bs-toggle="modal"
-                                data-bs-target="#pdfModal"
-                                data-pdf="{{ \Illuminate\Support\Facades\Storage::url('cursos/' . $curso->arquivo_pdf) }}"
-                                data-titulo="{{ $curso->titulo }}">
-                            👁 Ver Flyer
-                        </button>
-                        <a href="{{ \Illuminate\Support\Facades\Storage::url('cursos/' . $curso->arquivo_pdf) }}"
-                           target="_blank" class="btn btn-outline-primary btn-sm">
-                            ⬇ Download
-                        </a>
+                    @php $pdfUrl = \Illuminate\Support\Facades\Storage::url('cursos/' . $curso->arquivo_pdf); @endphp
+                    <div class="mt-2 mb-3" style="border-radius:6px; overflow:hidden; border:1px solid #DDE1EB;">
+                        <iframe src="{{ $pdfUrl }}#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                                style="width:100%; height:220px; display:block; border:none;"
+                                loading="lazy"></iframe>
                     </div>
+                    <a href="{{ $pdfUrl }}" target="_blank" class="btn btn-primary btn-sm w-100 mt-auto">
+                        ⬇ Download Flyer
+                    </a>
                     @endif
                 </div>
             </div>
@@ -196,46 +201,5 @@
         </div>
     </div>
 </section>
-
-{{-- Modal PDF --}}
-<div class="modal fade" id="pdfModal" tabindex="-1">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" style="background:#1A2B5F; color:#fff; padding:0.75rem 1.25rem;">
-                <h6 class="modal-title mb-0 fw-bold" id="pdfModalTitulo"></h6>
-                <div class="d-flex align-items-center gap-2 ms-auto">
-                    <a id="pdfDownloadBtn" href="#" target="_blank"
-                       class="btn btn-sm" style="background:#E8600A; color:#fff; font-size:0.75rem;">⬇ Download</a>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-            </div>
-            <div class="modal-body p-0" style="height:80vh;">
-                <embed id="pdfEmbed" src="" type="application/pdf" width="100%" height="100%"
-                       style="display:block; min-height:500px;">
-                <div id="pdfFallback" style="display:none; padding:2rem; text-align:center;">
-                    <p class="text-muted mb-3">Seu dispositivo não suporta visualização de PDF inline.</p>
-                    <a id="pdfFallbackBtn" href="#" target="_blank" class="btn btn-primary">⬇ Abrir / Download PDF</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section('scripts')
-<script>
-document.getElementById('pdfModal').addEventListener('show.bs.modal', function(e) {
-    var btn  = e.relatedTarget;
-    var url  = btn.getAttribute('data-pdf');
-    var nome = btn.getAttribute('data-titulo');
-    document.getElementById('pdfModalTitulo').textContent = nome;
-    document.getElementById('pdfEmbed').src = url;
-    document.getElementById('pdfDownloadBtn').href = url;
-    document.getElementById('pdfFallbackBtn').href = url;
-});
-document.getElementById('pdfModal').addEventListener('hidden.bs.modal', function() {
-    document.getElementById('pdfEmbed').src = '';
-});
-</script>
-@endsection
 
 @endsection
