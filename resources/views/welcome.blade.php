@@ -116,26 +116,6 @@
                         @endif
                     </p>
 
-                    {{-- Avatares palestrantes --}}
-                    @if($curso->palestrantes->count())
-                    <div class="d-flex align-items-center gap-1 mb-3" style="flex-wrap:wrap;">
-                        @foreach($curso->palestrantes as $p)
-                        <div title="{{ $p->nome }}" style="position:relative;">
-                            @if($p->foto)
-                                <img src="{{ \Illuminate\Support\Facades\Storage::url('palestrantes/' . $p->foto) }}"
-                                     alt="{{ $p->nome }}"
-                                     style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,0.15);">
-                            @else
-                                <div style="width:36px; height:36px; border-radius:50%; background:#1A2B5F; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem; font-weight:700; border:2px solid #fff;">
-                                    {{ strtoupper(substr($p->nome, 0, 1)) }}
-                                </div>
-                            @endif
-                        </div>
-                        @endforeach
-                        <span class="text-muted ms-1" style="font-size:0.75rem;">{{ $curso->palestrantes->pluck('nome')->implode(', ') }}</span>
-                    </div>
-                    @endif
-
                     {{-- Preview PDF inline --}}
                     @if($curso->arquivo_pdf)
                     @php $pdfUrl = \Illuminate\Support\Facades\Storage::url('cursos/' . $curso->arquivo_pdf); @endphp
