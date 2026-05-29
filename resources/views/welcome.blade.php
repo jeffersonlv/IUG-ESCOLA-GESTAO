@@ -58,7 +58,7 @@
         <p class="text-muted mb-4" style="font-size:0.9rem;">Documentos e certificações disponíveis para consulta pública.</p>
 
         <div class="row g-4">
-            @foreach($documentos->take(4) as $doc)
+            @foreach($documentos as $doc)
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100">
                     @if($doc->arquivo_pdf)
