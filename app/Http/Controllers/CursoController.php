@@ -81,7 +81,7 @@ class CursoController extends Controller
 
     public function adminEdit($id)
     {
-        $curso = Curso::with('palestrantes')->findOrFail($id);
+        $curso = Curso::with('palestrantes', 'alunos')->findOrFail($id);
         $palestrantes = Palestrante::where('ativo', true)->orderBy('nome')->get();
         return view('admin.cursos.edit', compact('curso', 'palestrantes'));
     }

@@ -88,4 +88,40 @@
         </div>
     </form>
 </div>
+{{-- Alunos inscritos --}}
+<div class="mt-4" style="max-width:760px;">
+    <h6 class="text-uppercase fw-bold mb-2" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">
+        Alunos inscritos
+        <span class="badge ms-1" style="background:#E8600A; font-size:0.65rem; vertical-align:middle;">{{ $curso->alunos->count() }}</span>
+    </h6>
+
+    @if($curso->alunos->count())
+    <div class="card">
+        <table class="table mb-0" style="font-size:0.875rem;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome Completo</th>
+                    <th>Cidade / Estado</th>
+                    <th style="width:80px;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($curso->alunos->sortBy('nome_completo') as $i => $aluno)
+                <tr>
+                    <td class="text-muted">{{ $i + 1 }}</td>
+                    <td class="fw-semibold">{{ $aluno->nome_completo }}</td>
+                    <td class="text-muted">{{ $aluno->cidade }} — {{ $aluno->estado }}</td>
+                    <td>
+                        <a href="{{ route('admin.alunos.edit', $aluno->id) }}" class="btn btn-sm btn-outline-primary py-0">Editar</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    @else
+        <p class="text-muted" style="font-size:0.875rem;">Nenhum aluno inscrito neste curso.</p>
+    @endif
+</div>
 @endsection
