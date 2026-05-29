@@ -36,8 +36,11 @@ Route::get('/contato', function () { return view('contato'); })->name('contato.f
 Route::post('/contato', [\App\Http\Controllers\MensagemController::class, 'store'])->name('contato.store');
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [\App\Http\Controllers\Auth\AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->middleware('throttle:login');
+    Route::get('/', function () {
+        return auth()->check() ? redirect()->route('admin.dashboard') : redirect()->route('login');
+    });
+    Route::get('/login', [\App\Http\Controllers\Auth\AuthController::class, 'showLogin'])->middleware('guest')->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthController::class, 'login'])->middleware('guest', 'throttle:login');
     Route::post('/logout', [\App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth', 'active'])->group(function () {
