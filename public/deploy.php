@@ -57,6 +57,7 @@ if (file_exists('database/migrations')) {
 }
 
 run("php artisan storage:link --force", $output, $errors);
+run("php artisan db:seed --class=PalestrantesSeeder --force", $output, $errors);
 
 $output[] = "";
 $output[] = "=== Deploy Complete ===";
