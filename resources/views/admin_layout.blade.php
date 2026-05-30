@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') — IUG</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -354,6 +355,7 @@
         <a href="{{ route('admin.palestrantes.index') }}" class="sidebar-link {{ request()->routeIs('admin.palestrantes.*') ? 'active' : '' }}"><span class="icon">🎤</span> Palestrantes</a>
         <a href="{{ route('admin.alunos.index') }}" class="sidebar-link {{ request()->routeIs('admin.alunos.*') ? 'active' : '' }}"><span class="icon">👨‍🎓</span> Alunos</a>
         <a href="{{ route('admin.certificados.index') }}" class="sidebar-link {{ request()->routeIs('admin.certificados.*') ? 'active' : '' }}"><span class="icon">🎓</span> Certificados</a>
+        <a href="{{ route('admin.templates.index') }}" class="sidebar-link {{ request()->routeIs('admin.templates.*') ? 'active' : '' }}"><span class="icon">🎨</span> Templates</a>
         <div class="sidebar-label mt-3">Sistema</div>
         <a href="{{ route('admin.config.index') }}" class="sidebar-link {{ request()->routeIs('admin.config.*') ? 'active' : '' }}"><span class="icon">⚙️</span> Configurações</a>
     </div>
@@ -387,6 +389,10 @@
             <a href="{{ route('admin.certificados.index') }}"
                class="sidebar-link {{ request()->routeIs('admin.certificados.*') ? 'active' : '' }}">
                 <span class="icon">🎓</span> Certificados
+            </a>
+            <a href="{{ route('admin.templates.index') }}"
+               class="sidebar-link {{ request()->routeIs('admin.templates.*') ? 'active' : '' }}">
+                <span class="icon">🎨</span> Templates
             </a>
         </div>
         <div class="sidebar-section">
