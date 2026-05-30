@@ -253,12 +253,12 @@
                 @if(!empty($d['folder_palestrantes']))
                 <div class="right-titulo">Palestrantes:</div>
                 @foreach($d['folder_palestrantes'] as $p)
-                <table class="pal-item">
+                <table class="pal-item" width="100%" style="border-collapse:collapse; margin-bottom:4mm;">
                     <tr>
                         @if(!empty($p['foto']))
-                        <td class="pal-foto-cell"><img class="pal-foto" src="{{ $p['foto'] }}" alt=""></td>
+                        <td class="pal-foto-cell" width="18mm" style="vertical-align:top; padding-right:2mm; width:18mm;"><img class="pal-foto" src="{{ $p['foto'] }}" alt=""></td>
                         @endif
-                        <td class="pal-texto-cell">
+                        <td class="pal-texto-cell" style="vertical-align:top; word-wrap:break-word; overflow-wrap:break-word;">
                             <div class="pal-nome">{{ $p['nome'] ?? '' }}</div>
                             @if(!empty($p['cargo']))<div class="pal-cargo">{{ $p['cargo'] }}</div>@endif
                         </td>
