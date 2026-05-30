@@ -90,11 +90,31 @@ class CursoController extends Controller
         return redirect('/admin/cursos')->with('success', 'Curso criado com sucesso.');
     }
 
-    public function adminEdit($id)
+    public function adminEdit(Request $request, $id)
     {
-        $curso = Curso::with('palestrantes', 'alunos')->findOrFail($id);
+        $curso        = Curso::with('palestrantes')->findOrFail($id);
         $palestrantes = Palestrante::where('ativo', true)->orderBy('nome')->get();
-        return view('admin.cursos.edit', compact('curso', 'palestrantes'));
+
+        $q       = $request->input('q_aluno');
+        $sortMap = ['nome_completo', 'cidade', 'estado'];
+        $sort    = in_array($request->input('sort_aluno'), $sortMap) ? $request->input('sort_aluno') : 'nome_completo';
+        $dir     = $request->input('dir_aluno') === 'desc' ? 'desc' : 'asc';
+
+        $alunosQuery = $curso->alunos()->orderBy($sort, $dir);
+
+        if ($q) {
+            $like = '%' . str_replace(['%', '_', '\\'], ['\\%', '\\_', '\\\\'], $q) . '%';
+            $alunosQuery->where(function ($w) use ($like) {
+                $w->where('nome_completo', 'like', $like)
+                  ->orWhere('cidade', 'like', $like)
+                  ->orWhere('estado', 'like', $like);
+            });
+        }
+
+        $totalAlunos = $curso->alunos()->count();
+        $alunos      = $alunosQuery->paginate(15, ['*'], 'page_aluno')->withQueryString();
+
+        return view('admin.cursos.edit', compact('curso', 'palestrantes', 'alunos', 'totalAlunos', 'q', 'sort', 'dir'));
     }
 
     public function adminUpdate(Request $request, $id)
