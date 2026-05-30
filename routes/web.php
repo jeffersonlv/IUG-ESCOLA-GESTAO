@@ -82,6 +82,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/certificados', [\App\Http\Controllers\CertificadoController::class, 'index'])->name('admin.certificados.index');
         Route::get('/certificados/imprimir', [\App\Http\Controllers\CertificadoController::class, 'imprimir'])->name('admin.certificados.imprimir');
+        Route::post('/certificados/salvar', [\App\Http\Controllers\CertificadoController::class, 'salvar'])->name('admin.certificados.salvar');
+        Route::get('/certificados/download', [\App\Http\Controllers\CertificadoController::class, 'download'])->name('admin.certificados.download');
+        Route::get('/certificados/zip', [\App\Http\Controllers\CertificadoController::class, 'zip'])->name('admin.certificados.zip');
 
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');
