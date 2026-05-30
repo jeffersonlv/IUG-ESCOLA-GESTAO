@@ -39,12 +39,6 @@
             </div>
             @endif
 
-            {{-- DEBUG: remover após confirmar --}}
-            <div style="font-size:10px;color:#999;margin-top:4px;">
-                folder_pdf=[{{ $curso->folder_pdf ?? 'NULL' }}]
-                arquivo_pdf=[{{ $curso->arquivo_pdf ?? 'NULL' }}]
-            </div>
-
             @if($curso->folder_pdf)
             @php $folderUrl = '/storage/' . $curso->folder_pdf; @endphp
             <div class="mt-3 pt-3 border-top">

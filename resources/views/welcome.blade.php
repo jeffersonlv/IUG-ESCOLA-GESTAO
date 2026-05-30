@@ -116,9 +116,13 @@
                         @endif
                     </p>
 
-                    {{-- Preview PDF inline --}}
-                    @if($curso->arquivo_pdf)
-                    @php $pdfUrl = \Illuminate\Support\Facades\Storage::url('cursos/' . $curso->arquivo_pdf); @endphp
+                    {{-- Preview PDF inline: folder_pdf tem prioridade, fallback arquivo_pdf --}}
+                    @if($curso->folder_pdf || $curso->arquivo_pdf)
+                    @php
+                        $pdfUrl = $curso->folder_pdf
+                            ? '/storage/' . $curso->folder_pdf
+                            : '/storage/cursos/' . $curso->arquivo_pdf;
+                    @endphp
                     <div class="mt-2 mb-3" style="border-radius:6px; overflow:hidden; border:1px solid #DDE1EB;">
                         <iframe src="{{ $pdfUrl }}#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
                                 style="width:100%; height:220px; display:block; border:none;"
