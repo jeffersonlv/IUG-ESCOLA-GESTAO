@@ -45,13 +45,28 @@
                 <div style="width:100%; height:280px; overflow:hidden; border:1px solid #dde1eb; border-radius:6px;">
                     <iframe src="{{ $folderUrl }}" style="width:100%; height:100%; border:none;" loading="lazy"></iframe>
                 </div>
-                <div class="mt-2">
+                <div class="mt-2 d-flex gap-2">
                     <a href="{{ $folderUrl }}" target="_blank" download
-                       class="btn btn-block w-100"
+                       class="btn btn-block flex-fill"
                        style="background:#E8600A; color:#fff; font-weight:700; border:none; padding:10px;">
                         ⬇ Download Flyer
                     </a>
+                    @if($curso->arquivo_pdf)
+                    <a href="/storage/cursos/{{ $curso->arquivo_pdf }}" target="_blank" download
+                       class="btn btn-block flex-fill"
+                       style="background:#1A2B5F; color:#fff; font-weight:700; border:none; padding:10px;">
+                        ⬇ Download PDF
+                    </a>
+                    @endif
                 </div>
+            </div>
+            @elseif($curso->arquivo_pdf)
+            <div class="mt-3 pt-3 border-top">
+                <a href="/storage/cursos/{{ $curso->arquivo_pdf }}" target="_blank" download
+                   class="btn btn-block w-100"
+                   style="background:#1A2B5F; color:#fff; font-weight:700; border:none; padding:10px;">
+                    ⬇ Download PDF do Curso
+                </a>
             </div>
             @endif
         </div>
