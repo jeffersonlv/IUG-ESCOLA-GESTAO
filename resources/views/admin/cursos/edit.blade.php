@@ -89,7 +89,7 @@
     </form>
 </div>
 {{-- Alunos inscritos --}}
-<div class="mt-4" style="max-width:760px;">
+<div id="alunos" class="mt-4" style="max-width:760px;">
     <h6 class="text-uppercase fw-bold mb-3" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">
         Alunos inscritos
         <span class="badge ms-1" style="background:#E8600A; font-size:0.65rem; vertical-align:middle;">{{ $totalAlunos }}</span>
@@ -101,13 +101,13 @@
             'sort_aluno' => $col,
             'dir_aluno'  => ($sort === $col && $dir === 'asc') ? 'desc' : 'asc',
             'page_aluno' => 1,
-        ]));
+        ])) . '#alunos';
         $sortIcon = fn($col) => $sort === $col
             ? ($dir === 'asc' ? ' ▲' : ' ▼')
             : ' ⇅';
     @endphp
 
-    <form method="GET" action="{{ $editUrl }}" class="mb-3">
+    <form method="GET" action="{{ $editUrl }}#alunos" class="mb-3">
         @foreach(request()->except(['q_aluno','page_aluno']) as $k => $v)
             <input type="hidden" name="{{ $k }}" value="{{ $v }}">
         @endforeach
@@ -128,9 +128,9 @@
             <thead>
                 <tr>
                     <th style="width:40px;">#</th>
-                    <th><a href="{{ $sortLink('nome_completo') }}" class="text-decoration-none text-dark">Nome Completo{!! $sortIcon('nome_completo') !!}</a></th>
-                    <th><a href="{{ $sortLink('cidade') }}" class="text-decoration-none text-dark">Cidade{!! $sortIcon('cidade') !!}</a></th>
-                    <th><a href="{{ $sortLink('estado') }}" class="text-decoration-none text-dark">UF{!! $sortIcon('estado') !!}</a></th>
+                    <th><a href="{{ $sortLink('nome_completo') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">Nome Completo{!! $sortIcon('nome_completo') !!}</a></th>
+                    <th><a href="{{ $sortLink('cidade') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">Cidade{!! $sortIcon('cidade') !!}</a></th>
+                    <th><a href="{{ $sortLink('estado') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">UF{!! $sortIcon('estado') !!}</a></th>
                     <th style="width:80px;">Ações</th>
                 </tr>
             </thead>
@@ -152,7 +152,7 @@
 
     @if($alunos->hasPages())
     <div class="mt-2">
-        {{ $alunos->appends(request()->except('page_aluno'))->links() }}
+        {{ $alunos->appends(request()->except('page_aluno'))->fragment('alunos')->links() }}
     </div>
     @endif
 
