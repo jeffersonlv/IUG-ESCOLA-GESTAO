@@ -125,20 +125,20 @@
                         <select id="prop-campo" class="form-control form-control-sm">
                             <option value="">-- Selecione --</option>
                             @if($template->tipo === 'flyer')
-                                <option value="{{titulo}}">{{titulo}} — Título</option>
-                                <option value="{{numero_seminario}}">{{numero_seminario}} — Número Seminário</option>
-                                <option value="{{data_inicio}}">{{data_inicio}} — Data Início</option>
-                                <option value="{{data_fim}}">{{data_fim}} — Data Fim</option>
-                                <option value="{{local}}">{{local}} — Local</option>
-                                <option value="{{publico_alvo}}">{{publico_alvo}} — Público-Alvo</option>
-                                <option value="{{investimento}}">{{investimento}} — Investimento</option>
-                                <option value="{{carga_horaria}}">{{carga_horaria}} — Carga Horária</option>
+                                <option value="@{{titulo}}">@{{titulo}} — Título</option>
+                                <option value="@{{numero_seminario}}">@{{numero_seminario}} — Número Seminário</option>
+                                <option value="@{{data_inicio}}">@{{data_inicio}} — Data Início</option>
+                                <option value="@{{data_fim}}">@{{data_fim}} — Data Fim</option>
+                                <option value="@{{local}}">@{{local}} — Local</option>
+                                <option value="@{{publico_alvo}}">@{{publico_alvo}} — Público-Alvo</option>
+                                <option value="@{{investimento}}">@{{investimento}} — Investimento</option>
+                                <option value="@{{carga_horaria}}">@{{carga_horaria}} — Carga Horária</option>
                             @else
-                                <option value="{{nome_aluno}}">{{nome_aluno}} — Nome Aluno</option>
-                                <option value="{{titulo_curso}}">{{titulo_curso}} — Título Curso</option>
-                                <option value="{{data_curso}}">{{data_curso}} — Data Curso</option>
-                                <option value="{{cidade_curso}}">{{cidade_curso}} — Cidade</option>
-                                <option value="{{topicos}}">{{topicos}} — Tópicos</option>
+                                <option value="@{{nome_aluno}}">@{{nome_aluno}} — Nome Aluno</option>
+                                <option value="@{{titulo_curso}}">@{{titulo_curso}} — Título Curso</option>
+                                <option value="@{{data_curso}}">@{{data_curso}} — Data Curso</option>
+                                <option value="@{{cidade_curso}}">@{{cidade_curso}} — Cidade</option>
+                                <option value="@{{topicos}}">@{{topicos}} — Tópicos</option>
                             @endif
                         </select>
                     </div>
@@ -352,14 +352,14 @@ function addImagem() {
 
 function addCampo() {
     blockIdCounter++;
-    const campo = new fabric.Textbox('{{campo}}', {
+    const campo = new fabric.Textbox('@{{campo}}', {
         left: 100, top: 100, width: 150, height: 40,
         fontSize: 14,
     });
     campo.custom = {
         id: 'blk_' + blockIdCounter,
         tipo: 'campo',
-        campo: '{{titulo}}',
+        campo: '@{{titulo}}',
         font_size: 14,
         color: '#000',
         align: 'left',
