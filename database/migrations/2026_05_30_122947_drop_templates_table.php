@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTemplatesTable extends Migration
+class DropTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('templates');
+    }
+
+    public function down()
+    {
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
+            $table->string('tipo', 20);
             $table->string('nome');
             $table->string('fundo')->nullable();
             $table->integer('largura_mm')->default(210);
@@ -25,15 +30,5 @@ class CreateTemplatesTable extends Migration
             $table->boolean('ativo')->default(false);
             $table->timestamps();
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('templates');
     }
 }

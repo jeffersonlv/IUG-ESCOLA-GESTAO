@@ -90,12 +90,5 @@ Route::prefix('admin')->group(function () {
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');
 
-        Route::get('/templates', [\App\Http\Controllers\TemplateController::class, 'index'])->name('admin.templates.index');
-        Route::get('/templates/create', [\App\Http\Controllers\TemplateController::class, 'create'])->name('admin.templates.create');
-        Route::post('/templates', [\App\Http\Controllers\TemplateController::class, 'store'])->name('admin.templates.store');
-        Route::get('/templates/{id}/edit', [\App\Http\Controllers\TemplateController::class, 'edit'])->name('admin.templates.edit');
-        Route::put('/templates/{id}', [\App\Http\Controllers\TemplateController::class, 'update'])->name('admin.templates.update');
-        Route::delete('/templates/{id}', [\App\Http\Controllers\TemplateController::class, 'destroy'])->name('admin.templates.destroy');
-        Route::get('/templates/{id}/preview', [\App\Http\Controllers\TemplateController::class, 'preview'])->name('admin.templates.preview');
     });
 });
