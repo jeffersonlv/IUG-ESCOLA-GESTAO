@@ -104,6 +104,14 @@ const imprimirUrl = "{{ route('admin.certificados.imprimir') }}";
 const zipUrl     = "{{ route('admin.certificados.zip') }}";
 const csrfToken  = "{{ csrf_token() }}";
 
+// Restaurar downloads após reload
+(function() {
+    try {
+        const saved = localStorage.getItem('iug_cert_downloads');
+        if (saved) mostrarDownloads(JSON.parse(saved));
+    } catch(e) {}
+})();
+
 document.getElementById('cursoSelect').addEventListener('change', function() {
     const id = this.value;
     if (!id || !cursosData[id]) return;
@@ -183,6 +191,8 @@ async function gerarESalvar() {
 }
 
 function mostrarDownloads(json) {
+    localStorage.setItem('iug_cert_downloads', JSON.stringify(json));
+
     const panel = document.getElementById('downloadPanel');
     panel.classList.remove('d-none');
 
