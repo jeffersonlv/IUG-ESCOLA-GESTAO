@@ -58,8 +58,8 @@
     }
     .badge-publico b { font-weight: bold; }
 
-    /* ── Bloco de título central ── */
-    .titulo-bloco { text-align: center; margin-bottom: 6mm; }
+    /* ── Bloco de título — centralizado sobre a coluna da programação ── */
+    .titulo-bloco { width: 56%; text-align: center; margin-bottom: 6mm; }
     .local-badge {
         display: inline-block;
         background: #fff100;
