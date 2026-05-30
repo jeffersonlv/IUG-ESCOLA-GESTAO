@@ -40,7 +40,7 @@
             @endif
 
             @if($curso->folder_pdf)
-            @php $folderUrl = Storage::url($curso->folder_pdf); @endphp
+            @php $folderUrl = '/storage/' . $curso->folder_pdf; @endphp
             <div class="mt-3 pt-3 border-top">
                 <div style="width:100%; height:280px; overflow:hidden; border:1px solid #dde1eb; border-radius:6px;">
                     <iframe src="{{ $folderUrl }}" style="width:100%; height:100%; border:none;" loading="lazy"></iframe>
