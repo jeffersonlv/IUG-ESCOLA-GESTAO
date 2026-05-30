@@ -147,6 +147,12 @@ async function gerarFolderPDF() {
             document.getElementById('pdf-preview-link').href = result.url;
             btn.innerHTML = '<i class="fas fa-check me-2"></i>PDF Gerado!';
             btn.classList.replace('btn-outline-danger', 'btn-success');
+
+            // Salva automaticamente para persistir folder_pdf no banco
+            const form = btn.closest('form') || document.querySelector('form[method="post"]');
+            if (form) {
+                setTimeout(function() { form.submit(); }, 600);
+            }
         } else {
             alert('Erro ao gerar PDF: ' + (result.message || 'Erro desconhecido'));
             resetBtn(btn);
