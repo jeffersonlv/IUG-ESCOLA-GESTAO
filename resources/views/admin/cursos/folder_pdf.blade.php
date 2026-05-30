@@ -86,7 +86,7 @@
     /* ── Colunas ── */
     table.cols { width: 100%; border-collapse: collapse; }
     td.col-left  { width: 56%; vertical-align: top; padding-right: 4mm; }
-    td.col-right { width: 44%; vertical-align: top; }
+    td.col-right { width: 42%; vertical-align: top; overflow: hidden; }
 
     /* Programação (texto corrido como o folder real) */
     .prog-dia {
@@ -116,16 +116,15 @@
     .right-instagram { font-size: 9pt; margin-bottom: 5mm; line-height: 1.3; }
     .pal-item {
         margin-bottom: 3mm;
-        width: 100%;
-        text-align: center;
+        text-align: left;
     }
     .pal-foto {
-        width: 17mm;
-        height: 17mm;
+        width: 15mm;
+        height: 15mm;
         border-radius: 1mm;
         object-fit: cover;
         display: block;
-        margin: 0 auto 1mm auto;
+        margin: 0 0 1mm 0;
     }
     .pal-nome  {
         font-weight: bold; font-size: 7pt; color: #14245c; line-height: 1.2;
