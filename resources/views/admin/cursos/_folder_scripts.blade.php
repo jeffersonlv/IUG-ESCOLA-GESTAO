@@ -12,16 +12,6 @@ const MESES_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','N
         if (Array.isArray(prog)) prog.forEach(d => adicionarDia(d));
     } catch(e) {}
 
-    // Marca checkboxes do folder palestrantes
-    try {
-        const ids = {!! $folderPalestrantesIds !!};
-        if (Array.isArray(ids)) {
-            ids.forEach(function(id) {
-                const el = document.getElementById('fp' + id);
-                if (el) el.checked = true;
-            });
-        }
-    } catch(e) {}
 })();
 
 // ── Auto-gera dias ao mudar datas ─────────────────────────────────────────
@@ -128,7 +118,7 @@ async function gerarFolderPDF() {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Gerando...';
 
     const folderIds = Array.from(
-        document.querySelectorAll('[name="folder_palestrante_ids[]"]:checked')
+        document.querySelectorAll('[name="palestrantes[]"]:checked')
     ).map(el => el.value);
 
     const dados = {

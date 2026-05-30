@@ -85,7 +85,7 @@ class CursoController extends Controller
         }
 
         $validated['programacao']         = $this->parseJson($request->input('programacao'));
-        $validated['folder_palestrantes'] = $this->resolveFolderPalestrantes($request->input('folder_palestrante_ids', []));
+        $validated['folder_palestrantes'] = $this->resolveFolderPalestrantes($request->input('palestrantes', []));
 
         $folderGerado = trim($request->input('folder_pdf_gerado', ''));
         if ($folderGerado) {
@@ -96,9 +96,7 @@ class CursoController extends Controller
         $validated['ordem'] = 0;
         $curso = Curso::create($validated);
 
-        if ($request->filled('palestrantes')) {
-            $curso->palestrantes()->sync($request->palestrantes);
-        }
+        $curso->palestrantes()->sync($request->input('palestrantes', []));
 
         return redirect('/admin/cursos')->with('success', 'Curso criado com sucesso.');
     }
@@ -157,7 +155,7 @@ class CursoController extends Controller
         }
 
         $validated['programacao']         = $this->parseJson($request->input('programacao'));
-        $validated['folder_palestrantes'] = $this->resolveFolderPalestrantes($request->input('folder_palestrante_ids', []));
+        $validated['folder_palestrantes'] = $this->resolveFolderPalestrantes($request->input('palestrantes', []));
 
         $folderGerado = trim($request->input('folder_pdf_gerado', ''));
         if ($folderGerado) {
@@ -166,7 +164,7 @@ class CursoController extends Controller
 
         $validated['ativo'] = $request->boolean('ativo');
         $curso->update($validated);
-        $curso->palestrantes()->sync($request->palestrantes ?? []);
+        $curso->palestrantes()->sync($request->input('palestrantes', []));
 
         return redirect('/admin/cursos')->with('success', 'Curso atualizado com sucesso.');
     }

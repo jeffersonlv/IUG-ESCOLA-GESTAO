@@ -92,45 +92,13 @@
             <input type="hidden" name="programacao" id="programacao-json" value="[]">
         </div>
 
-        {{-- Palestrantes do folder --}}
-        <div class="mb-4">
-            <label class="form-label fw-semibold">Palestrantes (Folder PDF)</label>
-            @if($palestrantes->count())
-            <input type="text" id="busca-pal-folder" class="form-control form-control-sm mb-2" placeholder="Buscar palestrante...">
-            <div class="border rounded p-3" style="max-height:200px; overflow-y:auto;" id="lista-pal-folder">
-                @foreach($palestrantes as $p)
-                <div class="pal-folder-item mb-2" data-nome="{{ strtolower($p->nome) }}">
-                    <div class="d-flex align-items-start gap-2">
-                        <input type="checkbox" name="folder_palestrante_ids[]" value="{{ $p->id }}"
-                               class="form-check-input mt-1" id="fp{{ $p->id }}">
-                        <label for="fp{{ $p->id }}" style="cursor:pointer;">
-                            <span class="fw-semibold d-block" style="font-size:0.875rem;">{{ $p->nome }}</span>
-                            @if($p->descricao)<span class="text-muted" style="font-size:0.8rem;">{{ $p->descricao }}</span>@endif
-                        </label>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            @else
-            <p class="text-muted small">Nenhum palestrante cadastrado. <a href="{{ route('admin.palestrantes.create') }}">Cadastrar</a></p>
-            @endif
-        </div>
-
-        <hr class="my-4">
-
-        {{-- Upload PDF --}}
-        <div class="mb-3">
-            <label class="form-label">PDF do Curso <small class="text-muted">(máx 10MB — ou gere abaixo)</small></label>
-            <input type="file" name="arquivo_pdf" class="form-control @error('arquivo_pdf') is-invalid @enderror" accept=".pdf">
-            @error('arquivo_pdf')<div class="invalid-feedback">{{ $message }}</div>@enderror
-        </div>
-
-        {{-- Palestrantes do sistema --}}
+        {{-- Palestrantes --}}
         @if($palestrantes->count())
-        <div class="mb-3">
-            <label class="form-label">Palestrantes do Curso (Sistema)</label>
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Palestrantes</label>
+            <small class="text-muted d-block mb-2">Selecionados aparecem no curso e no folder PDF.</small>
             <input type="text" id="busca-palestrantes" class="form-control form-control-sm mb-2" placeholder="Buscar palestrante...">
-            <div class="border rounded p-3" style="max-height:200px; overflow-y:auto;" id="lista-palestrantes">
+            <div class="border rounded p-3" style="max-height:220px; overflow-y:auto;" id="lista-palestrantes">
                 @foreach($palestrantes as $p)
                 <div class="palestrante-item mb-2" data-nome="{{ strtolower($p->nome) }}">
                     <div class="d-flex align-items-start gap-2">
@@ -146,7 +114,18 @@
                 @endforeach
             </div>
         </div>
+        @else
+        <p class="text-muted small mb-4">Nenhum palestrante cadastrado. <a href="{{ route('admin.palestrantes.create') }}">Cadastrar</a></p>
         @endif
+
+        <hr class="my-4">
+
+        {{-- Upload PDF --}}
+        <div class="mb-3">
+            <label class="form-label">PDF do Curso <small class="text-muted">(máx 10MB — ou gere abaixo)</small></label>
+            <input type="file" name="arquivo_pdf" class="form-control @error('arquivo_pdf') is-invalid @enderror" accept=".pdf">
+            @error('arquivo_pdf')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
 
         <div class="mb-4 form-check">
             <input type="checkbox" name="ativo" value="1" class="form-check-input" id="ativo" checked>
