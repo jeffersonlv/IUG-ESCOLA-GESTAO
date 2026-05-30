@@ -38,6 +38,22 @@
                 <p class="mb-0 text-muted" style="font-size:0.9rem;">{{ $curso->topicos }}</p>
             </div>
             @endif
+
+            @if($curso->folder_pdf)
+            @php $folderUrl = Storage::url($curso->folder_pdf); @endphp
+            <div class="mt-3 pt-3 border-top">
+                <div style="width:100%; height:280px; overflow:hidden; border:1px solid #dde1eb; border-radius:6px;">
+                    <iframe src="{{ $folderUrl }}" style="width:100%; height:100%; border:none;" loading="lazy"></iframe>
+                </div>
+                <div class="mt-2">
+                    <a href="{{ $folderUrl }}" target="_blank" download
+                       class="btn btn-block w-100"
+                       style="background:#E8600A; color:#fff; font-weight:700; border:none; padding:10px;">
+                        ⬇ Download Flyer
+                    </a>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
     @empty
