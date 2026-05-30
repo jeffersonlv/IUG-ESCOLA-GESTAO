@@ -3,276 +3,229 @@
 <head>
 <meta charset="utf-8">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    width: 210mm;
-    min-height: 297mm;
-}
-.page {
-    width: 210mm;
-    min-height: 297mm;
-    position: relative;
-    background: #dbeafe;
-}
-.bg-img {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-.content-wrapper {
-    position: relative;
-    z-index: 1;
-    padding: 10mm 10mm 8mm 10mm;
-}
-.header {
-    background: rgba(30, 64, 175, 0.92);
-    color: white;
-    text-align: center;
-    padding: 6mm 5mm;
-    border-radius: 3mm;
-    margin-bottom: 5mm;
-}
-.header-logo {
-    height: 14mm;
-    margin-bottom: 2mm;
-}
-.header h1 {
-    font-size: 15pt;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-bottom: 1mm;
-}
-.header h2 {
-    font-size: 11pt;
-    font-weight: normal;
-    margin-bottom: 2mm;
-}
-.header .divider {
-    border: none;
-    border-top: 1px solid rgba(255,255,255,0.4);
-    margin: 2mm 0;
-}
-.header h3 {
-    font-size: 13pt;
-    font-weight: bold;
-}
-.header h4 {
-    font-size: 10pt;
-    font-weight: normal;
-    margin-top: 1mm;
-}
-.badge-publico {
-    background: #1e40af;
-    color: white;
-    padding: 1.5mm 4mm;
-    font-size: 8.5pt;
-    border-radius: 2mm;
-    display: inline-block;
-    margin-bottom: 4mm;
-}
-.cols {
-    width: 100%;
-    border-collapse: collapse;
-}
-.col-left {
-    width: 62%;
-    vertical-align: top;
-    padding-right: 4mm;
-}
-.col-right {
-    width: 38%;
-    vertical-align: top;
-    background: rgba(255,255,255,0.90);
-    border-radius: 3mm;
-    padding: 4mm;
-}
-.dia-bloco {
-    margin-bottom: 4mm;
-}
-.dia-titulo {
-    color: #1e3a8a;
-    font-weight: bold;
-    font-size: 9pt;
-    border-left: 3px solid #1e40af;
-    padding-left: 2mm;
-    margin-bottom: 1.5mm;
-    background: rgba(219,234,254,0.6);
-    padding-top: 0.5mm;
-    padding-bottom: 0.5mm;
-}
-.dia-tema {
-    font-size: 8.5pt;
-    padding-left: 5mm;
-    line-height: 1.55;
-    color: #1a1a1a;
-}
-.secao-titulo {
-    color: #1e3a8a;
-    font-weight: bold;
-    font-size: 9.5pt;
-    margin-bottom: 2mm;
-    padding-bottom: 1mm;
-    border-bottom: 1px solid #1e40af;
-}
-.palestrante-item {
-    margin-bottom: 3mm;
-    text-align: center;
-}
-.pal-nome {
-    font-weight: bold;
-    font-size: 8pt;
-    color: #1a1a1a;
-}
-.pal-cargo {
-    font-size: 7.5pt;
-    color: #555;
-    font-style: italic;
-}
-.info-bloco {
-    margin-top: 3mm;
-    font-size: 8pt;
-    color: #222;
-    line-height: 1.6;
-}
-.info-bloco strong {
-    color: #1e3a8a;
-}
-.footer {
-    margin-top: 5mm;
-    background: rgba(30, 64, 175, 0.88);
-    color: white;
-    padding: 3mm 5mm;
-    border-radius: 2mm;
-    font-size: 7.5pt;
-    text-align: center;
-}
-.footer a { color: #bfdbfe; }
+    @page { margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+        font-family: 'DejaVu Sans', Arial, sans-serif;
+        color: #1a1a1a;
+        width: 210mm;
+        height: 297mm;
+    }
+    /* Fundo de página inteira */
+    .bg-img {
+        position: absolute;
+        top: 0; left: 0;
+        width: 210mm;
+        height: 297mm;
+        z-index: 0;
+    }
+    /* Área de conteúdo — empurrada à direita para limpar os pilares do fundo
+       e abaixo para limpar o logo do fundo */
+    .wrap {
+        position: absolute;
+        top: 0; left: 0;
+        z-index: 2;
+        width: 210mm;
+        padding: 55mm 8mm 12mm 49mm;
+    }
+
+    /* ── Público-alvo (caixa azul, topo-direita, abaixo do logo) ── */
+    .badge-publico {
+        position: absolute;
+        top: 55mm;
+        right: 8mm;
+        width: 54mm;
+        background: #3f7fd6;
+        color: #fff;
+        font-size: 7.5pt;
+        line-height: 1.35;
+        padding: 2.5mm 3mm;
+        border-radius: 1.5mm;
+        z-index: 3;
+    }
+    .badge-publico b { font-weight: bold; }
+
+    /* ── Bloco de título central (à esquerda do badge) ── */
+    .titulo-bloco { text-align: center; padding-right: 58mm; margin-bottom: 6mm; }
+    .local-badge {
+        display: inline-block;
+        background: #fff100;
+        color: #14245c;
+        font-weight: bold;
+        font-size: 14pt;
+        padding: 0.5mm 4mm;
+        text-decoration: underline;
+        margin-bottom: 3mm;
+    }
+    .titulo-evento {
+        color: #14245c;
+        font-weight: bold;
+        font-size: 15pt;
+        line-height: 1.2;
+        margin-bottom: 1.5mm;
+    }
+    .titulo-data {
+        color: #14245c;
+        font-weight: bold;
+        font-size: 13pt;
+    }
+
+    /* ── Colunas ── */
+    table.cols { width: 100%; border-collapse: collapse; }
+    td.col-left  { width: 64%; vertical-align: top; padding-right: 5mm; }
+    td.col-right { width: 36%; vertical-align: top; }
+
+    /* Programação (texto corrido como o folder real) */
+    .prog-dia {
+        color: #14245c;
+        font-weight: bold;
+        font-size: 9.5pt;
+        margin-top: 2.5mm;
+    }
+    .prog-temas {
+        font-size: 9pt;
+        line-height: 1.4;
+        margin-bottom: 1mm;
+    }
+
+    /* Bloco de contato/banco */
+    .info { font-size: 9pt; line-height: 1.45; margin-top: 3mm; }
+    .info .lbl { font-weight: bold; }
+    .info a { color: #14245c; text-decoration: none; }
+
+    /* Coluna direita */
+    .right-titulo {
+        color: #14245c;
+        font-weight: bold;
+        font-size: 10pt;
+        margin-bottom: 1.5mm;
+    }
+    .right-instagram { font-size: 9pt; margin-bottom: 5mm; line-height: 1.3; }
+    .pal-item { margin-bottom: 3.5mm; }
+    .pal-nome  { font-weight: bold; font-size: 9pt; color: #14245c; line-height: 1.2; }
+    .pal-cargo { font-size: 8pt; color: #333; font-style: italic; line-height: 1.2; }
+
+    .obs {
+        font-size: 7.5pt;
+        color: #c0392b;
+        font-weight: bold;
+        margin-top: 5mm;
+        line-height: 1.35;
+    }
 </style>
 </head>
 <body>
 @php
     $d = $dados;
-    $whatsapp = $configs['whatsapp'] ?? $configs['telefone'] ?? '';
-    $email    = $configs['email']    ?? '';
+    $whats = $configs['whatsapp'] ?? $configs['telefone'] ?? '';
+    $email = $configs['email'] ?? 'contato@institutoulyssesguimaraes.com.br';
+    $fmt = function ($v) {
+        try { return \Carbon\Carbon::parse($v); } catch (\Exception $e) { return null; }
+    };
+    $di = !empty($d['data_inicio']) ? $fmt($d['data_inicio']) : null;
+    $df = !empty($d['data_fim'])    ? $fmt($d['data_fim'])    : null;
+    $meses = [1=>'janeiro',2=>'fevereiro',3=>'março',4=>'abril',5=>'maio',6=>'junho',
+              7=>'julho',8=>'agosto',9=>'setembro',10=>'outubro',11=>'novembro',12=>'dezembro'];
 @endphp
-<div class="page">
-    @if($bgBase64)
-    <img class="bg-img" src="{{ $bgBase64 }}" alt="">
-    @endif
 
-    <div class="content-wrapper">
+@if(!empty($bgBase64))
+<img class="bg-img" src="{{ $bgBase64 }}" alt="">
+@endif
 
-        {{-- Cabeçalho --}}
-        <div class="header">
-            @if($logoBase64)
-            <img class="header-logo" src="{{ $logoBase64 }}" alt="Logo IUG">
-            @endif
-            <h1>INSTITUTO ULYSSES GUIMARÃES</h1>
-            <h2>Gestão Pública</h2>
-            <hr class="divider">
-            @if(!empty($d['numero_seminario']))
-            <h3>{{ strtoupper($d['numero_seminario']) }} SEMINÁRIO DE GESTÃO PÚBLICA</h3>
-            @else
-            <h3>{{ strtoupper($d['titulo']) }}</h3>
-            @endif
-            @if(!empty($d['data_inicio']) && !empty($d['data_fim']))
-            <h4>
-                de {{ \Carbon\Carbon::parse($d['data_inicio'])->format('d/m/Y') }}
-                a {{ \Carbon\Carbon::parse($d['data_fim'])->format('d/m/Y') }}
-                @if(!empty($d['local'])) — {{ $d['local'] }} @endif
-            </h4>
-            @endif
-        </div>
+{{-- Público-alvo --}}
+@if(!empty($d['publico_alvo']))
+<div class="badge-publico"><b>Público-Alvo:</b> {{ $d['publico_alvo'] }}</div>
+@endif
 
-        @if(!empty($d['publico_alvo']))
-        <div>
-            <span class="badge-publico">Público-Alvo: {{ $d['publico_alvo'] }}</span>
+<div class="wrap">
+
+    {{-- Título --}}
+    <div class="titulo-bloco">
+        @if(!empty($d['local']))
+        <div class="local-badge">{{ strtoupper($d['local']) }}</div>
+        @endif
+        <div class="titulo-evento">{{ strtoupper($d['titulo']) }}</div>
+        @if($di && $df)
+        <div class="titulo-data">
+            de {{ $di->day }} a {{ $df->day }} de {{ $meses[$df->month] }} de {{ $df->year }}
         </div>
         @endif
-
-        {{-- Colunas --}}
-        <table class="cols">
-            <tr>
-                <td class="col-left">
-                    {{-- Programação --}}
-                    @if(!empty($d['programacao']))
-                    <div class="secao-titulo">Programação</div>
-                    @foreach($d['programacao'] as $dia)
-                    <div class="dia-bloco">
-                        <div class="dia-titulo">
-                            {{ $dia['dia_semana'] ?? '' }}
-                            @if(!empty($dia['data'])) {{ $dia['data'] }} @endif
-                            @if(!empty($dia['horario'])) — {{ $dia['horario'] }} @endif
-                            @if(($dia['tipo'] ?? '') === 'credenciamento') — Credenciamento
-                            @elseif(($dia['tipo'] ?? '') === 'encerramento') — Encerramento
-                            @elseif(($dia['tipo'] ?? '') === 'palestra') — Palestra
-                            @endif
-                        </div>
-                        @foreach($dia['temas'] ?? [] as $tema)
-                        <div class="dia-tema">• {{ $tema }}</div>
-                        @endforeach
-                    </div>
-                    @endforeach
-                    @endif
-
-                    {{-- Info de contato/investimento --}}
-                    <div class="info-bloco">
-                        @if(!empty($d['investimento']))
-                        <strong>Investimento:</strong> {{ $d['investimento'] }}<br>
-                        @endif
-                        @if(!empty($d['carga_horaria']))
-                        <strong>Carga Horária:</strong> {{ $d['carga_horaria'] }}<br>
-                        @endif
-                        @if($whatsapp)
-                        <strong>Telefone/WhatsApp:</strong> {{ $whatsapp }}<br>
-                        @endif
-                        @if($email)
-                        <strong>E-mail:</strong> {{ $email }}<br>
-                        @endif
-                        <strong>Site:</strong> institutoulyssesguimaraes.com.br<br><br>
-                        <strong>Dados Bancários:</strong><br>
-                        Banco do Brasil / Ag. 2901-7 / CC 51010-6<br>
-                        Instituto Ulysses Guimarães Ltda.<br>
-                        CNPJ: 40.033.708/0001-63
-                    </div>
-                </td>
-
-                <td class="col-right">
-                    @if(!empty($d['folder_palestrantes']))
-                    <div class="secao-titulo">Palestrantes</div>
-                    @foreach($d['folder_palestrantes'] as $p)
-                    <div class="palestrante-item">
-                        <div class="pal-nome">{{ $p['nome'] ?? '' }}</div>
-                        @if(!empty($p['cargo']))
-                        <div class="pal-cargo">{{ $p['cargo'] }}</div>
-                        @endif
-                    </div>
-                    @endforeach
-                    @endif
-
-                    <div class="info-bloco" style="margin-top:4mm; border-top:1px solid #ddd; padding-top:3mm;">
-                        <strong>Instagram:</strong><br>
-                        @institutoulyssesguimaraes<br><br>
-                        @if(!empty($d['local']))
-                        <strong>Local:</strong><br>
-                        {{ $d['local'] }}
-                        @endif
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        {{-- Rodapé --}}
-        <div class="footer">
-            institutoulyssesguimaraes.com.br/cursos &nbsp;|&nbsp;
-            {{ $whatsapp }} &nbsp;|&nbsp;
-            {{ $email }}
-        </div>
-
     </div>
+
+    <table class="cols">
+        <tr>
+            {{-- Coluna esquerda: programação + contato --}}
+            <td class="col-left">
+                @if(!empty($d['programacao']))
+                    @foreach($d['programacao'] as $dia)
+                    @php
+                        $tipoLabel = $dia['tipo_label']
+                            ?? ucfirst(str_replace('palestra','Palestra',$dia['tipo'] ?? ''));
+                        $tipoMap = [
+                            'palestra' => 'Palestra',
+                            'credenciamento' => 'Credenciamento',
+                            'encerramento' => 'Encerramento',
+                        ];
+                        if (empty($dia['tipo_label'])) {
+                            $tipoLabel = $tipoMap[$dia['tipo'] ?? ''] ?? '';
+                        }
+                    @endphp
+                    <div class="prog-dia">
+                        {{ $dia['dia_semana'] ?? '' }}@if(!empty($dia['data'])): {{ $dia['data'] }}@endif
+                        @if(!empty($dia['horario'])) — Horário: {{ $dia['horario'] }}@endif
+                        @if($tipoLabel) — {{ $tipoLabel }}@endif
+                    </div>
+                    @if(!empty($dia['temas']))
+                    <div class="prog-temas">
+                        @foreach($dia['temas'] as $tema){{ $tema }}<br>@endforeach
+                    </div>
+                    @endif
+                    @endforeach
+                @endif
+
+                <div class="info">
+                    <span class="lbl">Contato</span><br>
+                    @if($whats)Telefone: {{ $whats }} (WhatsApp)<br>@endif
+                    @if(!empty($d['investimento']))<span class="lbl">Investimento:</span> {{ $d['investimento'] }}<br>@endif
+                    @if(!empty($d['carga_horaria']))<span class="lbl">Carga Horária:</span> {{ $d['carga_horaria'] }}<br>@endif
+                    <br>
+                    <span class="lbl">Dados Bancários:</span><br>
+                    Banco do Brasil<br>
+                    Agência: 2901-7<br>
+                    Conta Corrente: 51010-6<br>
+                    Instituto Ulysses Guimarães Ltda.<br>
+                    CNPJ: 40.033.708/0001-63<br>
+                    <span class="lbl">E-mail:</span> {{ $email }}<br>
+                    <span class="lbl">Site:</span> institutoulyssesguimaraes.com.br/cursos<br>
+                    @if(!empty($d['local']))<span class="lbl">Local:</span> {{ $d['local'] }}@endif
+                </div>
+
+                <div class="obs">
+                    Obs.: O Instituto Ulysses Guimarães se reserva no direito de cancelar os
+                    eventos, não se responsabilizando pela viagem sem inscrição antecipada.
+                </div>
+            </td>
+
+            {{-- Coluna direita: instagram + palestrantes --}}
+            <td class="col-right">
+                <div class="right-instagram">
+                    <span class="right-titulo" style="display:block;">Instagram:</span>
+                    @institutoulyssesguimaraes
+                </div>
+
+                @if(!empty($d['folder_palestrantes']))
+                <div class="right-titulo">Palestrantes:</div>
+                @foreach($d['folder_palestrantes'] as $p)
+                <div class="pal-item">
+                    <div class="pal-nome">{{ $p['nome'] ?? '' }}</div>
+                    @if(!empty($p['cargo']))<div class="pal-cargo">{{ $p['cargo'] }}</div>@endif
+                </div>
+                @endforeach
+                @endif
+            </td>
+        </tr>
+    </table>
+
 </div>
 </body>
 </html>
