@@ -128,9 +128,9 @@
             <thead>
                 <tr>
                     <th style="width:40px;">#</th>
-                    <th><a href="{{ $sortLink('nome_completo') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">Nome Completo{!! $sortIcon('nome_completo') !!}</a></th>
-                    <th><a href="{{ $sortLink('cidade') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">Cidade{!! $sortIcon('cidade') !!}</a></th>
-                    <th><a href="{{ $sortLink('estado') }}" class="text-decoration-none" style="color:#1A2B5F; border-bottom:1px dashed #1A2B5F;">UF{!! $sortIcon('estado') !!}</a></th>
+                    <th><a href="{{ $sortLink('nome_completo') }}" class="text-decoration-none" style="color:inherit; border-bottom:1px dashed rgba(255,255,255,0.5);">Nome Completo{!! $sortIcon('nome_completo') !!}</a></th>
+                    <th><a href="{{ $sortLink('cidade') }}" class="text-decoration-none" style="color:inherit; border-bottom:1px dashed rgba(255,255,255,0.5);">Cidade{!! $sortIcon('cidade') !!}</a></th>
+                    <th><a href="{{ $sortLink('estado') }}" class="text-decoration-none" style="color:inherit; border-bottom:1px dashed rgba(255,255,255,0.5);">UF{!! $sortIcon('estado') !!}</a></th>
                     <th style="width:80px;">Ações</th>
                 </tr>
             </thead>
