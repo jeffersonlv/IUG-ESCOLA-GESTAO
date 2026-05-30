@@ -51,9 +51,10 @@
                             <a href="{{ route('admin.templates.preview', $t->id) }}" target="_blank" class="btn btn-sm btn-info">
                                 <i class="fas fa-eye"></i> Preview
                             </a>
-                            <form action="{{ route('admin.templates.destroy', $t->id) }}" method="post" style="display:inline;">
+                            <form action="{{ route('admin.templates.destroy', $t->id) }}" method="post" style="display:inline;" class="form-delete">
                                 @csrf @method('delete')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Deletar?')">
+                                <button type="button" class="btn btn-sm btn-danger btn-confirm-delete"
+                                        data-nome="{{ $t->nome }}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -65,4 +66,21 @@
         </div>
     @endif
 </div>
+@section('scripts')
+<script>
+document.querySelectorAll('.btn-confirm-delete').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var nome = btn.dataset.nome;
+        if (window.appConfirm) {
+            window.appConfirm('Deletar template "' + nome + '"? Esta ação não pode ser desfeita.', function() {
+                btn.closest('form').submit();
+            });
+        } else {
+            if (confirm('Deletar template "' + nome + '"?')) {
+                btn.closest('form').submit();
+            }
+        }
+    });
+});
+</script>
 @endsection

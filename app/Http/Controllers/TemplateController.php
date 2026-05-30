@@ -40,9 +40,8 @@ class TemplateController extends Controller
             $validated['fundo'] = 'templates/' . $filename;
         }
 
-        $validated['layout'] = $request->input('layout')
-            ? json_decode($request->input('layout'), true)
-            : ['blocks' => []];
+        $decoded = $request->input('layout') ? json_decode($request->input('layout'), true) : null;
+        $validated['layout'] = ($decoded !== null && isset($decoded['blocks'])) ? $decoded : ['blocks' => []];
         $validated['ativo'] = $request->boolean('ativo');
 
         Template::create($validated);
@@ -69,6 +68,7 @@ class TemplateController extends Controller
             'layout'        => 'nullable|json',
             'ativo'         => 'boolean',
         ]);
+        $validated['tipo'] = $template->tipo;
 
         if ($request->hasFile('fundo')) {
             if ($template->fundo && Storage::disk('public')->exists($template->fundo)) {
@@ -80,10 +80,8 @@ class TemplateController extends Controller
             $validated['fundo'] = 'templates/' . $filename;
         }
 
-        if ($request->input('layout')) {
-            $validated['layout'] = json_decode($request->input('layout'), true);
-        }
-
+        $decoded = $request->input('layout') ? json_decode($request->input('layout'), true) : null;
+        $validated['layout'] = ($decoded !== null && isset($decoded['blocks'])) ? $decoded : ['blocks' => []];
         $validated['ativo'] = $request->boolean('ativo');
         $template->update($validated);
 
@@ -123,7 +121,11 @@ class TemplateController extends Controller
         $css = $this->gerarCSS($template);
         $html = '<html><head><meta charset="utf-8"><style>' . $css . '</style></head><body>';
 
-        usort($blocks, fn($a, $b) => ($a['z'] ?? 0) <=> ($b['z'] ?? 0));
+        usort($blocks, function ($a, $b) {
+            $az = isset($a['z']) ? (int)$a['z'] : 0;
+            $bz = isset($b['z']) ? (int)$b['z'] : 0;
+            return $az - $bz;
+        });
 
         foreach ($blocks as $block) {
             if ($block['tipo'] === 'texto') {
@@ -153,18 +155,30 @@ class TemplateController extends Controller
         $base64 = '';
 
         if ($img) {
-            $path = strpos($img, '/') === 0
-                ? public_path(ltrim($img, '/'))
-                : public_path($img);
-            if (is_file($path)) {
-                $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-                $mime = $ext === 'png' ? 'image/png' : 'image/jpeg';
-                $base64 = 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($path));
-            }
+            $base64 = $this->imagemBase64Segura($img);
         }
 
         if (!$base64) return '';
         return "<div style=\"{$style}\"><img src=\"$base64\" style=\"width:100%;height:100%;object-fit:cover;\"></div>";
+    }
+
+    private function imagemBase64Segura(string $img): string
+    {
+        // Resolve path e previne traversal — só permite dentro de public/
+        $publicBase = realpath(public_path());
+        $path = realpath(public_path(ltrim(preg_replace('/\.\./', '', $img), '/')));
+
+        if (!$path || strpos($path, $publicBase) !== 0 || !is_file($path)) {
+            return '';
+        }
+
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+            return '';
+        }
+
+        $mime = $ext === 'png' ? 'image/png' : ($ext === 'gif' ? 'image/gif' : 'image/jpeg');
+        return 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($path));
     }
 
     private function renderBlockCampo(array $block, array $dados): string
@@ -178,8 +192,8 @@ class TemplateController extends Controller
 
     private function interpolarCampo(string $campo, array $dados): string
     {
-        return preg_replace_callback('/\{\{(\w+)\}\}/', function ($m) use ($dados) {
-            return $dados[$m[1]] ?? '';
+        return preg_replace_callback('/\{\{([a-zA-Z0-9_]+)\}\}/', function ($m) use ($dados) {
+            return isset($dados[$m[1]]) ? (string)$dados[$m[1]] : '';
         }, $campo);
     }
 
@@ -192,7 +206,7 @@ class TemplateController extends Controller
 
         $style = "position:absolute; left:{$x}mm; top:{$y}mm; width:{$w}mm; height:{$h}mm;";
 
-        if ($block['tipo'] === 'texto') {
+        if ($block['tipo'] === 'texto' || $block['tipo'] === 'campo') {
             $style .= 'overflow:hidden; white-space:pre-wrap; word-wrap:break-word;';
             $style .= 'font-size:' . ($block['font_size'] ?? 12) . 'pt;';
             $style .= 'font-family:' . ($block['font_family'] ?? 'DejaVu Sans') . ';';

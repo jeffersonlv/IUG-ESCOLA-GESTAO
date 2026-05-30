@@ -197,7 +197,7 @@ const CANVAS_HEIGHT = TEMPLATE_HEIGHT_MM * SCALE_RATIO;
 const TEMPLATE_TIPO = '{{ $template->tipo }}';
 
 let canvas;
-let currentLayout = {!! json_encode($template->layout ?? ['blocks' => []]) !!};
+let currentLayout = JSON.parse('{{ addslashes(json_encode($template->layout ?? ['blocks' => []])) }}');
 let selectedObject = null;
 let blockIdCounter = 0;
 
@@ -243,7 +243,7 @@ function addBlockToCanvas(blockData) {
             top: y,
             width: w,
             height: h,
-            fontSize: (blockData.font_size || 12) * (2/3),
+            fontSize: (blockData.font_size || 12),
             fill: blockData.color || '#000',
             textAlign: blockData.align || 'left',
             fontWeight: blockData.bold ? 'bold' : 'normal',
@@ -330,8 +330,9 @@ function addTexto() {
 
 function addImagem() {
     blockIdCounter++;
+    const startX = 100, startY = 100, startW = 100, startH = 100;
     const img = new fabric.Rect({
-        left: 100, top: 100, width: 100, height: 100,
+        left: startX, top: startY, width: startW, height: startH,
         fill: '#e0e0e0',
         stroke: '#999',
         strokeDasharray: [5, 5],
@@ -340,10 +341,11 @@ function addImagem() {
         id: 'blk_' + blockIdCounter,
         tipo: 'imagem',
         imagem: '',
-        x_mm: 50,
-        y_mm: 50,
-        w_mm: 50,
-        h_mm: 50,
+        x_mm: parseFloat((startX / SCALE_RATIO).toFixed(1)),
+        y_mm: parseFloat((startY / SCALE_RATIO).toFixed(1)),
+        w_mm: parseFloat((startW / SCALE_RATIO).toFixed(1)),
+        h_mm: parseFloat((startH / SCALE_RATIO).toFixed(1)),
+        z: 0,
     };
     canvas.add(img);
     canvas.setActiveObject(img);
@@ -439,7 +441,7 @@ function updateBlockFromForm() {
 
         selectedObject.set({
             text: data.conteudo,
-            fontSize: (data.font_size * 2) / 3,
+            fontSize: data.font_size,
             fill: data.color,
             textAlign: data.align,
             fontWeight: data.bold ? 'bold' : 'normal',
@@ -453,7 +455,7 @@ function updateBlockFromForm() {
 
         selectedObject.set({
             text: data.campo,
-            fontSize: (data.font_size * 2) / 3,
+            fontSize: data.font_size,
             fill: data.color,
             textAlign: data.align,
         });
@@ -488,23 +490,31 @@ function handleObjectAdded(e) {
 
 function handleObjectModified(e) {
     if (e.target.custom) {
-        e.target.custom.x_mm = (e.target.left / SCALE_RATIO).toFixed(1);
-        e.target.custom.y_mm = (e.target.top / SCALE_RATIO).toFixed(1);
-        e.target.custom.w_mm = (e.target.getScaledWidth() / SCALE_RATIO).toFixed(1);
-        e.target.custom.h_mm = (e.target.getScaledHeight() / SCALE_RATIO).toFixed(1);
+        var obj = e.target;
+        // Usar scaleX/scaleY para capturar resize correto sem rotação
+        var w = obj.width * (obj.scaleX || 1);
+        var h = obj.height * (obj.scaleY || 1);
+        // Reset scale após capturar dimensões reais
+        obj.set({ width: w, height: h, scaleX: 1, scaleY: 1 });
+        obj.custom.x_mm = parseFloat((obj.left / SCALE_RATIO).toFixed(1));
+        obj.custom.y_mm = parseFloat((obj.top / SCALE_RATIO).toFixed(1));
+        obj.custom.w_mm = parseFloat((w / SCALE_RATIO).toFixed(1));
+        obj.custom.h_mm = parseFloat((h / SCALE_RATIO).toFixed(1));
+        canvas.renderAll();
     }
 }
 
 function saveLayout() {
-    const blocks = canvas.getObjects().map(obj => {
+    const blocks = canvas.getObjects().map(function(obj) {
         if (obj.custom) {
-            return {
-                ...obj.custom,
+            var w = obj.width * (obj.scaleX || 1);
+            var h = obj.height * (obj.scaleY || 1);
+            return Object.assign({}, obj.custom, {
                 x_mm: parseFloat((obj.left / SCALE_RATIO).toFixed(1)),
                 y_mm: parseFloat((obj.top / SCALE_RATIO).toFixed(1)),
-                w_mm: parseFloat((obj.getScaledWidth() / SCALE_RATIO).toFixed(1)),
-                h_mm: parseFloat((obj.getScaledHeight() / SCALE_RATIO).toFixed(1)),
-            };
+                w_mm: parseFloat((w / SCALE_RATIO).toFixed(1)),
+                h_mm: parseFloat((h / SCALE_RATIO).toFixed(1)),
+            });
         }
         return null;
     }).filter(Boolean);
