@@ -189,7 +189,9 @@ class CursoController extends Controller
             'folder_palestrante_ids'  => 'nullable|array',
         ]);
 
-        $dados['folder_palestrantes'] = $this->resolveFolderPalestrantes($dados['folder_palestrante_ids'] ?? []);
+        $dados['folder_palestrantes'] = $this->folderPalestrantesComFoto(
+            $this->resolveFolderPalestrantes($dados['folder_palestrante_ids'] ?? [])
+        );
 
         $configs = SiteConfig::all()->pluck('valor', 'chave')->toArray();
 
@@ -223,8 +225,30 @@ class CursoController extends Controller
     {
         if (empty($ids)) return null;
         return Palestrante::whereIn('id', $ids)->orderBy('nome')->get()
-            ->map(fn($p) => ['nome' => $p->nome, 'cargo' => $p->descricao ?? ''])
+            ->map(fn($p) => ['nome' => $p->nome, 'cargo' => $p->descricao ?? '', 'foto' => $p->foto])
             ->values()->all();
+    }
+
+    // Converte caminho da foto em data-uri base64 (só no render; nunca persistido no banco)
+    private function folderPalestrantesComFoto(?array $lista): ?array
+    {
+        if (empty($lista)) return $lista;
+        return array_map(function ($p) {
+            $p['foto'] = $this->fotoBase64($p['foto'] ?? null);
+            return $p;
+        }, $lista);
+    }
+
+    private function fotoBase64(?string $foto): string
+    {
+        if (!$foto) return '';
+        $path = (strpos($foto, '/') === 0)
+            ? public_path(ltrim($foto, '/'))
+            : storage_path('app/public/palestrantes/' . $foto);
+        if (!is_file($path)) return '';
+        $ext  = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $mime = $ext === 'png' ? 'image/png' : 'image/jpeg';
+        return 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($path));
     }
 
     private function parseJson(?string $value): ?array

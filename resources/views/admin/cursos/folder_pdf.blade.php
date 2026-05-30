@@ -30,9 +30,22 @@
     }
 
     /* ── Público-alvo (caixa azul, topo-direita, abaixo do logo) ── */
+    /* Instagram no extremo topo-direito */
+    .instagram-top {
+        position: absolute;
+        top: 7mm;
+        right: 8mm;
+        text-align: right;
+        font-size: 9pt;
+        line-height: 1.3;
+        color: #14245c;
+        z-index: 3;
+    }
+    .instagram-top b { display: block; }
+
     .badge-publico {
         position: absolute;
-        top: 55mm;
+        top: 31mm;
         right: 8mm;
         width: 54mm;
         background: #3f7fd6;
@@ -45,8 +58,8 @@
     }
     .badge-publico b { font-weight: bold; }
 
-    /* ── Bloco de título central (à esquerda do badge) ── */
-    .titulo-bloco { text-align: center; padding-right: 58mm; margin-bottom: 6mm; }
+    /* ── Bloco de título central ── */
+    .titulo-bloco { text-align: center; margin-bottom: 6mm; }
     .local-badge {
         display: inline-block;
         background: #fff100;
@@ -72,8 +85,8 @@
 
     /* ── Colunas ── */
     table.cols { width: 100%; border-collapse: collapse; }
-    td.col-left  { width: 64%; vertical-align: top; padding-right: 5mm; }
-    td.col-right { width: 36%; vertical-align: top; }
+    td.col-left  { width: 56%; vertical-align: top; padding-right: 4mm; }
+    td.col-right { width: 44%; vertical-align: top; }
 
     /* Programação (texto corrido como o folder real) */
     .prog-dia {
@@ -101,9 +114,22 @@
         margin-bottom: 1.5mm;
     }
     .right-instagram { font-size: 9pt; margin-bottom: 5mm; line-height: 1.3; }
-    .pal-item { margin-bottom: 3.5mm; }
-    .pal-nome  { font-weight: bold; font-size: 9pt; color: #14245c; line-height: 1.2; }
-    .pal-cargo { font-size: 8pt; color: #333; font-style: italic; line-height: 1.2; }
+    .pal-item { margin-bottom: 4mm; width: 18.7mm; }   /* 110% da foto (17mm) */
+    .pal-foto {
+        width: 17mm;
+        height: 17mm;
+        border-radius: 1mm;
+        object-fit: cover;
+        margin-bottom: 1mm;
+    }
+    .pal-nome  {
+        font-weight: bold; font-size: 7pt; color: #14245c; line-height: 1.15;
+        word-wrap: break-word; overflow-wrap: break-word;
+    }
+    .pal-cargo {
+        font-size: 6pt; color: #333; font-style: italic; line-height: 1.15;
+        word-wrap: break-word; overflow-wrap: break-word;
+    }
 
     .obs {
         font-size: 7.5pt;
@@ -131,6 +157,9 @@
 @if(!empty($bgBase64))
 <img class="bg-img" src="{{ $bgBase64 }}" alt="">
 @endif
+
+{{-- Instagram (extremo topo-direito) --}}
+<div class="instagram-top"><b>Instagram:</b>@institutoulyssesguimaraes</div>
 
 {{-- Público-alvo --}}
 @if(!empty($d['publico_alvo']))
@@ -208,15 +237,11 @@
 
             {{-- Coluna direita: instagram + palestrantes --}}
             <td class="col-right">
-                <div class="right-instagram">
-                    <span class="right-titulo" style="display:block;">Instagram:</span>
-                    @institutoulyssesguimaraes
-                </div>
-
                 @if(!empty($d['folder_palestrantes']))
                 <div class="right-titulo">Palestrantes:</div>
                 @foreach($d['folder_palestrantes'] as $p)
                 <div class="pal-item">
+                    @if(!empty($p['foto']))<img class="pal-foto" src="{{ $p['foto'] }}" alt="">@endif
                     <div class="pal-nome">{{ $p['nome'] ?? '' }}</div>
                     @if(!empty($p['cargo']))<div class="pal-cargo">{{ $p['cargo'] }}</div>@endif
                 </div>
