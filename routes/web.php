@@ -83,6 +83,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/certificados/download', [\App\Http\Controllers\CertificadoController::class, 'download'])->name('admin.certificados.download');
         Route::get('/certificados/zip', [\App\Http\Controllers\CertificadoController::class, 'zip'])->name('admin.certificados.zip');
         Route::post('/certificados/upload-pdf', [\App\Http\Controllers\CertificadoController::class, 'uploadPdf'])->name('admin.certificados.uploadPdf');
+        Route::get('/certificados/lotes', [\App\Http\Controllers\CertificadoController::class, 'lotes'])->name('admin.certificados.lotes');
+        Route::delete('/certificados/excluir-pdf', [\App\Http\Controllers\CertificadoController::class, 'excluirPdf'])->name('admin.certificados.excluirPdf');
+        Route::delete('/certificados/excluir-curso', [\App\Http\Controllers\CertificadoController::class, 'excluirCurso'])->name('admin.certificados.excluirCurso');
 
         Route::get('/config', [\App\Http\Controllers\ConfigController::class, 'index'])->name('admin.config.index');
         Route::put('/config', [\App\Http\Controllers\ConfigController::class, 'update'])->name('admin.config.update');

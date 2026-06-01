@@ -205,6 +205,68 @@ class CertificadoController extends Controller
         return response()->download($zipPath, $zipNome)->deleteFileAfterSend();
     }
 
+    public function lotes()
+    {
+        $pastas = Storage::directories('public/certificados');
+        $lotes  = [];
+
+        foreach ($pastas as $pasta) {
+            $arquivos = collect(Storage::files($pasta))->filter(fn($f) => substr($f, -4) === '.pdf');
+            if ($arquivos->isEmpty()) continue;
+
+            $ultimo = $arquivos->map(fn($f) => Storage::lastModified($f))->max();
+
+            $lotes[] = [
+                'slug'    => basename($pasta),
+                'total'   => $arquivos->count(),
+                'gerado'  => date('d/m/Y H:i', $ultimo),
+                'arquivos'=> $arquivos->map(fn($f) => [
+                    'nome'         => pathinfo($f, PATHINFO_FILENAME),
+                    'arquivo'      => $f,
+                    'url_download' => route('admin.certificados.download', ['file' => $f]),
+                ])->values()->toArray(),
+            ];
+        }
+
+        usort($lotes, fn($a, $b) => strcmp($b['gerado'], $a['gerado']));
+
+        return response()->json($lotes);
+    }
+
+    public function excluirPdf(Request $request)
+    {
+        $file = $request->input('file');
+
+        if (!$file || strpos($file, 'public/certificados/') !== 0) {
+            abort(403);
+        }
+
+        if (Storage::exists($file)) {
+            Storage::delete($file);
+        }
+
+        return response()->json(['ok' => true]);
+    }
+
+    public function excluirCurso(Request $request)
+    {
+        $cursoSlug = $request->input('curso');
+
+        if (!$cursoSlug) abort(400);
+
+        $pasta = 'public/certificados/' . $this->slug($cursoSlug);
+
+        if (!Storage::exists($pasta)) abort(404);
+
+        foreach (Storage::files($pasta) as $f) {
+            Storage::delete($f);
+        }
+
+        Storage::deleteDirectory($pasta);
+
+        return response()->json(['ok' => true]);
+    }
+
     private function buildJpegPdf(string $jpeg, int $imgW, int $imgH, float $pw, float $ph): string
     {
         $imgLen = strlen($jpeg);

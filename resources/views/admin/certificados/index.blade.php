@@ -7,6 +7,18 @@
     <h1>Gerador de Certificados</h1>
 </div>
 
+<ul class="nav nav-tabs mb-4" id="certTabs">
+    <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabGerar">Gerar</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabLotes" id="btnAbaLotes">PDFs Gerados</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane fade show active" id="tabGerar">
+
 @php
 $_meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 $cursosJson = $cursos->map(fn($c) => [
@@ -365,6 +377,98 @@ function mostrarDownloads(json) {
     });
 }
 
+// ── Aba PDFs Gerados ─────────────────────────────────────────────────────────
+const lotesUrl       = "{{ route('admin.certificados.lotes') }}";
+const excluirPdfUrl  = "{{ route('admin.certificados.excluirPdf') }}";
+const excluirCursoUrl= "{{ route('admin.certificados.excluirCurso') }}";
+
+document.getElementById('btnAbaLotes').addEventListener('click', carregarLotes);
+
+async function carregarLotes() {
+    const cont = document.getElementById('lotesConteudo');
+    cont.innerHTML = '<div class="text-muted">Carregando…</div>';
+
+    try {
+        const resp  = await fetch(lotesUrl, { headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': csrfToken } });
+        const lotes = await resp.json();
+
+        if (!lotes.length) {
+            cont.innerHTML = '<div class="alert alert-info">Nenhum certificado gerado ainda.</div>';
+            return;
+        }
+
+        let html = '<table class="table table-hover align-middle"><thead class="table-light"><tr>'
+            + '<th>Curso (slug)</th><th class="text-center">PDFs</th><th>Gerado em</th><th class="text-end">Ações</th>'
+            + '</tr></thead><tbody>';
+
+        lotes.forEach(l => {
+            html += `<tr>
+                <td>
+                    <a href="#" class="fw-semibold text-decoration-none" onclick="toggleLote(event,'lote-${l.slug}')">${l.slug}</a>
+                </td>
+                <td class="text-center">${l.total}</td>
+                <td>${l.gerado}</td>
+                <td class="text-end">
+                    <a href="${zipUrl}?curso=${encodeURIComponent(l.slug)}" class="btn btn-sm btn-outline-success me-1">⬇ ZIP</a>
+                    <button class="btn btn-sm btn-outline-danger" onclick="excluirCurso('${l.slug}')">🗑 Lote</button>
+                </td>
+            </tr>
+            <tr id="lote-${l.slug}" style="display:none"><td colspan="4" class="p-0">
+                <table class="table table-sm mb-0 ms-3" style="width:calc(100% - 1.5rem)">
+                    <tbody>`;
+
+            l.arquivos.forEach(a => {
+                html += `<tr>
+                    <td style="font-size:.82rem">${a.nome}</td>
+                    <td class="text-end">
+                        <a href="${a.url_download}" class="btn btn-xs btn-outline-primary me-1" style="font-size:.75rem;padding:2px 8px">⬇</a>
+                        <button class="btn btn-xs btn-outline-danger" style="font-size:.75rem;padding:2px 8px"
+                            onclick="excluirPdf('${a.arquivo}','${l.slug}')">🗑</button>
+                    </td>
+                </tr>`;
+            });
+
+            html += '</tbody></table></td></tr>';
+        });
+
+        html += '</tbody></table>';
+        cont.innerHTML = html;
+
+    } catch(e) {
+        cont.innerHTML = '<div class="alert alert-danger">Erro ao carregar lotes: ' + e.message + '</div>';
+    }
+}
+
+function toggleLote(e, id) {
+    e.preventDefault();
+    const row = document.getElementById(id);
+    row.style.display = row.style.display === 'none' ? '' : 'none';
+}
+
+async function excluirPdf(arquivo, slug) {
+    if (!confirm('Excluir este PDF?')) return;
+
+    await fetch(excluirPdfUrl, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+        body: JSON.stringify({ file: arquivo }),
+    });
+
+    carregarLotes();
+}
+
+async function excluirCurso(slug) {
+    if (!confirm('Excluir TODOS os PDFs do curso "' + slug + '"?')) return;
+
+    await fetch(excluirCursoUrl, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+        body: JSON.stringify({ curso: slug }),
+    });
+
+    carregarLotes();
+}
+
 function abrirAbas() {
     const titulo = document.getElementById('titulo').value.trim();
     const data   = document.getElementById('data').value.trim();
@@ -386,4 +490,13 @@ function abrirAbas() {
     });
 }
 </script>
+</div>{{-- /tab-pane tabGerar --}}
+
+<div class="tab-pane fade" id="tabLotes">
+    <div id="lotesConteudo" class="mt-2">
+        <div class="text-muted">Clique na aba para carregar.</div>
+    </div>
+</div>
+
+</div>{{-- /tab-content --}}
 @endsection
