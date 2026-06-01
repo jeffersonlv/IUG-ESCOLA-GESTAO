@@ -7,69 +7,6 @@
     <h1>Dashboard</h1>
 </div>
 
-{{-- ── Analytics ── --}}
-<div class="row g-3 mb-4">
-    @php
-        $statCards = [
-            ['label' => 'Hoje',    'pv' => $analytics['pv_hoje'],  'uv' => $analytics['uv_hoje']],
-            ['label' => '7 dias',  'pv' => $analytics['pv_7d'],    'uv' => $analytics['uv_7d']],
-            ['label' => '30 dias', 'pv' => $analytics['pv_30d'],   'uv' => $analytics['uv_30d']],
-        ];
-    @endphp
-    @foreach($statCards as $s)
-    <div class="col-6 col-md-4 col-lg-2">
-        <div class="card p-3 text-center">
-            <div style="font-size:1.4rem; font-weight:700; color:#1A2B5F;">{{ number_format($s['pv']) }}</div>
-            <div style="font-size:0.7rem; color:#888; text-transform:uppercase; letter-spacing:.5px;">Pageviews {{ $s['label'] }}</div>
-            <div style="font-size:0.85rem; color:#E8600A; font-weight:600;">{{ number_format($s['uv']) }} <span style="font-size:0.7rem; font-weight:400; color:#888;">únicos</span></div>
-        </div>
-    </div>
-    @endforeach
-
-    {{-- Dispositivos --}}
-    <div class="col-12 col-md-4 col-lg-2">
-        <div class="card p-3 h-100">
-            <div style="font-size:0.7rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px;">Dispositivos (30d)</div>
-            @foreach(['desktop' => '🖥️', 'mobile' => '📱', 'tablet' => '📟'] as $dev => $ico)
-            <div class="d-flex justify-content-between" style="font-size:0.8rem;">
-                <span>{{ $ico }} {{ ucfirst($dev) }}</span>
-                <span class="fw-semibold">{{ $analytics['devices'][$dev] ?? 0 }}</span>
-            </div>
-            @endforeach
-        </div>
-    </div>
-
-    {{-- Top páginas --}}
-    <div class="col-12 col-lg-3">
-        <div class="card p-3 h-100">
-            <div style="font-size:0.7rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px;">Top Páginas (30d)</div>
-            @forelse($analytics['top_pages'] as $url => $total)
-            <div class="d-flex justify-content-between" style="font-size:0.78rem; margin-bottom:3px;">
-                <span class="text-truncate me-2" style="max-width:160px;" title="{{ $url }}">{{ $url }}</span>
-                <span class="fw-semibold text-nowrap">{{ number_format($total) }}</span>
-            </div>
-            @empty
-            <span class="text-muted small">Sem dados ainda.</span>
-            @endforelse
-        </div>
-    </div>
-
-    {{-- Top referrers --}}
-    <div class="col-12 col-lg-3">
-        <div class="card p-3 h-100">
-            <div style="font-size:0.7rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px;">Top Origens (30d)</div>
-            @forelse($analytics['top_referrers'] as $host => $total)
-            <div class="d-flex justify-content-between" style="font-size:0.78rem; margin-bottom:3px;">
-                <span class="text-truncate me-2" style="max-width:160px;" title="{{ $host }}">{{ $host ?: '(direto)' }}</span>
-                <span class="fw-semibold text-nowrap">{{ number_format($total) }}</span>
-            </div>
-            @empty
-            <span class="text-muted small">Sem dados ainda.</span>
-            @endforelse
-        </div>
-    </div>
-</div>
-
 <div class="row g-4">
 
     {{-- ── Timeline de Cursos ── --}}
@@ -90,7 +27,6 @@
                     $diasTerminou   = $fim->diffInDays($hoje, false);
                 @endphp
                 <div class="d-flex gap-3 mb-3">
-                    {{-- Dot timeline --}}
                     <div class="d-flex flex-column align-items-center" style="min-width:16px;">
                         <div style="width:14px; height:14px; border-radius:50%; margin-top:3px; flex-shrink:0;
                             background:{{ $status === 'hoje' ? '#E8600A' : ($status === 'futuro' ? '#1A2B5F' : '#ccc') }};"></div>
@@ -98,7 +34,6 @@
                         <div style="width:2px; flex:1; background:#e9ecef; margin:4px 0;"></div>
                         @endif
                     </div>
-                    {{-- Conteúdo --}}
                     <div class="pb-1" style="flex:1;">
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-1">
                             <span class="fw-semibold" style="font-size:0.875rem; color:#1A2B5F;">{{ $curso->titulo }}</span>
@@ -132,10 +67,8 @@
         </div>
     </div>
 
-    {{-- ── Documentos + Atalhos ── --}}
+    {{-- ── Documentos ── --}}
     <div class="col-lg-5 d-flex flex-column gap-4">
-
-        {{-- Documentos --}}
         <div class="card">
             <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
                 <h6 class="fw-bold mb-0" style="color:#1A2B5F;">📄 Documentos Ativos</h6>
@@ -152,8 +85,77 @@
                 @endforelse
             </ul>
         </div>
-
     </div>
 
 </div>
+
+{{-- ── Analytics ── --}}
+<div class="card mt-4">
+    <div class="p-3 border-bottom">
+        <h6 class="fw-bold mb-0" style="color:#1A2B5F;">📊 Analytics do Site</h6>
+    </div>
+    <div class="p-3">
+
+        {{-- Pageviews / Únicos --}}
+        <div class="row g-3 mb-3">
+            @php
+                $statCards = [
+                    ['label' => 'Hoje',    'pv' => $analytics['pv_hoje'],  'uv' => $analytics['uv_hoje']],
+                    ['label' => '7 dias',  'pv' => $analytics['pv_7d'],    'uv' => $analytics['uv_7d']],
+                    ['label' => '30 dias', 'pv' => $analytics['pv_30d'],   'uv' => $analytics['uv_30d']],
+                ];
+            @endphp
+            @foreach($statCards as $s)
+            <div class="col-6 col-md-4">
+                <div style="background:#F0F2F8; border-radius:8px; padding:12px 16px; text-align:center;">
+                    <div style="font-size:1.5rem; font-weight:700; color:#1A2B5F; line-height:1;">{{ number_format($s['pv']) }}</div>
+                    <div style="font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin:2px 0;">Pageviews {{ $s['label'] }}</div>
+                    <div style="font-size:0.82rem; color:#E8600A; font-weight:600;">{{ number_format($s['uv']) }} <span style="font-size:0.68rem; font-weight:400; color:#888;">visitantes únicos</span></div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <hr style="border-color:#e9ecef;">
+
+        {{-- Dispositivos / Top Páginas / Top Origens --}}
+        <div class="row g-3">
+            <div class="col-12 col-md-3">
+                <div style="font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">Dispositivos (30d)</div>
+                @foreach(['desktop' => '🖥️', 'mobile' => '📱', 'tablet' => '📟'] as $dev => $ico)
+                <div class="d-flex justify-content-between align-items-center py-1" style="font-size:0.82rem; border-bottom:1px solid #f0f0f0;">
+                    <span>{{ $ico }} {{ ucfirst($dev) }}</span>
+                    <span class="fw-semibold">{{ $analytics['devices'][$dev] ?? 0 }}</span>
+                </div>
+                @endforeach
+            </div>
+
+            <div class="col-12 col-md-5">
+                <div style="font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">Top Páginas (30d)</div>
+                @forelse($analytics['top_pages'] as $url => $total)
+                <div class="d-flex justify-content-between align-items-center py-1" style="font-size:0.82rem; border-bottom:1px solid #f0f0f0;">
+                    <span class="text-truncate me-2" title="{{ $url }}">{{ $url }}</span>
+                    <span class="fw-semibold text-nowrap">{{ number_format($total) }}</span>
+                </div>
+                @empty
+                <span class="text-muted small">Sem dados ainda.</span>
+                @endforelse
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div style="font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">Top Origens (30d)</div>
+                @forelse($analytics['top_referrers'] as $host => $total)
+                <div class="d-flex justify-content-between align-items-center py-1" style="font-size:0.82rem; border-bottom:1px solid #f0f0f0;">
+                    <span class="text-truncate me-2" title="{{ $host }}">{{ $host ?: '(direto)' }}</span>
+                    <span class="fw-semibold text-nowrap">{{ number_format($total) }}</span>
+                </div>
+                @empty
+                <span class="text-muted small">Sem dados ainda.</span>
+                @endforelse
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @endsection
