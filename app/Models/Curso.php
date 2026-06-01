@@ -9,8 +9,35 @@ class Curso extends Model
 {
     use HasFactory;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($curso) {
+            if (empty($curso->slug)) {
+                $curso->slug = static::gerarSlug($curso->titulo, $curso->id ?? 0);
+            }
+        });
+
+        static::created(function ($curso) {
+            if (str_ends_with($curso->slug, '_0')) {
+                $curso->slug = static::gerarSlug($curso->titulo, $curso->id);
+                $curso->saveQuietly();
+            }
+        });
+    }
+
+    public static function gerarSlug(string $titulo, int $id): string
+    {
+        $base = \Str::slug($titulo . '-' . $id, '-');
+        $str  = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $base);
+        $str  = preg_replace('/[^a-zA-Z0-9\s_-]/', '', $str);
+        $str  = trim(preg_replace('/[\s_-]+/', '_', $str), '_');
+        return strtolower($str);
+    }
+
     protected $fillable = [
-        'titulo', 'numero_seminario', 'data_inicio', 'data_fim', 'local',
+        'titulo', 'slug', 'numero_seminario', 'data_inicio', 'data_fim', 'local',
         'investimento', 'carga_horaria', 'publico_alvo',
         'programacao', 'folder_palestrantes',
         'topicos', 'arquivo_pdf', 'folder_pdf', 'flyer_downloads', 'ativo', 'ordem',

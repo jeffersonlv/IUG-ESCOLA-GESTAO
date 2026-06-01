@@ -264,6 +264,10 @@ class CertificadoController extends Controller
 
         if (!$cursoSlug) abort(400);
 
+        if (!\App\Models\Curso::where('slug', $cursoSlug)->exists()) {
+            abort(404);
+        }
+
         $pasta = 'public/certificados/' . $this->slug($cursoSlug);
 
         if (!Storage::exists($pasta)) abort(404);
