@@ -35,8 +35,7 @@ $cursosJson = $cursos->map(fn($c) => [
 @endphp
 
 <div class="row g-4">
-    {{-- Formulário --}}
-    <div class="col-lg-7">
+    <div class="col-12">
         <div class="card p-4">
 
             <div class="mb-4 p-3" style="background:#F0F2F8; border-radius:8px;">
@@ -86,25 +85,19 @@ $cursosJson = $cursos->map(fn($c) => [
                 </button>
                 <button onclick="abrirAbas()" class="btn btn-outline-secondary px-4">Visualizar (abas)</button>
             </div>
-        </div>
-    </div>
 
-    {{-- Downloads --}}
-    <div class="col-lg-5">
-        <div id="downloadPanel" class="d-none">
-            <div class="card p-4">
-                <h5 class="mb-3">Downloads</h5>
-
-                <div id="downloadInfo" class="mb-3 text-muted" style="font-size:0.875rem;"></div>
-
-                <div class="d-flex gap-2 mb-3" id="btnsBatch"></div>
-
-                <div id="listaDownloads" style="max-height:400px; overflow-y:auto;"></div>
+            <div id="erroPanel" class="d-none mt-3">
+                <div class="alert alert-danger mb-0" id="erroMsg"></div>
             </div>
-        </div>
 
-        <div id="erroPanel" class="d-none">
-            <div class="alert alert-danger" id="erroMsg"></div>
+            <div id="downloadPanel" class="d-none mt-3">
+                <hr>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span id="downloadInfo" class="text-muted" style="font-size:0.875rem;"></span>
+                    <div class="d-flex gap-2" id="btnsBatch"></div>
+                </div>
+                <div id="listaDownloads"></div>
+            </div>
         </div>
     </div>
 </div>
