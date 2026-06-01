@@ -14,8 +14,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: contain;
-            object-position: center bottom;
+            object-fit: fill;
             display: block;
             z-index: 0;
         }
@@ -60,7 +59,7 @@
 
         .participante {
             position: relative;
-            top: 481px;
+            top: 440px;
             left: 140px;
             border-top: 3px solid #000;
             width: 295px;
@@ -72,7 +71,7 @@
 
         .instituto {
             position: relative;
-            top: 456px;
+            top: 415px;
             right: 140px;
             border-top: 3px solid #000;
             width: 295px;
@@ -85,7 +84,7 @@
 
         .assinatura {
             position: relative;
-            top: 392px;
+            top: 352px;
             left: 672px;
             width: 18%;
         }
