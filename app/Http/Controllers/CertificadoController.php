@@ -131,15 +131,16 @@ class CertificadoController extends Controller
         $caminho   = "public/certificados/{$cursoSlug}/{$filename}";
 
         // Recebe JPEG do canvas, gera PDF via DOMpdf com imagem embutida
-        $imgSrc = $request->img_base64; // data:image/jpeg;base64,...
+        $imgSrc = $request->img_base64;
         $html   = '<!DOCTYPE html><html><head><style>
-            @page { size: A4 landscape; margin: 0; }
-            body  { margin: 0; padding: 0; }
-            img   { width: 297mm; height: 210mm; display: block; }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            @page { size: A4 landscape; margin: 0mm; }
+            html, body { margin: 0; padding: 0; width: 297mm; height: 210mm; overflow: hidden; }
+            img { position: absolute; top: 0; left: 0; width: 297mm; height: 210mm; }
         </style></head><body><img src="' . $imgSrc . '"></body></html>';
 
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadHTML($html)
-            ->setPaper('a4', 'landscape');
+            ->setPaper([0, 0, 841.89, 595.28], 'landscape'); // A4 em pontos
 
         Storage::put($caminho, $pdf->output());
 
