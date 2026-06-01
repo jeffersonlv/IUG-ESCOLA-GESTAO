@@ -9,7 +9,7 @@ class Documento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'arquivo_pdf', 'ativo', 'ordem', 'data_vencimento'];
+    protected $fillable = ['nome', 'arquivo_pdf', 'ativo', 'ordem', 'data_vencimento', 'downloads'];
 
     protected $casts = [
         'ativo'            => 'boolean',

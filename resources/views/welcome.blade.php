@@ -128,7 +128,7 @@
                                 style="width:100%; height:220px; display:block; border:none;"
                                 loading="lazy"></iframe>
                     </div>
-                    <a href="{{ $pdfUrl }}" target="_blank" class="btn btn-primary btn-sm w-100 mt-auto">
+                    <a href="{{ route('download.flyer', $curso->id) }}" class="btn btn-primary btn-sm w-100 mt-auto">
                         ⬇ Download Flyer
                     </a>
                     @endif

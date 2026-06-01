@@ -29,6 +29,7 @@ Route::get('/run-seeder-iug2026', function () {
 });
 
 Route::get('/download/documento/{id}', [\App\Http\Controllers\DocumentoController::class, 'download'])->name('download.documento');
+Route::get('/download/flyer/{id}', [\App\Http\Controllers\CursoController::class, 'downloadFlyer'])->name('download.flyer');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {

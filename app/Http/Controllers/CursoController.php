@@ -175,6 +175,24 @@ class CursoController extends Controller
         return redirect('/admin/cursos')->with('success', 'Curso deletado com sucesso.');
     }
 
+    public function downloadFlyer($id)
+    {
+        $curso = Curso::where('ativo', true)->findOrFail($id);
+
+        $pdfPath = $curso->folder_pdf
+            ? storage_path('app/public/' . $curso->folder_pdf)
+            : ($curso->arquivo_pdf ? storage_path('app/public/cursos/' . $curso->arquivo_pdf) : null);
+
+        if (!$pdfPath || !file_exists($pdfPath)) {
+            abort(404);
+        }
+
+        $curso->increment('flyer_downloads');
+
+        $filename = \Str::slug($curso->titulo) . '.pdf';
+        return response()->download($pdfPath, $filename);
+    }
+
     public function gerarFolderPdf(Request $request)
     {
         $dados = $request->validate([

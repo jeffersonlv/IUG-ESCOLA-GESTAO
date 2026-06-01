@@ -27,6 +27,8 @@ class DocumentoController extends Controller
             abort(404);
         }
 
+        $documento->increment('downloads');
+
         return response()->download($path, $documento->arquivo_pdf);
     }
 

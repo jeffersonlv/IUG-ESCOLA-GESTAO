@@ -13,7 +13,7 @@ class Curso extends Model
         'titulo', 'numero_seminario', 'data_inicio', 'data_fim', 'local',
         'investimento', 'carga_horaria', 'publico_alvo',
         'programacao', 'folder_palestrantes',
-        'topicos', 'arquivo_pdf', 'folder_pdf', 'ativo', 'ordem',
+        'topicos', 'arquivo_pdf', 'folder_pdf', 'flyer_downloads', 'ativo', 'ordem',
     ];
 
     public function alunos()

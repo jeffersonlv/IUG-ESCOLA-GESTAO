@@ -35,7 +35,7 @@
             <th><a href="{{ cursoSortUrl('titulo', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Título{!! cursoSortIcon('titulo', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('data_inicio', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Data Início{!! cursoSortIcon('data_inicio', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('local', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Local{!! cursoSortIcon('local', $sort, $dir) !!}</a></th>
-            <th>Status</th><th>Ativo</th><th style="width:140px;">Ações</th>
+            <th>Status</th><th>Ativo</th><th style="width:70px; text-align:center;">Flyer DL</th><th style="width:140px;">Ações</th>
         </tr></thead>
         <tbody>
         @forelse($cursos as $curso)
@@ -54,6 +54,7 @@
                     @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
+                <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>
                 <td>
                     <a href="{{ route('admin.cursos.edit', $curso->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                     <form action="{{ route('admin.cursos.destroy', $curso->id) }}" method="POST" style="display:inline;"
@@ -64,7 +65,7 @@
                 </td>
             </tr>
         @empty
-            <tr><td colspan="6" class="text-center text-muted py-4">Nenhum curso encontrado.</td></tr>
+            <tr><td colspan="7" class="text-center text-muted py-4">Nenhum curso encontrado.</td></tr>
         @endforelse
         </tbody>
     </table>
@@ -80,7 +81,7 @@
             <th><a href="{{ cursoSortUrl('titulo', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Título{!! cursoSortIcon('titulo', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('data_inicio', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Data Início{!! cursoSortIcon('data_inicio', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('local', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Local{!! cursoSortIcon('local', $sort, $dir) !!}</a></th>
-            <th>Status</th><th>Ativo</th><th style="width:140px;">Ações</th>
+            <th>Status</th><th>Ativo</th><th style="width:70px; text-align:center;">Flyer DL</th><th style="width:140px;">Ações</th>
         </tr></thead>
         <tbody>
         @forelse($proximos as $curso)
@@ -106,6 +107,7 @@
                     @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
+                <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>
                 <td>
                     <a href="{{ route('admin.cursos.edit', $curso->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                     <form action="{{ route('admin.cursos.destroy', $curso->id) }}" method="POST" style="display:inline;"
@@ -116,7 +118,7 @@
                 </td>
             </tr>
         @empty
-            <tr><td colspan="6" class="text-center text-muted py-3" style="font-size:0.875rem;">Nenhum curso próximo.</td></tr>
+            <tr><td colspan="7" class="text-center text-muted py-3" style="font-size:0.875rem;">Nenhum curso próximo.</td></tr>
         @endforelse
         </tbody>
     </table>
@@ -131,7 +133,7 @@
             <th><a href="{{ cursoSortUrl('titulo', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Título{!! cursoSortIcon('titulo', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('data_inicio', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Data{!! cursoSortIcon('data_inicio', $sort, $dir) !!}</a></th>
             <th><a href="{{ cursoSortUrl('local', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Local{!! cursoSortIcon('local', $sort, $dir) !!}</a></th>
-            <th>Status</th><th>Ativo</th><th style="width:140px;">Ações</th>
+            <th>Status</th><th>Ativo</th><th style="width:70px; text-align:center;">Flyer DL</th><th style="width:140px;">Ações</th>
         </tr></thead>
         <tbody>
         @foreach($passados as $curso)
@@ -145,6 +147,7 @@
                     @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
+                <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>
                 <td>
                     <a href="{{ route('admin.cursos.edit', $curso->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
                     <form action="{{ route('admin.cursos.destroy', $curso->id) }}" method="POST" style="display:inline;"

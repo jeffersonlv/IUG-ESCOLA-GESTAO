@@ -27,6 +27,7 @@
                 <th><a href="{{ docSortUrl('nome', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Nome{!! docSortIcon('nome', $sort, $dir) !!}</a></th>
                 <th><a href="{{ docSortUrl('data_vencimento', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Vencimento{!! docSortIcon('data_vencimento', $sort, $dir) !!}</a></th>
                 <th><a href="{{ docSortUrl('ativo', $sort, $dir) }}" style="color:inherit;text-decoration:none;">Ativo{!! docSortIcon('ativo', $sort, $dir) !!}</a></th>
+                <th style="width:80px; text-align:center;">Downloads</th>
                 <th style="width:140px;">Ações</th>
             </tr>
         </thead>
@@ -64,6 +65,9 @@
                     @else
                         <span class="badge bg-secondary">Não</span>
                     @endif
+                </td>
+                <td style="text-align:center; font-size:0.875rem;">
+                    {{ $doc->downloads ?? 0 }}
                 </td>
                 <td>
                     <a href="{{ route('admin.documentos.edit', $doc->id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
