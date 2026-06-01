@@ -116,12 +116,22 @@
                         @endif
                     </p>
 
-                    {{-- Preview PDF inline: folder_pdf tem prioridade, fallback arquivo_pdf --}}
+                    {{-- Preview PDF inline: respeita flyer_principal --}}
                     @if($curso->folder_pdf || $curso->arquivo_pdf)
                     @php
-                        $pdfUrl = $curso->folder_pdf
-                            ? '/storage/' . $curso->folder_pdf
-                            : '/storage/cursos/' . $curso->arquivo_pdf;
+                        $principal = $curso->flyer_principal;
+                        if (!$principal) {
+                            $principal = $curso->folder_pdf ? 'gerado' : 'upload';
+                        }
+                        if ($principal === 'gerado' && $curso->folder_pdf) {
+                            $pdfUrl = '/storage/' . $curso->folder_pdf;
+                        } elseif ($principal === 'upload' && $curso->arquivo_pdf) {
+                            $pdfUrl = '/storage/cursos/' . $curso->arquivo_pdf;
+                        } elseif ($curso->folder_pdf) {
+                            $pdfUrl = '/storage/' . $curso->folder_pdf;
+                        } else {
+                            $pdfUrl = '/storage/cursos/' . $curso->arquivo_pdf;
+                        }
                     @endphp
                     <div class="mt-2 mb-3" style="border-radius:6px; overflow:hidden; border:1px solid #DDE1EB;">
                         <iframe src="{{ $pdfUrl }}#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
