@@ -121,17 +121,27 @@ class CertificadoController extends Controller
     public function uploadPdf(Request $request)
     {
         $request->validate([
-            'pdf_base64'  => 'required|string',
-            'filename'    => 'required|string|max:300',
-            'curso_slug'  => 'required|string|max:200',
+            'img_base64' => 'required|string',
+            'filename'   => 'required|string|max:300',
+            'curso_slug' => 'required|string|max:200',
         ]);
 
         $cursoSlug = $this->slug($request->curso_slug);
         $filename  = $this->slug(pathinfo($request->filename, PATHINFO_FILENAME)) . '.pdf';
         $caminho   = "public/certificados/{$cursoSlug}/{$filename}";
 
-        $base64 = preg_replace('/^data:application\/pdf;base64,/', '', $request->pdf_base64);
-        Storage::put($caminho, base64_decode($base64));
+        // Recebe JPEG do canvas, gera PDF via DOMpdf com imagem embutida
+        $imgSrc = $request->img_base64; // data:image/jpeg;base64,...
+        $html   = '<!DOCTYPE html><html><head><style>
+            @page { size: A4 landscape; margin: 0; }
+            body  { margin: 0; padding: 0; }
+            img   { width: 297mm; height: 210mm; display: block; }
+        </style></head><body><img src="' . $imgSrc . '"></body></html>';
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadHTML($html)
+            ->setPaper('a4', 'landscape');
+
+        Storage::put($caminho, $pdf->output());
 
         return response()->json([
             'ok'           => true,

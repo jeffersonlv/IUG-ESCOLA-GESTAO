@@ -157,7 +157,6 @@ $cursosJson = $cursos->map(fn($c) => [
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const cursosData  = @json($cursosJson);
 const fundoB64    = @json($fundoB64);
@@ -241,11 +240,7 @@ async function capturarCertificadoPDF(aluno, titulo, data, cidade, topico) {
         height: 794,
     });
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.95);
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    pdf.addImage(imgData, 'JPEG', 0, 0, 297, 210);
-    return pdf.output('datauristring');
+    return canvas.toDataURL('image/jpeg', 0.92);
 }
 
 async function gerarESalvar() {
@@ -277,7 +272,7 @@ async function gerarESalvar() {
             const a = alunos[i];
             btnTxt.textContent = `Gerando ${i + 1}/${alunos.length}…`;
 
-            const pdfBase64 = await capturarCertificadoPDF(a, titulo, data, cidade, topico);
+            const imgBase64 = await capturarCertificadoPDF(a, titulo, data, cidade, topico);
 
             const locSlug = [a.estado_aluno, a.cidade_aluno, a.nome]
                 .filter(Boolean).join('_')
@@ -287,7 +282,7 @@ async function gerarESalvar() {
             const resp = await fetch(uploadUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
-                body: JSON.stringify({ pdf_base64: pdfBase64, filename, curso_slug: cursoSlug }),
+                body: JSON.stringify({ img_base64: imgBase64, filename, curso_slug: cursoSlug }),
             });
 
             const json = await resp.json();
