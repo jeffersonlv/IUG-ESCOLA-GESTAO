@@ -100,35 +100,65 @@ $cursosJson = $cursos->map(fn($c) => [
 <style>
 #certPreview {
     position: fixed; left: -9999px; top: 0;
-    width: 1123px; height: 794px; /* 297mm x 210mm @ 96dpi */
+    width: 1123px; height: 794px;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2em;
+    background: #fff;
 }
-#certPreview .fundo {
-    width: 1123px; height: 794px;
-    background-size: cover; background-position: center; background-repeat: no-repeat;
+#certPreview .cert-wrap {
     position: relative;
+    width: 1123px; height: 794px;
+    overflow: hidden;
 }
-#certPreview .divcentro { margin: 0 auto; }
-#certPreview .nome   { text-align: center; position: absolute; top: 348px; width: 100%; }
-#certPreview .titulo { text-align: center; position: absolute; top: 390px; width: 100%; font-size: 1.3em; font-style: italic; font-weight: bold; }
-#certPreview .data   { text-align: center; position: absolute; top: 422px; width: 100%; }
-#certPreview .topico { text-align: justify; position: absolute; top: 464px; left: 168px; right: 168px; font-size: 1em; }
-#certPreview .participante { position: absolute; bottom: 60px; left: 168px; border-top: 3px solid #000; width: 295px; text-align: center; padding-top: 5px; font-weight: bold; font-size: 0.75em; }
-#certPreview .instituto    { position: absolute; bottom: 60px; right: 168px; border-top: 3px solid #000; width: 295px; text-align: center; padding-top: 5px; font-weight: bold; font-size: 0.75em; }
-#certPreview .assinatura   { position: absolute; bottom: 68px; right: 295px; width: 200px; }
+#certPreview .cert-bg {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+}
+#certPreview .cert-body {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 91px 170px 209px;
+    gap: 15px;
+}
+#certPreview .c-intro  { font-size: 15px; text-align: center; }
+#certPreview .c-titulo { font-size: 19px; font-style: italic; font-weight: bold; text-align: center; }
+#certPreview .c-data   { font-size: 14px; text-align: center; }
+#certPreview .c-topico { font-size: 12px; text-align: justify; line-height: 1.4; width: 100%; }
+#certPreview .cert-footer {
+    position: absolute; bottom: 45px; left: 170px; right: 170px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+}
+#certPreview .cert-ass-block {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+#certPreview .cert-ass-block img { height: 57px; object-fit: contain; }
+#certPreview .cert-line {
+    border-top: 2px solid #000; padding-top: 5px;
+    text-align: center; font-size: 9px; font-weight: bold;
+    width: 208px;
+}
 </style>
 
 <div id="certPreview">
-    <div class="fundo" id="certFundo">
-        <div class="divcentro nome"  id="certNome"></div>
-        <div class="divcentro titulo" id="certTitulo"></div>
-        <div class="divcentro data"   id="certData"></div>
-        <div class="divcentro topico" id="certTopico"></div>
-        <div class="participante">Participante</div>
-        <div class="instituto">Instituto Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
-        <img class="assinatura" id="certAss" src="" />
+    <div class="cert-wrap">
+        <img class="cert-bg" id="certBg" src="" />
+        <div class="cert-body">
+            <div class="c-intro"  id="certNome"></div>
+            <div class="c-titulo" id="certTitulo"></div>
+            <div class="c-data"   id="certData"></div>
+            <div class="c-topico" id="certTopico"></div>
+        </div>
+        <div class="cert-footer">
+            <div class="cert-ass-block">
+                <div class="cert-line">Participante</div>
+            </div>
+            <div class="cert-ass-block">
+                <img id="certAss" src="" />
+                <div class="cert-line">Instituto Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -144,7 +174,7 @@ const zipUrl      = "{{ route('admin.certificados.zip') }}";
 const csrfToken   = "{{ csrf_token() }}";
 
 // Pré-carrega imagens no preview oculto
-document.getElementById('certFundo').style.backgroundImage = `url('${fundoB64}')`;
+document.getElementById('certBg').src  = fundoB64;
 document.getElementById('certAss').src = assB64;
 
 // Restaurar downloads após reload
@@ -184,22 +214,33 @@ function parsearAlunos() {
         .filter(a => a.nome !== '');
 }
 
+async function aguardarImagem(img) {
+    if (img.complete && img.naturalWidth > 0) return;
+    return new Promise((res, rej) => {
+        img.onload  = res;
+        img.onerror = rej;
+    });
+}
+
 async function capturarCertificadoPDF(aluno, titulo, data, cidade, topico) {
-    // Preenche o div oculto com dados do aluno
-    document.getElementById('certNome').innerHTML   = 'Certificamos que <b>' + aluno.nome + '</b> participou do curso';
+    document.getElementById('certNome').innerHTML    = 'Certificamos que <b>' + aluno.nome + '</b> participou do curso';
     document.getElementById('certTitulo').textContent = '"' + titulo + '"';
-    document.getElementById('certData').innerHTML   = 'Realizado nos dias <b>' + data + '</b>, na cidade de <b>' + cidade + '</b>.';
+    document.getElementById('certData').innerHTML    = 'Realizado nos dias <b>' + data + '</b>, na cidade de <b>' + cidade + '</b>.';
     const topicoEl = document.getElementById('certTopico');
     if (topico) { topicoEl.innerHTML = '<b>TÓPICOS: </b>' + topico; topicoEl.style.display = ''; }
     else         { topicoEl.innerHTML = ''; topicoEl.style.display = 'none'; }
 
-    // Aguarda repaint
-    await new Promise(r => setTimeout(r, 100));
+    // Garante que imagens carregaram
+    await Promise.all([
+        aguardarImagem(document.getElementById('certBg')),
+        aguardarImagem(document.getElementById('certAss')),
+    ]);
+    await new Promise(r => setTimeout(r, 150)); // repaint
 
-    const el = document.getElementById('certPreview');
-    const canvas = await html2canvas(el, {
+    const wrap = document.querySelector('#certPreview .cert-wrap');
+    const canvas = await html2canvas(wrap, {
         scale: 2,
-        useCORS: true,
+        useCORS: false,
         allowTaint: true,
         logging: false,
         width:  1123,
