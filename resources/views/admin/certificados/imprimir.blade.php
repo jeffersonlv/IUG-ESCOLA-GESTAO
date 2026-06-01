@@ -60,32 +60,34 @@
         .participante {
             position: absolute;
             bottom: 9.5mm;
-            left: 47mm;
+            left: 37mm;
             border-top: 3px solid #000;
-            width: 59mm;
+            width: 68mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
             font-size: 0.75em;
+            white-space: nowrap;
         }
 
         .instituto {
             position: absolute;
             bottom: 9.5mm;
-            right: 47mm;
+            right: 37mm;
             border-top: 3px solid #000;
-            width: 59mm;
+            width: 68mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
             font-size: 0.75em;
+            white-space: nowrap;
         }
 
         .assinatura {
             position: absolute;
-            bottom: 20mm;
-            right: 51mm;
-            width: 16%;
+            bottom: 22mm;
+            right: 41mm;
+            width: 15%;
         }
     </style>
 </head>
