@@ -6,19 +6,19 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        @page { size: A4 landscape; margin: 0; }
+        @page { size: A4 portrait; margin: 0; }
 
         html, body {
-            width: 297mm;
-            height: 210mm;
+            width: 210mm;
+            height: 297mm;
             overflow: hidden;
             background: #fff;
         }
 
         .cert {
             position: relative;
-            width: 297mm;
-            height: 210mm;
+            width: 210mm;
+            height: 297mm;
             font-family: Arial, Helvetica, sans-serif;
             overflow: hidden;
         }
@@ -31,47 +31,46 @@
             display: block;
         }
 
+        /* Conteúdo começa após o "Certificado" do fundo (~42% do topo) */
         .cert-body {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 42%;
+            left: 0; right: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 12mm 18mm 22mm;
-            gap: 4mm;
+            padding: 0 18mm;
+            gap: 5mm;
+            text-align: center;
         }
 
         .cert-intro {
             font-size: 12pt;
-            text-align: center;
+            line-height: 1.5;
         }
 
         .cert-titulo {
-            font-size: 14pt;
-            font-style: italic;
+            font-size: 13pt;
             font-weight: bold;
-            text-align: center;
+            line-height: 1.4;
             margin-top: 1mm;
         }
 
         .cert-data {
             font-size: 11pt;
-            text-align: center;
-            margin-top: 1mm;
+            line-height: 1.5;
         }
 
         .cert-topico {
             font-size: 9.5pt;
             text-align: justify;
+            line-height: 1.5;
             margin-top: 2mm;
-            line-height: 1.4;
-            width: 100%;
         }
 
         .cert-footer {
             position: absolute;
-            bottom: 12mm;
+            bottom: 18mm;
             left: 18mm;
             right: 18mm;
             display: flex;
@@ -87,7 +86,7 @@
         }
 
         .cert-ass-block img {
-            height: 15mm;
+            height: 14mm;
             object-fit: contain;
         }
 
@@ -97,7 +96,7 @@
             text-align: center;
             font-size: 7.5pt;
             font-weight: bold;
-            width: 55mm;
+            width: 50mm;
         }
     </style>
 </head>
@@ -108,7 +107,7 @@
     <div class="cert-body">
         <div class="cert-intro">Certificamos que <b>{{ $nome }}</b> participou do curso</div>
         <div class="cert-titulo">"{{ $titulo }}"</div>
-        <div class="cert-data">Realizado nos dias <b>{{ $data }}</b>, na cidade de <b>{{ $cidade }}</b>.</div>
+        <div class="cert-data">Realizado nos dias <b>{{ $data }}</b>,<br>na cidade de <b>{{ $cidade }}</b>.</div>
         @if($topico)
         <div class="cert-topico"><b>TÓPICOS: </b>{{ $topico }}</div>
         @endif

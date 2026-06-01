@@ -100,14 +100,14 @@ $cursosJson = $cursos->map(fn($c) => [
 <style>
 #certPreview {
     position: fixed; left: -9999px; top: 0;
-    width: 1123px; height: 794px;
+    width: 794px; height: 1123px; /* A4 portrait @ 96dpi */
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
     background: #fff;
 }
 #certPreview .cert-wrap {
     position: relative;
-    width: 1123px; height: 794px;
+    width: 794px; height: 1123px;
     overflow: hidden;
 }
 #certPreview .cert-bg {
@@ -116,28 +116,30 @@ $cursosJson = $cursos->map(fn($c) => [
     object-fit: cover; display: block;
 }
 #certPreview .cert-body {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    position: absolute;
+    top: 42%; left: 0; right: 0;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 91px 170px 209px;
-    gap: 15px;
+    align-items: center;
+    padding: 0 68px;
+    gap: 19px;
+    text-align: center;
 }
-#certPreview .c-intro  { font-size: 15px; text-align: center; }
-#certPreview .c-titulo { font-size: 19px; font-style: italic; font-weight: bold; text-align: center; }
-#certPreview .c-data   { font-size: 14px; text-align: center; }
-#certPreview .c-topico { font-size: 12px; text-align: justify; line-height: 1.4; width: 100%; }
+#certPreview .c-intro  { font-size: 16px; line-height: 1.5; }
+#certPreview .c-titulo { font-size: 17px; font-weight: bold; line-height: 1.4; }
+#certPreview .c-data   { font-size: 15px; line-height: 1.5; }
+#certPreview .c-topico { font-size: 12px; text-align: justify; line-height: 1.5; width: 100%; }
 #certPreview .cert-footer {
-    position: absolute; bottom: 45px; left: 170px; right: 170px;
+    position: absolute; bottom: 68px; left: 68px; right: 68px;
     display: flex; align-items: flex-end; justify-content: space-between;
 }
 #certPreview .cert-ass-block {
     display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-#certPreview .cert-ass-block img { height: 57px; object-fit: contain; }
+#certPreview .cert-ass-block img { height: 53px; object-fit: contain; }
 #certPreview .cert-line {
     border-top: 2px solid #000; padding-top: 5px;
     text-align: center; font-size: 9px; font-weight: bold;
-    width: 208px;
+    width: 189px;
 }
 </style>
 
@@ -243,14 +245,14 @@ async function capturarCertificadoPDF(aluno, titulo, data, cidade, topico) {
         useCORS: false,
         allowTaint: true,
         logging: false,
-        width:  1123,
-        height: 794,
+        width:  794,
+        height: 1123,
     });
 
     const imgData = canvas.toDataURL('image/jpeg', 0.95);
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    pdf.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
     return pdf.output('datauristring');
 }
 
