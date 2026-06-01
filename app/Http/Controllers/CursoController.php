@@ -72,7 +72,7 @@ class CursoController extends Controller
             'investimento'  => 'nullable|string|max:100',
             'carga_horaria' => 'nullable|string|max:50',
             'publico_alvo'  => 'nullable|string',
-            'topicos'       => 'nullable|string',
+            'topicos'       => 'nullable|string|max:420',
             'arquivo_pdf'   => 'nullable|file|mimes:pdf|max:10240',
             'ativo'         => 'boolean',
         ]);
@@ -139,7 +139,7 @@ class CursoController extends Controller
             'investimento'  => 'nullable|string|max:100',
             'carga_horaria' => 'nullable|string|max:50',
             'publico_alvo'  => 'nullable|string',
-            'topicos'       => 'nullable|string',
+            'topicos'       => 'nullable|string|max:420',
             'arquivo_pdf'   => 'nullable|file|mimes:pdf|max:10240',
             'ativo'         => 'boolean',
         ]);

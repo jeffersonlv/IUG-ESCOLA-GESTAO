@@ -33,7 +33,7 @@ class CertificadoController extends Controller
             'titulo' => 'required|string|max:500',
             'data'   => 'required|string|max:200',
             'cidade' => 'required|string|max:200',
-            'topico' => 'nullable|string|max:2000',
+            'topico' => 'nullable|string|max:420',
         ]);
 
         return view('admin.certificados.imprimir', [

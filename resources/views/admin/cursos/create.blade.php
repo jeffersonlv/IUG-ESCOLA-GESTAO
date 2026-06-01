@@ -68,9 +68,11 @@
 
         {{-- Tópicos --}}
         <div class="mb-3">
-            <label class="form-label">Tópicos <small class="text-muted">(usados no certificado)</small></label>
-            <textarea name="topicos" rows="3" class="form-control @error('topicos') is-invalid @enderror"
-                      placeholder="Ex: Gestão Pública Municipal; Lei de Responsabilidade Fiscal; Licitações...">{{ old('topicos') }}</textarea>
+            <label class="form-label">Tópicos <small class="text-muted">(usados no certificado — máx. 420 caracteres)</small></label>
+            <textarea name="topicos" rows="3" maxlength="420" class="form-control @error('topicos') is-invalid @enderror"
+                      placeholder="Ex: Gestão Pública Municipal; Lei de Responsabilidade Fiscal; Licitações..."
+                      oninput="document.getElementById('ctTopCreate').textContent=this.value.length">{{ old('topicos') }}</textarea>
+            <div class="form-text text-end"><span id="ctTopCreate">0</span>/420</div>
             @error('topicos')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 

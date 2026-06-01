@@ -69,8 +69,10 @@
 
         {{-- Tópicos --}}
         <div class="mb-3">
-            <label class="form-label">Tópicos <small class="text-muted">(usados no certificado)</small></label>
-            <textarea name="topicos" rows="3" class="form-control @error('topicos') is-invalid @enderror">{{ old('topicos', $curso->topicos) }}</textarea>
+            <label class="form-label">Tópicos <small class="text-muted">(usados no certificado — máx. 420 caracteres)</small></label>
+            <textarea name="topicos" rows="3" maxlength="420" id="topicosEdit" class="form-control @error('topicos') is-invalid @enderror"
+                      oninput="document.getElementById('ctTopEdit').textContent=this.value.length">{{ old('topicos', $curso->topicos) }}</textarea>
+            <div class="form-text text-end"><span id="ctTopEdit">0</span>/420</div>
             @error('topicos')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
@@ -243,4 +245,10 @@
 @section('scripts')
 @php $progInicial = json_encode($curso->programacao ?? []); @endphp
 @include('admin.cursos._folder_scripts', ['programacaoInicial' => $progInicial, 'folderPalestrantesIds' => '[]'])
+<script>
+(function(){
+    var el = document.getElementById('topicosEdit');
+    if (el) document.getElementById('ctTopEdit').textContent = el.value.length;
+})();
+</script>
 @endsection
