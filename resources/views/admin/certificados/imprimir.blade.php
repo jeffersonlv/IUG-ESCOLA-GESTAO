@@ -53,7 +53,7 @@
             text-align: justify;
             position: relative;
             top: 385px;
-            margin: auto 140px !important;
+            margin: auto 15mm !important;
             font-size: 1em;
         }
 
