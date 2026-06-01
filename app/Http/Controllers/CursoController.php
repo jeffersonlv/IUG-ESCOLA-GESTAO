@@ -132,16 +132,17 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
         $validated = $request->validate([
-            'titulo'        => 'required|string|max:255',
-            'data_inicio'   => 'required|date',
-            'data_fim'      => 'required|date|after_or_equal:data_inicio',
-            'local'         => 'required|string|max:255',
-            'investimento'  => 'nullable|string|max:100',
-            'carga_horaria' => 'nullable|string|max:50',
-            'publico_alvo'  => 'nullable|string',
-            'topicos'       => 'nullable|string|max:420',
-            'arquivo_pdf'   => 'nullable|file|mimes:pdf|max:10240',
-            'ativo'         => 'boolean',
+            'titulo'           => 'required|string|max:255',
+            'data_inicio'      => 'required|date',
+            'data_fim'         => 'required|date|after_or_equal:data_inicio',
+            'local'            => 'required|string|max:255',
+            'investimento'     => 'nullable|string|max:100',
+            'carga_horaria'    => 'nullable|string|max:50',
+            'publico_alvo'     => 'nullable|string',
+            'topicos'          => 'nullable|string|max:420',
+            'arquivo_pdf'      => 'nullable|file|mimes:pdf|max:10240',
+            'flyer_principal'  => 'nullable|in:gerado,upload',
+            'ativo'            => 'boolean',
         ]);
 
         if ($request->hasFile('arquivo_pdf')) {
@@ -179,9 +180,22 @@ class CursoController extends Controller
     {
         $curso = Curso::where('ativo', true)->findOrFail($id);
 
-        $pdfPath = $curso->folder_pdf
-            ? storage_path('app/public/' . $curso->folder_pdf)
-            : ($curso->arquivo_pdf ? storage_path('app/public/cursos/' . $curso->arquivo_pdf) : null);
+        $principal = $curso->flyer_principal;
+        if (!$principal) {
+            $principal = $curso->folder_pdf ? 'gerado' : 'upload';
+        }
+
+        if ($principal === 'gerado' && $curso->folder_pdf) {
+            $pdfPath = storage_path('app/public/' . $curso->folder_pdf);
+        } elseif ($principal === 'upload' && $curso->arquivo_pdf) {
+            $pdfPath = storage_path('app/public/cursos/' . $curso->arquivo_pdf);
+        } elseif ($curso->folder_pdf) {
+            $pdfPath = storage_path('app/public/' . $curso->folder_pdf);
+        } elseif ($curso->arquivo_pdf) {
+            $pdfPath = storage_path('app/public/cursos/' . $curso->arquivo_pdf);
+        } else {
+            $pdfPath = null;
+        }
 
         if (!$pdfPath || !file_exists($pdfPath)) {
             abort(404);

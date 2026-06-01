@@ -26,16 +26,13 @@ class AddSlugToCursosTable extends Migration
             DB::table('cursos')->where('id', $curso->id)->update(['slug' => strtolower($str)]);
         });
 
-        // NOT NULL via SQL direto
-        DB::statement('ALTER TABLE cursos MODIFY COLUMN slug VARCHAR(255) NOT NULL');
-
         // Unique index — ignora se já existir
         try {
-            DB::statement('ALTER TABLE cursos ADD UNIQUE INDEX cursos_slug_unique (slug)');
+            Schema::table('cursos', function (Blueprint $table) {
+                $table->unique('slug', 'cursos_slug_unique');
+            });
         } catch (\Exception $e) {
-            if (strpos($e->getMessage(), 'Duplicate key name') === false) {
-                throw $e;
-            }
+            // index already exists
         }
     }
 

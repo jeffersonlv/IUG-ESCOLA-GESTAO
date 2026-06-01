@@ -142,6 +142,31 @@
         </div>
         @endif
 
+        {{-- Flyer principal (só quando ambos existem) --}}
+        @if($curso->arquivo_pdf && $curso->folder_pdf)
+        <div class="mb-3 p-3 border rounded" style="background:#f8f9fa;">
+            <label class="form-label fw-semibold mb-2">
+                <i class="fas fa-star me-1" style="color:#E8600A;"></i>Flyer Principal (usado no download público)
+            </label>
+            <div class="d-flex gap-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flyer_principal" id="fp_gerado" value="gerado"
+                        {{ ($curso->flyer_principal ?? 'gerado') === 'gerado' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="fp_gerado">
+                        <i class="fas fa-magic me-1 text-primary"></i>Folder gerado
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flyer_principal" id="fp_upload" value="upload"
+                        {{ ($curso->flyer_principal) === 'upload' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="fp_upload">
+                        <i class="fas fa-upload me-1 text-secondary"></i>PDF enviado
+                    </label>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <div class="mb-4 form-check">
             <input type="checkbox" name="ativo" value="1" class="form-check-input" id="ativo" {{ $curso->ativo ? 'checked' : '' }}>
             <label class="form-check-label fw-semibold" for="ativo">Ativo (visível no site)</label>
