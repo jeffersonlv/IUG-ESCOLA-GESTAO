@@ -131,19 +131,17 @@ class CertificadoController extends Controller
         $caminho   = "public/certificados/{$cursoSlug}/{$filename}";
 
         // Recebe JPEG do canvas, gera PDF via DOMpdf com imagem embutida
-        $imgSrc = $request->img_base64;
-        // DOMpdf: A4 landscape = 841.89 x 595.28 pt. Usar array com orientação correta.
-        // width > height = landscape. Sem position:absolute que DOMpdf não suporta bem.
-        $html   = '<!DOCTYPE html><html><head><style>
-            * { margin: 0; padding: 0; }
-            body { margin: 0; padding: 0; }
-            img  { display: block; width: 841pt; height: 595pt; }
-        </style></head><body><img src="' . $imgSrc . '"></body></html>';
+        // Gera PDF mínimo válido com JPEG embutido — sem DOMpdf, controle total sobre orientação
+        $imgData = base64_decode(preg_replace('/^data:image\/[^;]+;base64,/', '', $request->img_base64));
+        $info    = getimagesizefromstring($imgData);
+        $w       = $info[0] ?? 2246;
+        $h       = $info[1] ?? 1588;
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadHTML($html)
-            ->setPaper([0, 0, 841.89, 595.28]); // array sem orientação = landscape implícito
+        // A4 landscape em pontos (72dpi): 841.89 × 595.28
+        $pw = 841.89;
+        $ph = 595.28;
 
-        Storage::put($caminho, $pdf->output());
+        Storage::put($caminho, $this->buildJpegPdf($imgData, $w, $h, $pw, $ph));
 
         return response()->json([
             'ok'           => true,
@@ -205,6 +203,56 @@ class CertificadoController extends Controller
         $zip->close();
 
         return response()->download($zipPath, $zipNome)->deleteFileAfterSend();
+    }
+
+    private function buildJpegPdf(string $jpeg, int $imgW, int $imgH, float $pw, float $ph): string
+    {
+        $imgLen = strlen($jpeg);
+
+        $objs = [];
+
+        // 1: imagem XObject
+        $objs[1] = "1 0 obj\n<< /Type /XObject /Subtype /Image"
+            . " /Width $imgW /Height $imgH"
+            . " /ColorSpace /DeviceRGB /BitsPerComponent 8"
+            . " /Filter /DCTDecode /Length $imgLen >>\nstream\n"
+            . $jpeg . "\nendstream\nendobj";
+
+        // 2: stream de conteúdo — coloca imagem preenchendo a página
+        $content    = "q $pw 0 0 $ph 0 0 cm /Im1 Do Q";
+        $contentLen = strlen($content);
+        $objs[2]    = "2 0 obj\n<< /Length $contentLen >>\nstream\n$content\nendstream\nendobj";
+
+        // 3: resources
+        $objs[3] = "3 0 obj\n<< /XObject << /Im1 1 0 R >> >>\nendobj";
+
+        // 4: página
+        $objs[4] = "4 0 obj\n<< /Type /Page /Parent 5 0 R"
+            . " /MediaBox [0 0 $pw $ph]"
+            . " /Contents 2 0 R /Resources 3 0 R >>\nendobj";
+
+        // 5: page tree
+        $objs[5] = "5 0 obj\n<< /Type /Pages /Kids [4 0 R] /Count 1 >>\nendobj";
+
+        // 6: catalog
+        $objs[6] = "6 0 obj\n<< /Type /Catalog /Pages 5 0 R >>\nendobj";
+
+        $pdf    = "%PDF-1.4\n";
+        $xref   = [];
+        foreach ($objs as $n => $obj) {
+            $xref[$n] = strlen($pdf);
+            $pdf .= $obj . "\n";
+        }
+
+        $xrefPos = strlen($pdf);
+        $count   = count($objs) + 1;
+        $pdf    .= "xref\n0 $count\n0000000000 65535 f \n";
+        foreach ($xref as $offset) {
+            $pdf .= str_pad($offset, 10, '0', STR_PAD_LEFT) . " 00000 n \n";
+        }
+        $pdf .= "trailer\n<< /Size $count /Root 6 0 R >>\nstartxref\n$xrefPos\n%%EOF";
+
+        return $pdf;
     }
 
     private function limparExpirados()
