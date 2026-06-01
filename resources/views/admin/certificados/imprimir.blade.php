@@ -8,7 +8,7 @@
     <style>
         @page { size: A4 landscape }
 
-        .sheet { position: relative; overflow: hidden; }
+        .sheet { position: relative !important; overflow: hidden; }
 
         .cert-bg {
             position: absolute;
@@ -58,11 +58,11 @@
         }
 
         .participante {
-            position: relative;
-            top: 440px;
-            left: 140px;
+            position: absolute;
+            bottom: 15mm;
+            left: 47mm;
             border-top: 3px solid #000;
-            width: 295px;
+            width: 78mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
@@ -70,22 +70,21 @@
         }
 
         .instituto {
-            position: relative;
-            top: 415px;
-            right: 140px;
+            position: absolute;
+            bottom: 15mm;
+            right: 47mm;
             border-top: 3px solid #000;
-            width: 295px;
+            width: 78mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
-            float: right;
             font-size: 0.75em;
         }
 
         .assinatura {
-            position: relative;
-            top: 352px;
-            left: 672px;
+            position: absolute;
+            bottom: 16mm;
+            right: 85mm;
             width: 18%;
         }
     </style>
