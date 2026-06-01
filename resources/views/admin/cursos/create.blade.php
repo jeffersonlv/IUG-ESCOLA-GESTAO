@@ -63,7 +63,7 @@
         <div class="mb-3">
             <label class="form-label">Público-Alvo</label>
             <input type="text" name="publico_alvo" class="form-control"
-                   value="{{ old('publico_alvo', $configs['publico_alvo'] ?? 'Vereadores, Assessores, Prefeitos e Servidores Públicos') }}">
+                   value="{{ old('publico_alvo', $configs['publico_alvo'] ?? 'Servidores do Executivo e Legislativo, Prefeitos, Vice-Prefeitos, Vereadores e Assessores.') }}">
         </div>
 
         {{-- Tópicos --}}
