@@ -127,17 +127,17 @@ $cursosJson = $cursos->map(fn($c) => [
 #certPreview .data   { text-align: center; position: relative; top: 350px; }
 #certPreview .topico { text-align: justify; position: relative; top: 385px; margin: 0 57px !important; font-size: 1em; }
 #certPreview .participante {
-    position: absolute; bottom: 55px; left: 178px;
-    border-top: 3px solid #000; width: 295px;
+    position: absolute; bottom: 36px; left: 178px;
+    border-top: 3px solid #000; width: 225px;
     text-align: center; padding-top: 5px; font-weight: bold; font-size: 0.75em;
 }
 #certPreview .instituto {
-    position: absolute; bottom: 55px; right: 178px;
-    border-top: 3px solid #000; width: 295px;
+    position: absolute; bottom: 36px; right: 178px;
+    border-top: 3px solid #000; width: 225px;
     text-align: center; padding-top: 5px; font-weight: bold; font-size: 0.75em;
 }
 #certPreview .assinatura {
-    position: absolute; bottom: 63px; right: 320px; width: 18%;
+    position: absolute; bottom: 76px; right: 195px; width: 16%;
 }
 </style>
 

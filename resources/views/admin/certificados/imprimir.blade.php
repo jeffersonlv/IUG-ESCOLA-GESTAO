@@ -59,10 +59,10 @@
 
         .participante {
             position: absolute;
-            bottom: 15mm;
+            bottom: 9.5mm;
             left: 47mm;
             border-top: 3px solid #000;
-            width: 78mm;
+            width: 59mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
@@ -71,10 +71,10 @@
 
         .instituto {
             position: absolute;
-            bottom: 15mm;
+            bottom: 9.5mm;
             right: 47mm;
             border-top: 3px solid #000;
-            width: 78mm;
+            width: 59mm;
             text-align: center;
             padding-top: 5px;
             font-weight: bold;
@@ -83,9 +83,9 @@
 
         .assinatura {
             position: absolute;
-            bottom: 16mm;
-            right: 85mm;
-            width: 18%;
+            bottom: 20mm;
+            right: 51mm;
+            width: 16%;
         }
     </style>
 </head>
