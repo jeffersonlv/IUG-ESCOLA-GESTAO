@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada — IUG</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #F0F2F8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            max-width: 420px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: none;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        .icon { font-size: 3rem; margin-bottom: 1rem; }
+        .code { font-family: 'Montserrat', sans-serif; font-size: 4rem; font-weight: 700; color: #1A2B5F; line-height: 1; }
+        h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1A2B5F; font-size: 1.4rem; }
+        p { color: #666; font-size: 0.9rem; }
+        .btn-primary { background: #E8600A; border-color: #E8600A; font-weight: 600; }
+        .btn-primary:hover { background: #c9530a; border-color: #c9530a; }
+        .btn-outline-secondary { font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="code">404</div>
+        <h1 class="mt-2">Página não encontrada</h1>
+        <p class="mb-4">O endereço que você acessou não existe ou foi removido.</p>
+
+        <button onclick="history.length > 1 ? history.back() : window.location.href='/'"
+                class="btn btn-primary w-100 mb-2">
+            Voltar
+        </button>
+        <a href="/" class="btn btn-outline-secondary w-100">Ir para o início</a>
+    </div>
+</body>
+</html>
