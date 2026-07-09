@@ -105,7 +105,7 @@
         </div>
 
         <div class="participante">Participante</div>
-        <div class="instituto">Instituto Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
+        <div class="instituto">Escola de Gestão Pública Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
         <img class="assinatura" src="{{ asset('images/assinatura.png') }}" />
     </section>
 </body>

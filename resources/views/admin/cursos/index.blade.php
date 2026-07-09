@@ -47,11 +47,11 @@
                     @if($curso->data_fim->isPast())
                         <span class="badge bg-secondary">Realizado</span>
                     @else
-                        <span class="badge" style="background:#1A2B5F;">Próximo</span>
+                        <span class="badge" style="background:#1B3A5C;">Próximo</span>
                     @endif
                 </td>
                 <td>
-                    @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
+                    @if($curso->ativo)<span class="badge" style="background:#1B3A5C;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
                 <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>
@@ -74,7 +74,7 @@
 @else
 
 {{-- PRÓXIMOS / EM ANDAMENTO --}}
-<h6 class="text-uppercase fw-bold mb-2" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">Próximos e em Andamento</h6>
+<h6 class="text-uppercase fw-bold mb-2" style="color:#1B3A5C; font-size:0.75rem; letter-spacing:1px;">Próximos e em Andamento</h6>
 <div class="card mb-4">
     <table class="table mb-0">
         <thead><tr>
@@ -98,13 +98,13 @@
                 <td>{{ $curso->local }}</td>
                 <td>
                     @if($emAndamento)
-                        <span class="badge" style="background:#E8600A;">Em andamento</span>
+                        <span class="badge" style="background:#C9962D;">Em andamento</span>
                     @else
                         <span class="badge bg-primary">Começa em {{ $diasInicia }} dia{{ $diasInicia != 1 ? 's' : '' }}</span>
                     @endif
                 </td>
                 <td>
-                    @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
+                    @if($curso->ativo)<span class="badge" style="background:#1B3A5C;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
                 <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>
@@ -144,7 +144,7 @@
                 <td>{{ $curso->local }}</td>
                 <td><span class="badge bg-secondary">Terminou há {{ $diasTerminou }} dia{{ $diasTerminou != 1 ? 's' : '' }}</span></td>
                 <td>
-                    @if($curso->ativo)<span class="badge" style="background:#1A2B5F;">Sim</span>
+                    @if($curso->ativo)<span class="badge" style="background:#1B3A5C;">Sim</span>
                     @else<span class="badge bg-secondary">Não</span>@endif
                 </td>
                 <td style="text-align:center; font-size:0.875rem;">{{ $curso->flyer_downloads ?? 0 }}</td>

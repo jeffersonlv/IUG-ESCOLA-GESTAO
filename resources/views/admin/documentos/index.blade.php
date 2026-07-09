@@ -61,7 +61,7 @@
                 </td>
                 <td>
                     @if($doc->ativo)
-                        <span class="badge" style="background:#1A2B5F;">Sim</span>
+                        <span class="badge" style="background:#1B3A5C;">Sim</span>
                     @else
                         <span class="badge bg-secondary">Não</span>
                     @endif

@@ -51,7 +51,7 @@
                 <td class="align-middle">
                     @php $cursos = $aluno->cursos @endphp
                     @if($cursos->count())
-                        <span class="badge" style="background:#1A2B5F;">{{ $cursos->count() }} curso(s)</span>
+                        <span class="badge" style="background:#1B3A5C;">{{ $cursos->count() }} curso(s)</span>
                     @else
                         <span class="text-muted" style="font-size:0.8rem;">—</span>
                     @endif

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página não encontrada — IUG</title>
+    <title>Página não encontrada — Escola de Gestão Pública Ulysses Guimarães</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -25,11 +25,11 @@
             text-align: center;
         }
         .icon { font-size: 3rem; margin-bottom: 1rem; }
-        .code { font-family: 'Montserrat', sans-serif; font-size: 4rem; font-weight: 700; color: #1A2B5F; line-height: 1; }
-        h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1A2B5F; font-size: 1.4rem; }
+        .code { font-family: 'Montserrat', sans-serif; font-size: 4rem; font-weight: 700; color: #1B3A5C; line-height: 1; }
+        h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #1B3A5C; font-size: 1.4rem; }
         p { color: #666; font-size: 0.9rem; }
-        .btn-primary { background: #E8600A; border-color: #E8600A; font-weight: 600; }
-        .btn-primary:hover { background: #c9530a; border-color: #c9530a; }
+        .btn-primary { background: #C9962D; border-color: #C9962D; font-weight: 600; }
+        .btn-primary:hover { background: #A87B22; border-color: #A87B22; }
         .btn-outline-secondary { font-weight: 600; }
     </style>
 </head>

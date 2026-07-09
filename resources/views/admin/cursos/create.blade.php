@@ -77,7 +77,7 @@
         </div>
 
         <hr class="my-4">
-        <h6 class="text-uppercase fw-bold mb-3" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">
+        <h6 class="text-uppercase fw-bold mb-3" style="color:#1B3A5C; font-size:0.75rem; letter-spacing:1px;">
             Programação do Folder
         </h6>
 

@@ -58,7 +58,7 @@ class SiteDataSeeder extends Seeder
 
         // ── SiteConfig ──
         $configs = [
-            'sobre_texto'          => 'O Instituto Ulysses Guimarães é dedicado à promoção da capacitação de Agentes Políticos, Gestores Públicos e Servidores Públicos, com foco no crescimento regional por meio da transparência e cooperação entre os Poderes Executivo e Legislativo.',
+            'sobre_texto'          => 'A Escola de Gestão Pública Ulysses Guimarães é dedicada à promoção da capacitação de Agentes Políticos, Gestores Públicos e Servidores Públicos, com foco no crescimento regional por meio da transparência e cooperação entre os Poderes Executivo e Legislativo.',
             'publico_alvo'         => 'Servidores do Executivo e Legislativo, Prefeitos, Vice-Prefeitos, Vereadores e Assessores.',
             'endereco'             => 'Rua Q SDE Quadra 01 Conjunto E Lote, Nº04, Apt 102 Parte C, CEP 72.145-105, Brasília-DF',
             'telefone'             => '(61) 98654-5280',
@@ -66,7 +66,7 @@ class SiteDataSeeder extends Seeder
             'email'                => 'contato@institutoulyssesguimaraes.com.br',
             'banner_titulo'        => 'Capacitação em Gestão Pública',
             'banner_subtitulo'     => 'Formação para Agentes Políticos, Gestores e Servidores Públicos em todo o Brasil.',
-            'transparencia_texto'  => 'O Instituto Ulysses Guimarães atua com total transparência, disponibilizando documentos e certificações para consulta pública.',
+            'transparencia_texto'  => 'A Escola de Gestão Pública Ulysses Guimarães atua com total transparência, disponibilizando documentos e certificações para consulta pública.',
         ];
 
         foreach ($configs as $chave => $valor) {

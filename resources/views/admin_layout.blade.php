@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin') — IUG</title>
+    <title>@yield('title', 'Admin') — Escola de Gestão Pública Ulysses Guimarães</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --iug-orange: #E8600A;
-            --iug-navy:   #1A2B5F;
-            --iug-sidebar: #12204a;
+            --iug-orange: #C9962D;
+            --iug-navy:   #1B3A5C;
+            --iug-sidebar: #102438;
             --iug-light:  #F0F2F8;
             --iug-border: #DDE1EB;
         }
@@ -236,7 +236,7 @@
 
         .form-control:focus, .form-select:focus {
             border-color: var(--iug-orange);
-            box-shadow: 0 0 0 0.2rem rgba(232,96,10,0.2);
+            box-shadow: 0 0 0 0.2rem rgba(201,150,45,0.2);
         }
 
         /* ── Buttons ── */
@@ -247,8 +247,8 @@
         }
 
         .btn-primary:hover {
-            background: #c9530a;
-            border-color: #c9530a;
+            background: #A87B22;
+            border-color: #A87B22;
         }
 
         .btn-outline-primary {
@@ -324,7 +324,7 @@
     </button>
 
     <a href="{{ route('admin.dashboard') }}" class="topbar-brand">
-        <img src="/images/logo.png" alt="IUG" style="height:36px; width:auto; filter:brightness(0) invert(1);">
+        <img src="/images/logo.png" alt="Escola de Gestão Pública Ulysses Guimarães" style="height:36px; width:auto; filter:brightness(0) invert(1);">
     </a>
 
     <div class="mode-switch">
@@ -344,7 +344,7 @@
 {{-- Mobile Offcanvas Sidebar --}}
 <div class="offcanvas offcanvas-start offcanvas-sidebar" tabindex="-1" id="sidebarMobile">
     <div class="offcanvas-header">
-        <img src="/images/logo.png" alt="IUG" style="height:32px; filter:brightness(0) invert(1);">
+        <img src="/images/logo.png" alt="Escola de Gestão Pública Ulysses Guimarães" style="height:32px; filter:brightness(0) invert(1);">
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">

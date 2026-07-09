@@ -13,7 +13,7 @@
     <div class="col-lg-7">
         <div class="card h-100">
             <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0" style="color:#1A2B5F;">📅 Agenda de Cursos</h6>
+                <h6 class="fw-bold mb-0" style="color:#1B3A5C;">📅 Agenda de Cursos</h6>
                 <small class="text-muted">{{ now()->subMonth()->format('d/m/Y') }} — {{ now()->addMonth()->format('d/m/Y') }}</small>
             </div>
             <div class="p-3">
@@ -29,16 +29,16 @@
                 <div class="d-flex gap-3 mb-3">
                     <div class="d-flex flex-column align-items-center" style="min-width:16px;">
                         <div style="width:14px; height:14px; border-radius:50%; margin-top:3px; flex-shrink:0;
-                            background:{{ $status === 'hoje' ? '#E8600A' : ($status === 'futuro' ? '#1A2B5F' : '#ccc') }};"></div>
+                            background:{{ $status === 'hoje' ? '#C9962D' : ($status === 'futuro' ? '#1B3A5C' : '#ccc') }};"></div>
                         @if(!$loop->last)
                         <div style="width:2px; flex:1; background:#e9ecef; margin:4px 0;"></div>
                         @endif
                     </div>
                     <div class="pb-1" style="flex:1;">
                         <div class="d-flex justify-content-between align-items-start flex-wrap gap-1">
-                            <span class="fw-semibold" style="font-size:0.875rem; color:#1A2B5F;">{{ $curso->titulo }}</span>
+                            <span class="fw-semibold" style="font-size:0.875rem; color:#1B3A5C;">{{ $curso->titulo }}</span>
                             @if($status === 'hoje')
-                                <span class="badge" style="background:#E8600A; font-size:0.65rem;">Em andamento</span>
+                                <span class="badge" style="background:#C9962D; font-size:0.65rem;">Em andamento</span>
                             @elseif($status === 'futuro')
                                 <span class="badge bg-primary" style="font-size:0.65rem;">Começa em {{ $diasParaIniciar }} dia{{ $diasParaIniciar != 1 ? 's' : '' }}</span>
                             @elseif($status === 'passado')
@@ -71,14 +71,14 @@
     <div class="col-lg-5 d-flex flex-column gap-4">
         <div class="card">
             <div class="p-3 border-bottom d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0" style="color:#1A2B5F;">📄 Documentos Ativos</h6>
-                <a href="{{ route('admin.documentos.index') }}" style="font-size:0.75rem; color:#E8600A;">Ver todos</a>
+                <h6 class="fw-bold mb-0" style="color:#1B3A5C;">📄 Documentos Ativos</h6>
+                <a href="{{ route('admin.documentos.index') }}" style="font-size:0.75rem; color:#C9962D;">Ver todos</a>
             </div>
             <ul class="list-group list-group-flush">
                 @forelse($documentos as $doc)
                 <li class="list-group-item d-flex justify-content-between align-items-center px-3 py-2">
                     <span style="font-size:0.8rem; color:#333;">{{ Str::limit($doc->nome, 45) }}</span>
-                    <a href="{{ route('admin.documentos.edit', $doc->id) }}" style="font-size:0.7rem; color:#E8600A; white-space:nowrap;">Editar</a>
+                    <a href="{{ route('admin.documentos.edit', $doc->id) }}" style="font-size:0.7rem; color:#C9962D; white-space:nowrap;">Editar</a>
                 </li>
                 @empty
                 <li class="list-group-item text-muted small px-3 py-2">Nenhum documento.</li>
@@ -92,7 +92,7 @@
 {{-- ── Analytics ── --}}
 <div class="card mt-4">
     <div class="p-3 border-bottom">
-        <h6 class="fw-bold mb-0" style="color:#1A2B5F;">📊 Analytics do Site</h6>
+        <h6 class="fw-bold mb-0" style="color:#1B3A5C;">📊 Analytics do Site</h6>
     </div>
     <div class="p-3">
 
@@ -108,9 +108,9 @@
             @foreach($statCards as $s)
             <div class="col-6 col-md-4">
                 <div style="background:#F0F2F8; border-radius:8px; padding:12px 16px; text-align:center;">
-                    <div style="font-size:1.5rem; font-weight:700; color:#1A2B5F; line-height:1;">{{ number_format($s['pv']) }}</div>
+                    <div style="font-size:1.5rem; font-weight:700; color:#1B3A5C; line-height:1;">{{ number_format($s['pv']) }}</div>
                     <div style="font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:.5px; margin:2px 0;">Pageviews {{ $s['label'] }}</div>
-                    <div style="font-size:0.82rem; color:#E8600A; font-weight:600;">{{ number_format($s['uv']) }} <span style="font-size:0.68rem; font-weight:400; color:#888;">visitantes únicos</span></div>
+                    <div style="font-size:0.82rem; color:#C9962D; font-weight:600;">{{ number_format($s['uv']) }} <span style="font-size:0.68rem; font-weight:400; color:#888;">visitantes únicos</span></div>
                 </div>
             </div>
             @endforeach

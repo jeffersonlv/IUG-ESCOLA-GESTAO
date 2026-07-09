@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Instituto Ulysses Guimarães — Gestão Pública')
+@section('title', 'Escola de Gestão Pública Ulysses Guimarães')
 
 @section('content')
 
@@ -17,7 +17,7 @@
                 </h1>
                 @if(!empty($configs['publico_alvo']))
                 <p style="color:rgba(255,255,255,0.95); font-size:clamp(1.1rem,3vw,1.6rem); margin-bottom:1.5rem; line-height:1.6;">
-                    <strong style="color:#E8600A; font-size:clamp(1.1rem,3vw,1.6rem);">Público-alvo:</strong><br>
+                    <strong style="color:#C9962D; font-size:clamp(1.1rem,3vw,1.6rem);">Público-alvo:</strong><br>
                     {{ $configs['publico_alvo'] }}
                 </p>
                 @endif
@@ -36,7 +36,7 @@
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
                 <div class="accent-bar"></div>
-                <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1A2B5F; font-size:1.5rem; margin-bottom:1rem;">Sobre Nós</h2>
+                <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1B3A5C; font-size:1.5rem; margin-bottom:1rem;">Sobre Nós</h2>
                 <p style="color:#555; font-size:1rem; line-height:1.8;">{{ $configs['sobre_texto'] }}</p>
             </div>
             <div class="col-lg-5 text-center">
@@ -54,7 +54,7 @@
 <section id="documentos" style="background:#F0F2F8; padding:4rem 0;">
     <div class="container">
         <div class="accent-bar"></div>
-        <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1A2B5F; font-size:1.5rem; margin-bottom:0.5rem;">Setor da Transparência</h2>
+        <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1B3A5C; font-size:1.5rem; margin-bottom:0.5rem;">Setor da Transparência</h2>
         <p class="text-muted mb-4" style="font-size:0.9rem;">Documentos e certificações disponíveis para consulta pública.</p>
 
         <div class="row g-4">
@@ -69,13 +69,13 @@
                                 loading="lazy"></iframe>
                     </div>
                     @else
-                    <div style="height:200px; background:linear-gradient(135deg,#1A2B5F,#243a7a); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                    <div style="height:200px; background:linear-gradient(135deg,#1B3A5C,#2A527A); border-radius:8px 8px 0 0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
                         <span style="color:rgba(255,255,255,0.4); font-size:0.7rem; letter-spacing:1px; text-transform:uppercase;">PDF</span>
                     </div>
                     @endif
                     <div class="card-body d-flex flex-column p-3">
-                        <p class="fw-semibold mb-3" style="color:#1A2B5F; font-size:0.875rem; flex:1;">{{ $doc->nome }}</p>
+                        <p class="fw-semibold mb-3" style="color:#1B3A5C; font-size:0.875rem; flex:1;">{{ $doc->nome }}</p>
                         @if($doc->arquivo_pdf)
                         <a href="{{ route('download.documento', $doc->id) }}" class="btn btn-primary btn-sm w-100">⬇ Download PDF</a>
                         @endif
@@ -94,17 +94,17 @@
 <section id="cursos" style="background:#fff; padding:4rem 0;">
     <div class="container">
         <div class="accent-bar"></div>
-        <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1A2B5F; font-size:1.5rem; margin-bottom:2rem;">Cursos e Capacitações</h2>
+        <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1B3A5C; font-size:1.5rem; margin-bottom:2rem;">Cursos e Capacitações</h2>
 
         <div class="row g-4">
         @forelse($cursos as $curso)
         <div class="col-md-6 col-lg-4">
-            <div class="card h-100" style="border-top:4px solid #E8600A;">
+            <div class="card h-100" style="border-top:4px solid #C9962D;">
                 <div class="card-body p-4 d-flex flex-column">
-                    <p style="color:#E8600A; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">
+                    <p style="color:#C9962D; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">
                         📍 {{ $curso->local }}
                     </p>
-                    <h5 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1A2B5F; font-size:1rem; margin-bottom:0.5rem; flex:1;">
+                    <h5 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#1B3A5C; font-size:1rem; margin-bottom:0.5rem; flex:1;">
                         {{ $curso->titulo }}
                     </h5>
                     <p class="text-muted mb-3" style="font-size:0.85rem;">
@@ -155,7 +155,7 @@
 {{-- ══════════════════════════════════════════
      CONTATO
 ══════════════════════════════════════════ --}}
-<section id="contato" style="background:#1A2B5F; padding:4rem 0;">
+<section id="contato" style="background:#1B3A5C; padding:4rem 0;">
     <div class="container">
         <div class="text-center mb-4">
             <h2 style="font-family:'Montserrat',sans-serif; font-weight:700; color:#fff; font-size:1.6rem;">Alguma dúvida? Entre em contato conosco.</h2>
@@ -188,7 +188,7 @@
             <div class="col-md-4">
                 <p style="color:rgba(255,255,255,0.5); font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem;">E-mail</p>
                 <a href="mailto:{{ $configs['email'] ?? 'contato@institutoulyssesguimaraes.com.br' }}"
-                   style="color:#E8600A; font-size:0.9rem; text-decoration:none;">
+                   style="color:#C9962D; font-size:0.9rem; text-decoration:none;">
                     {{ $configs['email'] ?? 'contato@institutoulyssesguimaraes.com.br' }}
                 </a>
             </div>

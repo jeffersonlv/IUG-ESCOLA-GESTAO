@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Instituto Ulysses Guimarães</title>
+    <title>Login — Escola de Gestão Pública Ulysses Guimarães</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #1A2B5F 0%, #243a7a 100%);
+            background: linear-gradient(135deg, #1B3A5C 0%, #2A527A 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -28,30 +28,30 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 1rem;
-            color: #1A2B5F;
+            color: #1B3A5C;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .login-brand .sub {
             font-size: 0.7rem;
-            color: #E8600A;
+            color: #C9962D;
             font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
         .accent-bar {
             width: 40px; height: 4px;
-            background: #E8600A;
+            background: #C9962D;
             border-radius: 2px;
             margin: 0.5rem auto 1.5rem;
         }
-        .form-label { font-weight: 600; color: #1A2B5F; font-size: 0.875rem; }
+        .form-label { font-weight: 600; color: #1B3A5C; font-size: 0.875rem; }
         .form-control:focus {
-            border-color: #E8600A;
-            box-shadow: 0 0 0 0.2rem rgba(232,96,10,0.2);
+            border-color: #C9962D;
+            box-shadow: 0 0 0 0.2rem rgba(201,150,45,0.2);
         }
         .btn-login {
-            background: #E8600A;
+            background: #C9962D;
             border: none;
             color: #fff;
             width: 100%;
@@ -61,20 +61,20 @@
             font-size: 0.95rem;
             transition: background 0.2s;
         }
-        .btn-login:hover { background: #c9530a; }
+        .btn-login:hover { background: #A87B22; }
         .brand-icon { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-bottom: 0.5rem; }
         .col-row { display: flex; gap: 3px; }
-        .col-bar { width: 6px; background: #E8600A; border-radius: 2px 2px 0 0; }
+        .col-bar { width: 6px; background: #C9962D; border-radius: 2px 2px 0 0; }
         .col-bar:nth-child(1) { height: 20px; }
         .col-bar:nth-child(2) { height: 28px; }
         .col-bar:nth-child(3) { height: 22px; }
-        .col-base { width: 26px; height: 4px; background: #E8600A; border-radius: 1px; }
+        .col-base { width: 26px; height: 4px; background: #C9962D; border-radius: 1px; }
     </style>
 </head>
 <body>
     <div class="login-card">
         <div class="login-brand">
-            <img src="/images/logo.png" alt="Instituto Ulysses Guimarães" style="height:64px; width:auto; margin-bottom:1rem;">
+            <img src="/images/logo.png" alt="Escola de Gestão Pública Ulysses Guimarães" style="height:64px; width:auto; margin-bottom:1rem;">
             <div class="accent-bar"></div>
         </div>
 

@@ -106,7 +106,7 @@
         <div class="divcentro topico"><b>TÓPICOS: </b>{{ $topico }}</div>
         @endif
         <div class="participante">Participante</div>
-        <div class="instituto">Instituto Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
+        <div class="instituto">Escola de Gestão Pública Ulysses Guimarães LTDA<br>CNPJ: 40.033.708/0001-63</div>
         @if(!empty($assinatura))<img class="assinatura" src="{{ $assinatura }}" alt="">@endif
     </section>
     @if(!empty($isPrint))<script>window.print();</script>@endif

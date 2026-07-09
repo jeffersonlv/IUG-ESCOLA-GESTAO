@@ -38,7 +38,7 @@
         text-align: right;
         font-size: 9pt;
         line-height: 1.3;
-        color: #14245c;
+        color: #16304C;
         z-index: 3;
     }
     .instagram-top b { display: block; }
@@ -63,7 +63,7 @@
     .local-badge {
         display: inline-block;
         background: #fff100;
-        color: #14245c;
+        color: #16304C;
         font-weight: bold;
         font-size: 14pt;
         padding: 0.5mm 4mm;
@@ -71,14 +71,14 @@
         margin-bottom: 3mm;
     }
     .titulo-evento {
-        color: #14245c;
+        color: #16304C;
         font-weight: bold;
         font-size: 15pt;
         line-height: 1.2;
         margin-bottom: 1.5mm;
     }
     .titulo-data {
-        color: #14245c;
+        color: #16304C;
         font-weight: bold;
         font-size: 13pt;
     }
@@ -90,7 +90,7 @@
 
     /* Programação (texto corrido como o folder real) */
     .prog-dia {
-        color: #14245c;
+        color: #16304C;
         font-weight: bold;
         font-size: 9.5pt;
         margin-top: 2.5mm;
@@ -104,11 +104,11 @@
     /* Bloco de contato/banco */
     .info { font-size: 9pt; line-height: 1.45; margin-top: 3mm; }
     .info .lbl { font-weight: bold; }
-    .info a { color: #14245c; text-decoration: none; }
+    .info a { color: #16304C; text-decoration: none; }
 
     /* Coluna direita */
     .right-titulo {
-        color: #14245c;
+        color: #16304C;
         font-weight: bold;
         font-size: 10pt;
         margin-bottom: 1.5mm;
@@ -127,7 +127,7 @@
         margin: 0 0 1mm 0;
     }
     .pal-nome  {
-        font-weight: bold; font-size: 7pt; color: #14245c; line-height: 1.2;
+        font-weight: bold; font-size: 7pt; color: #16304C; line-height: 1.2;
         word-wrap: break-word; overflow-wrap: break-word;
     }
     .pal-cargo {
@@ -227,7 +227,7 @@
                     Banco do Brasil<br>
                     Agência: 2901-7<br>
                     Conta Corrente: 51010-6<br>
-                    Instituto Ulysses Guimarães Ltda.<br>
+                    Escola de Gestão Pública Ulysses Guimarães Ltda.<br>
                     CNPJ: 40.033.708/0001-63<br>
                     <span class="lbl">E-mail:</span> {{ $email }}<br>
                     <span class="lbl">Site:</span> institutoulyssesguimaraes.com.br/cursos<br>
@@ -235,7 +235,7 @@
                 </div>
 
                 <div class="obs">
-                    Obs.: O Instituto Ulysses Guimarães se reserva no direito de cancelar os
+                    Obs.: A Escola de Gestão Pública Ulysses Guimarães se reserva no direito de cancelar os
                     eventos, não se responsabilizando pela viagem sem inscrição antecipada.
                 </div>
             </td>

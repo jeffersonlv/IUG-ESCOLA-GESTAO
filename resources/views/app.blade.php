@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Instituto Ulysses Guimarães')</title>
+    <title>@yield('title', 'Escola de Gestão Pública Ulysses Guimarães')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
 
         :root {
-            --iug-orange: #E8600A;
-            --iug-navy:   #1A2B5F;
+            --iug-orange: #C9962D;
+            --iug-navy:   #1B3A5C;
             --iug-light:  #F5F6FA;
             --iug-border: #DDE1EB;
         }
@@ -101,12 +101,12 @@
 
         .nav-link:hover, .nav-link.active {
             color: var(--iug-orange) !important;
-            background: rgba(232,96,10,0.07);
+            background: rgba(201,150,45,0.07);
         }
 
         .btn-logout-nav {
             background: none;
-            border: 1px solid rgba(232,96,10,0.6);
+            border: 1px solid rgba(201,150,45,0.6);
             color: var(--iug-orange) !important;
             padding: 0.3rem 0.9rem !important;
             border-radius: 4px;
@@ -167,8 +167,8 @@
         }
 
         .btn-primary:hover {
-            background: #c9530a;
-            border-color: #c9530a;
+            background: #A87B22;
+            border-color: #A87B22;
         }
 
         .btn-outline-primary {
@@ -190,7 +190,7 @@
         }
 
         .btn-navy:hover {
-            background: #142249;
+            background: #122840;
             color: #fff;
         }
 
@@ -223,7 +223,7 @@
 
         .form-control:focus, .form-select:focus {
             border-color: var(--iug-orange);
-            box-shadow: 0 0 0 0.2rem rgba(232,96,10,0.2);
+            box-shadow: 0 0 0 0.2rem rgba(201,150,45,0.2);
         }
 
         /* ── Orange accent bar ── */
@@ -251,7 +251,7 @@
         .mode-switch-nav {
             display: flex;
             align-items: center;
-            background: rgba(26,43,95,0.08);
+            background: rgba(27,58,92,0.08);
             border-radius: 20px;
             padding: 3px;
             gap: 2px;
@@ -297,7 +297,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="/images/logo.png" alt="Instituto Ulysses Guimarães" style="height:44px; width:auto;">
+                <img src="/images/logo.png" alt="Escola de Gestão Pública Ulysses Guimarães" style="height:44px; width:auto;">
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="filter:invert(1) sepia(1) saturate(5) hue-rotate(175deg);">
@@ -335,7 +335,7 @@
 
     <footer>
         <div class="container">
-            &copy; {{ date('Y') }} <span>Instituto Ulysses Guimarães</span> — Gestão Pública
+            &copy; {{ date('Y') }} <span>Escola de Gestão Pública Ulysses Guimarães</span>
         </div>
     </footer>
 

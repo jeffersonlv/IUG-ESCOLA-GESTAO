@@ -30,7 +30,7 @@
                     @if($msg->lido)
                         <span class="badge bg-secondary">Lido</span>
                     @else
-                        <span class="badge" style="background:#E8600A;">Novo</span>
+                        <span class="badge" style="background:#C9962D;">Novo</span>
                     @endif
                 </td>
                 <td>

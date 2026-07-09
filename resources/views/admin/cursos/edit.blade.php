@@ -77,7 +77,7 @@
         </div>
 
         <hr class="my-4">
-        <h6 class="text-uppercase fw-bold mb-3" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">
+        <h6 class="text-uppercase fw-bold mb-3" style="color:#1B3A5C; font-size:0.75rem; letter-spacing:1px;">
             Programação do Folder
         </h6>
 
@@ -123,7 +123,7 @@
             <label class="form-label">PDF do Curso <small class="text-muted">(deixe em branco para manter atual)</small></label>
             @if($curso->arquivo_pdf)
                 <p class="text-muted small mb-1">Atual: {{ $curso->arquivo_pdf }}
-                    <a href="{{ Storage::url('cursos/' . $curso->arquivo_pdf) }}" target="_blank" class="ms-2" style="color:#E8600A;">Ver PDF</a>
+                    <a href="{{ Storage::url('cursos/' . $curso->arquivo_pdf) }}" target="_blank" class="ms-2" style="color:#C9962D;">Ver PDF</a>
                 </p>
             @endif
             <input type="file" name="arquivo_pdf" class="form-control @error('arquivo_pdf') is-invalid @enderror" accept=".pdf">
@@ -135,7 +135,7 @@
         <div class="mb-3">
             <label class="form-label">Folder PDF atual</label>
             <p class="text-muted small">
-                <a href="{{ Storage::url($curso->folder_pdf) }}" target="_blank" style="color:#E8600A;">
+                <a href="{{ Storage::url($curso->folder_pdf) }}" target="_blank" style="color:#C9962D;">
                     <i class="fas fa-file-pdf me-1"></i>Ver Folder
                 </a>
             </p>
@@ -146,7 +146,7 @@
         @if($curso->arquivo_pdf && $curso->folder_pdf)
         <div class="mb-3 p-3 border rounded" style="background:#f8f9fa;">
             <label class="form-label fw-semibold mb-2">
-                <i class="fas fa-star me-1" style="color:#E8600A;"></i>Flyer Principal (usado no download público)
+                <i class="fas fa-star me-1" style="color:#C9962D;"></i>Flyer Principal (usado no download público)
             </label>
             <div class="d-flex gap-4">
                 <div class="form-check">
@@ -193,9 +193,9 @@
 
 {{-- Alunos inscritos --}}
 <div id="alunos" class="mt-4" style="max-width:900px;">
-    <h6 class="text-uppercase fw-bold mb-3" style="color:#1A2B5F; font-size:0.75rem; letter-spacing:1px;">
+    <h6 class="text-uppercase fw-bold mb-3" style="color:#1B3A5C; font-size:0.75rem; letter-spacing:1px;">
         Alunos inscritos
-        <span class="badge ms-1" style="background:#E8600A; font-size:0.65rem; vertical-align:middle;">{{ $totalAlunos }}</span>
+        <span class="badge ms-1" style="background:#C9962D; font-size:0.65rem; vertical-align:middle;">{{ $totalAlunos }}</span>
     </h6>
 
     @php
