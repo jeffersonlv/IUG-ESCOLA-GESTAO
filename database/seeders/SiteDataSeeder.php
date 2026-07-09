@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Curso;
 use App\Models\SiteConfig;
 
@@ -11,7 +12,9 @@ class SiteDataSeeder extends Seeder
     public function run()
     {
         // ── Cursos ──
+        Schema::disableForeignKeyConstraints();
         Curso::truncate();
+        Schema::enableForeignKeyConstraints();
 
         $cursos = [
             [
@@ -69,8 +72,4 @@ class SiteDataSeeder extends Seeder
             'transparencia_texto'  => 'A Escola de Gestão Pública Ulysses Guimarães atua com total transparência, disponibilizando documentos e certificações para consulta pública.',
         ];
 
-        foreach ($configs as $chave => $valor) {
-            SiteConfig::updateOrCreate(['chave' => $chave], ['valor' => $valor]);
-        }
-    }
-}
+        foreach (
