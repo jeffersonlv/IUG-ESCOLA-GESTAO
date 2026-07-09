@@ -1,10 +1,10 @@
 #!/bin/bash
 # Deploy script for production server (cPanel)
-# Run: cd /home/u671917614/public_html/IUG && bash DEPLOY_STEPS.sh
+# Run: cd /home/u671917614/public_html/ESCOLA && bash DEPLOY_STEPS.sh
 
 set -e
 
-echo "=== IUG Deploy Started ==="
+echo "=== ESCOLA Deploy Started ==="
 
 # 1. Git pull latest
 echo "Fetching latest code..."
@@ -38,4 +38,4 @@ php artisan storage:link || true
 
 echo "=== Deploy Complete ==="
 echo "Admin: admin@institutoulyssesguimaraes.com.br / Iug@2026Adm!"
-echo "Login at: https://institutoulyssesguimaraes.com.br/IUG/admin/login"
+echo "Login at: https://escola.institutoulyssesguimaraes.com.br/admin/login"
