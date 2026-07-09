@@ -72,4 +72,8 @@ class SiteDataSeeder extends Seeder
             'transparencia_texto'  => 'A Escola de Gestão Pública Ulysses Guimarães atua com total transparência, disponibilizando documentos e certificações para consulta pública.',
         ];
 
-        foreach (
+        foreach ($configs as $chave => $valor) {
+            SiteConfig::updateOrCreate(['chave' => $chave], ['valor' => $valor]);
+        }
+    }
+}
